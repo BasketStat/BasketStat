@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKAuth/KakaoSDKAuth.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKCommon/KakaoSDKCommon.framework
+${BUILT_PRODUCTS_DIR}/KakaoSDKUser/KakaoSDKUser.framework

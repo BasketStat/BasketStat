@@ -21,8 +21,8 @@ class ViewController: UIViewController {
         gradientLayer.frame = view.bounds
         
         gradientLayer.colors = [
-            UIColor.fromRGB(59, 43, 92).cgColor,
-            UIColor.fromRGB(37, 33, 90).cgColor,
+            UIColor(red: 59/255, green: 43/255, blue: 92/255, alpha: 1).cgColor,    // #3B2B5C
+            UIColor(red: 37/255, green: 33/255, blue: 90/255, alpha: 1).cgColor,    // #25215A
             UIColor.black.cgColor,
             UIColor.black.cgColor,
             UIColor.black.cgColor
