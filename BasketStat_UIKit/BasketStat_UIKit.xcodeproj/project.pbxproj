@@ -13,6 +13,8 @@
 		600846D42C3DAF2B00DE64E2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D32C3DAF2B00DE64E2 /* FirebaseAuth */; };
 		600846D62C3DAF2B00DE64E2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D52C3DAF2B00DE64E2 /* FirebaseFirestore */; };
 		600846D82C3DAF2B00DE64E2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D72C3DAF2B00DE64E2 /* FirebaseFirestoreSwift */; };
+		600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = 600846D92C3DB6FF00DE64E2 /* .gitattributes */; };
+		600846DC2C3DB6FF00DE64E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 600846DA2C3DB6FF00DE64E2 /* .gitignore */; };
 		603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257A2C3DAB7900DA49D5 /* KakaoService.swift */; };
 		603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */; };
 		603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257C2C3DAB7900DA49D5 /* LoginVC.swift */; };
@@ -57,6 +59,8 @@
 		497906EE3ED7EE7867E3F4B2 /* Pods-BasketStat_UIKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKitTests.debug.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKitTests/Pods-BasketStat_UIKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		56F34727AC636CEEBCE2A48F /* Pods_BasketStat_UIKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasketStat_UIKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FD7C55AB4E7118DE4F2EE99 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		600846D92C3DB6FF00DE64E2 /* .gitattributes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
+		600846DA2C3DB6FF00DE64E2 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257C2C3DAB7900DA49D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
+				600846DA2C3DB6FF00DE64E2 /* .gitignore */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
 				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
@@ -332,9 +338,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				600846DC2C3DB6FF00DE64E2 /* .gitignore in Resources */,
 				BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */,
 				BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */,
 				603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */,
+				600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
