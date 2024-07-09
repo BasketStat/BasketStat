@@ -8,6 +8,8 @@ target 'BasketStat_UIKit' do
   # Pods for BasketStat_UIKit
 pod 'KakaoSDKAuth'
 pod 'KakaoSDKUser'
+pod 'GoogleSignIn'
+
 
   target 'BasketStat_UIKitTests' do
     inherit! :search_paths
