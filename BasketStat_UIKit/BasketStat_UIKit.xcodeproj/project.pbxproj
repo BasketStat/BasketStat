@@ -17,7 +17,6 @@
 		BD0D63F42C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */; };
 		BD0D640A2C3CBE27004D3EE6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D64092C3CBE27004D3EE6 /* Then */; };
 		BD0D640D2C3CBE35004D3EE6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D640C2C3CBE35004D3EE6 /* SnapKit */; };
-		BD0D640F2C3CBE35004D3EE6 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D640E2C3CBE35004D3EE6 /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +58,6 @@
 			files = (
 				BD0D640A2C3CBE27004D3EE6 /* Then in Frameworks */,
 				BD0D640D2C3CBE35004D3EE6 /* SnapKit in Frameworks */,
-				BD0D640F2C3CBE35004D3EE6 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +147,6 @@
 			packageProductDependencies = (
 				BD0D64092C3CBE27004D3EE6 /* Then */,
 				BD0D640C2C3CBE35004D3EE6 /* SnapKit */,
-				BD0D640E2C3CBE35004D3EE6 /* SnapKit-Dynamic */,
 			);
 			productName = BasketStat_UIKit;
 			productReference = BD0D63CD2C3CB6E4004D3EE6 /* BasketStat_UIKit.app */;
@@ -449,7 +446,7 @@
 				INFOPLIST_FILE = BasketStat_UIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -476,7 +473,7 @@
 				INFOPLIST_FILE = BasketStat_UIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -634,11 +631,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BD0D640B2C3CBE35004D3EE6 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		BD0D640E2C3CBE35004D3EE6 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BD0D640B2C3CBE35004D3EE6 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
