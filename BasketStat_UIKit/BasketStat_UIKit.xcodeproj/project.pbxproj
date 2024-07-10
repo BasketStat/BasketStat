@@ -7,9 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		267B8D461D82612151D491FF /* Pods_BasketStat_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03C2F482756EA6B94FB489F /* Pods_BasketStat_UIKit.framework */; };
+		600846D02C3DAF2B00DE64E2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 600846CF2C3DAF2B00DE64E2 /* FirebaseAnalytics */; };
+		600846D22C3DAF2B00DE64E2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D12C3DAF2B00DE64E2 /* FirebaseAnalyticsSwift */; };
+		600846D42C3DAF2B00DE64E2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D32C3DAF2B00DE64E2 /* FirebaseAuth */; };
+		600846D62C3DAF2B00DE64E2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D52C3DAF2B00DE64E2 /* FirebaseFirestore */; };
+		600846D82C3DAF2B00DE64E2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 600846D72C3DAF2B00DE64E2 /* FirebaseFirestoreSwift */; };
+		600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = 600846D92C3DB6FF00DE64E2 /* .gitattributes */; };
+		600846DC2C3DB6FF00DE64E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 600846DA2C3DB6FF00DE64E2 /* .gitignore */; };
+		603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257A2C3DAB7900DA49D5 /* KakaoService.swift */; };
+		603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */; };
+		603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257C2C3DAB7900DA49D5 /* LoginVC.swift */; };
+		603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */; };
+		603425942C3DAB7900DA49D5 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */; };
+		603425A82C3DAC3700DA49D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603425A22C3DAC3700DA49D5 /* LoginVC.swift */; };
+		603425A92C3DAC3700DA49D5 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603425A32C3DAC3700DA49D5 /* PlayerModel.swift */; };
+		AC2664F86738BF06F82FACBE /* Pods_BasketStat_UIKit_BasketStat_UIKitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FE903EE37A4F25F5657BE7 /* Pods_BasketStat_UIKit_BasketStat_UIKitUITests.framework */; };
 		BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */; };
 		BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */; };
-		BD0D63D52C3CB6E4004D3EE6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63D42C3CB6E4004D3EE6 /* ViewController.swift */; };
 		BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD0D63D92C3CB6E5004D3EE6 /* Assets.xcassets */; };
 		BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BD0D63DC2C3CB6E5004D3EE6 /* Base */; };
 		BD0D63E82C3CB6E5004D3EE6 /* BasketStat_UIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63E72C3CB6E5004D3EE6 /* BasketStat_UIKitTests.swift */; };
@@ -18,6 +33,7 @@
 		BD0D640A2C3CBE27004D3EE6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D64092C3CBE27004D3EE6 /* Then */; };
 		BD0D640D2C3CBE35004D3EE6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D640C2C3CBE35004D3EE6 /* SnapKit */; };
 		BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */; };
+		C741F933DFD025B6EB517ACD /* Pods_BasketStat_UIKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F34727AC636CEEBCE2A48F /* Pods_BasketStat_UIKitTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +54,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		30916A1C57707E41536EDCE0 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKit-BasketStat_UIKitUITests.release.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3411A76BC7D2D0E3C1E2A337 /* Pods-BasketStat_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKit/Pods-BasketStat_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
+		497906EE3ED7EE7867E3F4B2 /* Pods-BasketStat_UIKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKitTests.debug.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKitTests/Pods-BasketStat_UIKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		56F34727AC636CEEBCE2A48F /* Pods_BasketStat_UIKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasketStat_UIKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FD7C55AB4E7118DE4F2EE99 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		600846D92C3DB6FF00DE64E2 /* .gitattributes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
+		600846DA2C3DB6FF00DE64E2 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
+		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6034257C2C3DAB7900DA49D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
+		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
+		6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		603425A22C3DAC3700DA49D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		603425A32C3DAC3700DA49D5 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		8189E6A00ECA78480EFA999B /* Pods-BasketStat_UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKit.release.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKit/Pods-BasketStat_UIKit.release.xcconfig"; sourceTree = "<group>"; };
+		86FE903EE37A4F25F5657BE7 /* Pods_BasketStat_UIKit_BasketStat_UIKitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasketStat_UIKit_BasketStat_UIKitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0D63CD2C3CB6E4004D3EE6 /* BasketStat_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasketStat_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BD0D63D42C3CB6E4004D3EE6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BD0D63D92C3CB6E5004D3EE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD0D63DC2C3CB6E5004D3EE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD0D63DE2C3CB6E5004D3EE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +83,8 @@
 		BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITests.swift; sourceTree = "<group>"; };
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		D03C2F482756EA6B94FB489F /* Pods_BasketStat_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasketStat_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F82FC1A8376B31067F4B1F48 /* Pods-BasketStat_UIKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKitTests.release.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKitTests/Pods-BasketStat_UIKitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +93,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD0D640A2C3CBE27004D3EE6 /* Then in Frameworks */,
+				600846D42C3DAF2B00DE64E2 /* FirebaseAuth in Frameworks */,
 				BD0D640D2C3CBE35004D3EE6 /* SnapKit in Frameworks */,
+				600846D02C3DAF2B00DE64E2 /* FirebaseAnalytics in Frameworks */,
+				267B8D461D82612151D491FF /* Pods_BasketStat_UIKit.framework in Frameworks */,
+				600846D22C3DAF2B00DE64E2 /* FirebaseAnalyticsSwift in Frameworks */,
+				600846D62C3DAF2B00DE64E2 /* FirebaseFirestore in Frameworks */,
+				600846D82C3DAF2B00DE64E2 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C741F933DFD025B6EB517ACD /* Pods_BasketStat_UIKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +115,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC2664F86738BF06F82FACBE /* Pods_BasketStat_UIKit_BasketStat_UIKitUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2A3E6C3792ECDA5E485702 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D03C2F482756EA6B94FB489F /* Pods_BasketStat_UIKit.framework */,
+				86FE903EE37A4F25F5657BE7 /* Pods_BasketStat_UIKit_BasketStat_UIKitUITests.framework */,
+				56F34727AC636CEEBCE2A48F /* Pods_BasketStat_UIKitTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BD0D63C42C3CB6E4004D3EE6 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +139,8 @@
 				BD0D63E62C3CB6E5004D3EE6 /* BasketStat_UIKitTests */,
 				BD0D63F02C3CB6E5004D3EE6 /* BasketStat_UIKitUITests */,
 				BD0D63CE2C3CB6E4004D3EE6 /* Products */,
+				ECB6E2AB431BA383EECFE4AA /* Pods */,
+				0B2A3E6C3792ECDA5E485702 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,12 +157,21 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
+				600846DA2C3DB6FF00DE64E2 /* .gitignore */,
+				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
+				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
+				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
+				6034257C2C3DAB7900DA49D5 /* LoginVC.swift */,
+				6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
 				BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */,
-				BD0D63D42C3CB6E4004D3EE6 /* ViewController.swift */,
+				603425A22C3DAC3700DA49D5 /* LoginVC.swift */,
+				603425A32C3DAC3700DA49D5 /* PlayerModel.swift */,
 				BD0D64102C3CDBEE004D3EE6 /* Extension */,
 				BD0D63D92C3CB6E5004D3EE6 /* Assets.xcassets */,
 				BD0D63DB2C3CB6E5004D3EE6 /* LaunchScreen.storyboard */,
+				6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */,
 				BD0D63DE2C3CB6E5004D3EE6 /* Info.plist */,
 			);
 			path = BasketStat_UIKit;
@@ -139,6 +202,19 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		ECB6E2AB431BA383EECFE4AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3411A76BC7D2D0E3C1E2A337 /* Pods-BasketStat_UIKit.debug.xcconfig */,
+				8189E6A00ECA78480EFA999B /* Pods-BasketStat_UIKit.release.xcconfig */,
+				5FD7C55AB4E7118DE4F2EE99 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig */,
+				30916A1C57707E41536EDCE0 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.release.xcconfig */,
+				497906EE3ED7EE7867E3F4B2 /* Pods-BasketStat_UIKitTests.debug.xcconfig */,
+				F82FC1A8376B31067F4B1F48 /* Pods-BasketStat_UIKitTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,9 +222,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD0D63F72C3CB6E5004D3EE6 /* Build configuration list for PBXNativeTarget "BasketStat_UIKit" */;
 			buildPhases = (
+				319CB383EA939C91883DB634 /* [CP] Check Pods Manifest.lock */,
 				BD0D63C92C3CB6E4004D3EE6 /* Sources */,
 				BD0D63CA2C3CB6E4004D3EE6 /* Frameworks */,
 				BD0D63CB2C3CB6E4004D3EE6 /* Resources */,
+				5C1D9A04B38B100A9369682E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,6 +236,11 @@
 			packageProductDependencies = (
 				BD0D64092C3CBE27004D3EE6 /* Then */,
 				BD0D640C2C3CBE35004D3EE6 /* SnapKit */,
+				600846CF2C3DAF2B00DE64E2 /* FirebaseAnalytics */,
+				600846D12C3DAF2B00DE64E2 /* FirebaseAnalyticsSwift */,
+				600846D32C3DAF2B00DE64E2 /* FirebaseAuth */,
+				600846D52C3DAF2B00DE64E2 /* FirebaseFirestore */,
+				600846D72C3DAF2B00DE64E2 /* FirebaseFirestoreSwift */,
 			);
 			productName = BasketStat_UIKit;
 			productReference = BD0D63CD2C3CB6E4004D3EE6 /* BasketStat_UIKit.app */;
@@ -167,6 +250,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD0D63FA2C3CB6E5004D3EE6 /* Build configuration list for PBXNativeTarget "BasketStat_UIKitTests" */;
 			buildPhases = (
+				210EE26F7F0B4587D7831C8D /* [CP] Check Pods Manifest.lock */,
 				BD0D63DF2C3CB6E5004D3EE6 /* Sources */,
 				BD0D63E02C3CB6E5004D3EE6 /* Frameworks */,
 				BD0D63E12C3CB6E5004D3EE6 /* Resources */,
@@ -185,9 +269,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD0D63FD2C3CB6E5004D3EE6 /* Build configuration list for PBXNativeTarget "BasketStat_UIKitUITests" */;
 			buildPhases = (
+				A7D67478750E8C2505ACD634 /* [CP] Check Pods Manifest.lock */,
 				BD0D63E92C3CB6E5004D3EE6 /* Sources */,
 				BD0D63EA2C3CB6E5004D3EE6 /* Frameworks */,
 				BD0D63EB2C3CB6E5004D3EE6 /* Resources */,
+				B3AA24591DB8A25539046D48 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -234,6 +320,7 @@
 			packageReferences = (
 				BD0D64082C3CBE27004D3EE6 /* XCRemoteSwiftPackageReference "Then" */,
 				BD0D640B2C3CBE35004D3EE6 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = BD0D63CE2C3CB6E4004D3EE6 /* Products */;
 			projectDirPath = "";
@@ -251,8 +338,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				600846DC2C3DB6FF00DE64E2 /* .gitignore in Resources */,
 				BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */,
 				BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */,
+				603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */,
+				600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,12 +362,120 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		210EE26F7F0B4587D7831C8D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BasketStat_UIKitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		319CB383EA939C91883DB634 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BasketStat_UIKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C1D9A04B38B100A9369682E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit/Pods-BasketStat_UIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit/Pods-BasketStat_UIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit/Pods-BasketStat_UIKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7D67478750E8C2505ACD634 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BasketStat_UIKit-BasketStat_UIKitUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3AA24591DB8A25539046D48 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasketStat_UIKit-BasketStat_UIKitUITests/Pods-BasketStat_UIKit-BasketStat_UIKitUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BD0D63C92C3CB6E4004D3EE6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD0D63D52C3CB6E4004D3EE6 /* ViewController.swift in Sources */,
+				603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */,
+				603425A92C3DAC3700DA49D5 /* PlayerModel.swift in Sources */,
+				603425942C3DAB7900DA49D5 /* PlayerModel.swift in Sources */,
+				603425A82C3DAC3700DA49D5 /* LoginVC.swift in Sources */,
+				603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */,
+				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
@@ -449,11 +647,15 @@
 		};
 		BD0D63F82C3CB6E5004D3EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3411A76BC7D2D0E3C1E2A337 /* Pods-BasketStat_UIKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BasketStat_UIKit/BasketStat_UIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YH4A87H8M4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BasketStat_UIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -461,12 +663,13 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "xx.BasketStat-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wan.BasketStat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -476,11 +679,15 @@
 		};
 		BD0D63F92C3CB6E5004D3EE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8189E6A00ECA78480EFA999B /* Pods-BasketStat_UIKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BasketStat_UIKit/BasketStat_UIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YH4A87H8M4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BasketStat_UIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -488,12 +695,13 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "xx.BasketStat-UIKit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wan.BasketStat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -503,6 +711,7 @@
 		};
 		BD0D63FB2C3CB6E5004D3EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 497906EE3ED7EE7867E3F4B2 /* Pods-BasketStat_UIKitTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -522,6 +731,7 @@
 		};
 		BD0D63FC2C3CB6E5004D3EE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F82FC1A8376B31067F4B1F48 /* Pods-BasketStat_UIKitTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -541,6 +751,7 @@
 		};
 		BD0D63FE2C3CB6E5004D3EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FD7C55AB4E7118DE4F2EE99 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -558,6 +769,7 @@
 		};
 		BD0D63FF2C3CB6E5004D3EE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30916A1C57707E41536EDCE0 /* Pods-BasketStat_UIKit-BasketStat_UIKitUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -615,6 +827,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.29.0;
+			};
+		};
 		BD0D64082C3CBE27004D3EE6 /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -634,6 +854,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		600846CF2C3DAF2B00DE64E2 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		600846D12C3DAF2B00DE64E2 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		600846D32C3DAF2B00DE64E2 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		600846D52C3DAF2B00DE64E2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		600846D72C3DAF2B00DE64E2 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 600846CE2C3DAF2B00DE64E2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
 		BD0D64092C3CBE27004D3EE6 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BD0D64082C3CBE27004D3EE6 /* XCRemoteSwiftPackageReference "Then" */;

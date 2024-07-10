@@ -1,0 +1,23 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'BasketStat_UIKit' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for BasketStat_UIKit
+pod 'KakaoSDKAuth'
+pod 'KakaoSDKUser'
+pod 'GoogleSignIn'
+
+
+  target 'BasketStat_UIKitTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'BasketStat_UIKitUITests' do
+    # Pods for testing
+  end
+
+end
