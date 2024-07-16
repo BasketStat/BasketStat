@@ -1,6 +1,0 @@
-framework module Pods_BasketStat_UIKit_BasketStat_UIKitUITests {
-  umbrella header "Pods-BasketStat_UIKit-BasketStat_UIKitUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
