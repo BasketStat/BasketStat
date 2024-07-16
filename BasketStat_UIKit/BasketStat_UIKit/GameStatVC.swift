@@ -88,6 +88,8 @@ class GameStatVC: UIViewController {
         $0.textAlignment = .center
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.fromRGB(58, 53, 48)
