@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = 600846D92C3DB6FF00DE64E2 /* .gitattributes */; };
-		600846DC2C3DB6FF00DE64E2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 600846DA2C3DB6FF00DE64E2 /* .gitignore */; };
 		603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257A2C3DAB7900DA49D5 /* KakaoService.swift */; };
 		603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */; };
 		603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257C2C3DAB7900DA49D5 /* LoginVC.swift */; };
@@ -59,7 +58,6 @@
 
 /* Begin PBXFileReference section */
 		600846D92C3DB6FF00DE64E2 /* .gitattributes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
-		600846DA2C3DB6FF00DE64E2 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257C2C3DAB7900DA49D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
-				600846DA2C3DB6FF00DE64E2 /* .gitignore */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
 				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
@@ -319,7 +316,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				600846DC2C3DB6FF00DE64E2 /* .gitignore in Resources */,
 				BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */,
 				BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */,
 				603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */,
