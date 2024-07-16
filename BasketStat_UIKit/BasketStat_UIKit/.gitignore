@@ -107,5 +107,6 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 .DS_Store
-
+BasketStat_UIKit/.DS_Store
+BasketStat_UIKit/BasketStat_UIKit.xcodeproj/project.xcworkspace/xcuserdata/kim-jeongwon.xcuserdatad/UserInterfaceState.xcuserstate
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift,cocoapods
