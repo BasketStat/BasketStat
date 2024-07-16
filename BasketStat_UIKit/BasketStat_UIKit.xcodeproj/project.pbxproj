@@ -37,6 +37,16 @@
 		BD3572C22C463AEF004CB49F /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C12C463AEF004CB49F /* ReactiveMoya */; };
 		BD3572C42C463AEF004CB49F /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C32C463AEF004CB49F /* RxMoya */; };
 		BD3572C72C463B32004CB49F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C62C463B32004CB49F /* FirebaseAuth */; };
+		BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3572D42C46A591004CB49F /* UIFont+Extension.swift */; };
+		BDA48F352C46A9EA002F75D9 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */; };
+		BDA48F362C46A9EA002F75D9 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */; };
+		BDA48F372C46A9EA002F75D9 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */; };
+		BDA48F382C46A9EA002F75D9 /* Pretendard-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2F2C46A9E8002F75D9 /* Pretendard-ExtraBold.ttf */; };
+		BDA48F392C46A9EA002F75D9 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F302C46A9E9002F75D9 /* Pretendard-Light.ttf */; };
+		BDA48F3A2C46A9EA002F75D9 /* Pretendard-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F312C46A9E9002F75D9 /* Pretendard-Black.ttf */; };
+		BDA48F3B2C46A9EA002F75D9 /* Pretendard-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F322C46A9E9002F75D9 /* Pretendard-Thin.ttf */; };
+		BDA48F3C2C46A9EA002F75D9 /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F332C46A9E9002F75D9 /* Pretendard-Bold.ttf */; };
+		BDA48F3D2C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F342C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +90,16 @@
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatVC.swift; sourceTree = "<group>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
+		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
+		BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
+		BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
+		BDA48F2F2C46A9E8002F75D9 /* Pretendard-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.ttf"; sourceTree = "<group>"; };
+		BDA48F302C46A9E9002F75D9 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.ttf"; sourceTree = "<group>"; };
+		BDA48F312C46A9E9002F75D9 /* Pretendard-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.ttf"; sourceTree = "<group>"; };
+		BDA48F322C46A9E9002F75D9 /* Pretendard-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.ttf"; sourceTree = "<group>"; };
+		BDA48F332C46A9E9002F75D9 /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
+		BDA48F342C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +174,7 @@
 				BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */,
 				603425A22C3DAC3700DA49D5 /* LoginVC.swift */,
 				603425A32C3DAC3700DA49D5 /* PlayerModel.swift */,
+				BD3572CA2C46A530004CB49F /* Font */,
 				BD0D64102C3CDBEE004D3EE6 /* Extension */,
 				BD0D63D92C3CB6E5004D3EE6 /* Assets.xcassets */,
 				BD0D63DB2C3CB6E5004D3EE6 /* LaunchScreen.storyboard */,
@@ -184,8 +205,25 @@
 			isa = PBXGroup;
 			children = (
 				BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */,
+				BD3572D42C46A591004CB49F /* UIFont+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		BD3572CA2C46A530004CB49F /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				BDA48F312C46A9E9002F75D9 /* Pretendard-Black.ttf */,
+				BDA48F332C46A9E9002F75D9 /* Pretendard-Bold.ttf */,
+				BDA48F2F2C46A9E8002F75D9 /* Pretendard-ExtraBold.ttf */,
+				BDA48F342C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf */,
+				BDA48F302C46A9E9002F75D9 /* Pretendard-Light.ttf */,
+				BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */,
+				BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */,
+				BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */,
+				BDA48F322C46A9E9002F75D9 /* Pretendard-Thin.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,10 +354,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA48F362C46A9EA002F75D9 /* Pretendard-SemiBold.ttf in Resources */,
 				BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */,
 				BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */,
+				BDA48F392C46A9EA002F75D9 /* Pretendard-Light.ttf in Resources */,
+				BDA48F352C46A9EA002F75D9 /* Pretendard-Regular.ttf in Resources */,
 				603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */,
+				BDA48F372C46A9EA002F75D9 /* Pretendard-Medium.ttf in Resources */,
 				600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */,
+				BDA48F3B2C46A9EA002F75D9 /* Pretendard-Thin.ttf in Resources */,
+				BDA48F382C46A9EA002F75D9 /* Pretendard-ExtraBold.ttf in Resources */,
+				BDA48F3C2C46A9EA002F75D9 /* Pretendard-Bold.ttf in Resources */,
+				BDA48F3A2C46A9EA002F75D9 /* Pretendard-Black.ttf in Resources */,
+				BDA48F3D2C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +397,7 @@
 				603425A82C3DAC3700DA49D5 /* LoginVC.swift in Sources */,
 				BD3572992C46066D004CB49F /* GameStatVC.swift in Sources */,
 				603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */,
+				BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */,
 				BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */,
 				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
