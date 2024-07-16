@@ -11,7 +11,10 @@ pod 'KakaoSDKUser'
 pod 'GoogleSignIn'
 pod 'SnapKit' 
 pod 'Then'
-
+pod 'RxSwift'
+pod 'RxCocoa' 
+pod 'ReactorKit' 
+pod 'Moya' 
   target 'BasketStat_UIKitTests' do
     inherit! :search_paths
     # Pods for testing

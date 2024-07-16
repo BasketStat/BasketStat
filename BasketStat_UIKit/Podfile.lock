@@ -25,13 +25,31 @@ PODS:
     - KakaoSDKCommon/Common (= 2.20.0)
   - KakaoSDKUser (2.20.0):
     - KakaoSDKAuth (= 2.20.0)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - ReactorKit (3.2.0):
+    - RxSwift (~> 6.0)
+    - WeakMapTable (~> 1.1)
+  - RxCocoa (6.7.1):
+    - RxRelay (= 6.7.1)
+    - RxSwift (= 6.7.1)
+  - RxRelay (6.7.1):
+    - RxSwift (= 6.7.1)
+  - RxSwift (6.7.1)
   - SnapKit (5.7.1)
   - Then (3.0.0)
+  - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
   - GoogleSignIn
   - KakaoSDKAuth
   - KakaoSDKUser
+  - Moya
+  - ReactorKit
+  - RxCocoa
+  - RxSwift
   - SnapKit
   - Then
 
@@ -45,8 +63,14 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Moya
+    - ReactorKit
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SnapKit
     - Then
+    - WeakMapTable
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
@@ -57,9 +81,15 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 02742f4681af6da8c4aa7b0f71df98ca9e7df834
   KakaoSDKCommon: 060a8085733a215a048f9bf9b39a846d1be1daee
   KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
+  RxCocoa: f5609cb4637587a7faa99c5d5787e3ad582b75a4
+  RxRelay: 4151ba01152436b08271e08410135e099880eae5
+  RxSwift: b9a93a26031785159e11abd40d1a55bcb8057e52
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
+  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 9782604993ff347348fb6e1110a5be98f9f9d693
+PODFILE CHECKSUM: af17a963ad8125d6e7fcd70781b26c07cfbefb25
 
 COCOAPODS: 1.15.2

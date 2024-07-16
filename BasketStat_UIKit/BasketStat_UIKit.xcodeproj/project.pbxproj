@@ -33,6 +33,8 @@
 		BD0D640A2C3CBE27004D3EE6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D64092C3CBE27004D3EE6 /* Then */; };
 		BD0D640D2C3CBE35004D3EE6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD0D640C2C3CBE35004D3EE6 /* SnapKit */; };
 		BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */; };
+		BD3572992C46066D004CB49F /* GameStatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3572982C46066D004CB49F /* GameStatVC.swift */; };
+		BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD35729B2C461002004CB49F /* GameStatReactor.swift */; };
 		C741F933DFD025B6EB517ACD /* Pods_BasketStat_UIKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56F34727AC636CEEBCE2A48F /* Pods_BasketStat_UIKitTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,8 @@
 		BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITests.swift; sourceTree = "<group>"; };
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatVC.swift; sourceTree = "<group>"; };
+		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		D03C2F482756EA6B94FB489F /* Pods_BasketStat_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasketStat_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82FC1A8376B31067F4B1F48 /* Pods-BasketStat_UIKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasketStat_UIKitTests.release.xcconfig"; path = "Target Support Files/Pods-BasketStat_UIKitTests/Pods-BasketStat_UIKitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,6 +166,8 @@
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
 				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
+				BD3572982C46066D004CB49F /* GameStatVC.swift */,
+				BD35729B2C461002004CB49F /* GameStatReactor.swift */,
 				6034257C2C3DAB7900DA49D5 /* LoginVC.swift */,
 				6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
@@ -474,7 +480,9 @@
 				603425A92C3DAC3700DA49D5 /* PlayerModel.swift in Sources */,
 				603425942C3DAB7900DA49D5 /* PlayerModel.swift in Sources */,
 				603425A82C3DAC3700DA49D5 /* LoginVC.swift in Sources */,
+				BD3572992C46066D004CB49F /* GameStatVC.swift in Sources */,
 				603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */,
+				BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */,
 				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
@@ -654,7 +662,7 @@
 				CODE_SIGN_ENTITLEMENTS = BasketStat_UIKit/BasketStat_UIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YH4A87H8M4;
+				DEVELOPMENT_TEAM = U6NUHA5DNR;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BasketStat_UIKit/Info.plist;
@@ -686,7 +694,7 @@
 				CODE_SIGN_ENTITLEMENTS = BasketStat_UIKit/BasketStat_UIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YH4A87H8M4;
+				DEVELOPMENT_TEAM = U6NUHA5DNR;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BasketStat_UIKit/Info.plist;
