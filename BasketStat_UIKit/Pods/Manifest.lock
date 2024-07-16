@@ -25,11 +25,15 @@ PODS:
     - KakaoSDKCommon/Common (= 2.20.0)
   - KakaoSDKUser (2.20.0):
     - KakaoSDKAuth (= 2.20.0)
+  - SnapKit (5.7.1)
+  - Then (3.0.0)
 
 DEPENDENCIES:
   - GoogleSignIn
   - KakaoSDKAuth
   - KakaoSDKUser
+  - SnapKit
+  - Then
 
 SPEC REPOS:
   trunk:
@@ -41,6 +45,8 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - SnapKit
+    - Then
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
@@ -51,7 +57,9 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 02742f4681af6da8c4aa7b0f71df98ca9e7df834
   KakaoSDKCommon: 060a8085733a215a048f9bf9b39a846d1be1daee
   KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 406d9415b1217b4285945cf31194be14bdfc19fa
+PODFILE CHECKSUM: 9782604993ff347348fb6e1110a5be98f9f9d693
 
 COCOAPODS: 1.15.2
