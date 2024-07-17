@@ -21,12 +21,13 @@ class LoginViewController: UIViewController {
     var kakaoButton = UIView().then { view in
         view.backgroundColor = .fromRGB(254, 229, 0, 1)
         
-        view.layer.cornerRadius = 30
+        view.layer.cornerRadius = 10
         
         let label = UILabel().then {
             $0.text = "카카오로 로그인"
             $0.textAlignment = .center
             $0.font = .boldSystemFont(ofSize: 18 )
+            $0.textColor = .fromRGB(55, 29, 30, 1)
         }
         
         
@@ -50,7 +51,7 @@ class LoginViewController: UIViewController {
     var appleButton = UIView().then { view in
         
         view.backgroundColor = .black
-        view.layer.cornerRadius = 30
+        view.layer.cornerRadius = 10
         
         let label = UILabel().then {
             $0.text = "Apple로 로그인"
@@ -85,7 +86,7 @@ class LoginViewController: UIViewController {
     
     var googleButton = UIView().then { view in
         view.backgroundColor = .white
-        view.layer.cornerRadius = 30
+        view.layer.cornerRadius = 10
         
         let label = UILabel().then {
             $0.text = "Google 로그인"
@@ -122,31 +123,23 @@ class LoginViewController: UIViewController {
     lazy var loginStackView = UIStackView(arrangedSubviews: [ kakaoButton, appleButton, googleButton ]).then {
         
         $0.axis = .vertical
-        $0.spacing = 15
+        $0.spacing = 14
         $0.distribution = .fillEqually
         $0.alignment = .fill
-        
-        
-        
-        
-        
-        
-        
+
     }
     
     
     let mainLoginImage = UIImageView(image: UIImage(named: "mainIcon.png"))
     
     let mainView = UIView().then {
-        $0.backgroundColor = UIColor(red: 14 / 255, green: 38 / 255, blue: 60 / 255, alpha: 1)
-        $0.layer.cornerRadius = 8
+        $0.backgroundColor = .mainColor()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .fromRGB(58, 53, 48, 1)
         
         
         self.setUI()
@@ -212,8 +205,8 @@ class LoginViewController: UIViewController {
     
     
     func setUI() {
-        let HEIGHT: CGFloat = 60
-        
+        let HEIGHT: CGFloat = 52
+        let SPACING: CGFloat = 14
         
         view.addSubview(mainView)
         view.addSubview(mainLoginImage)
@@ -221,16 +214,17 @@ class LoginViewController: UIViewController {
         
         
         self.mainView.snp.makeConstraints {
-            $0.top.bottom.trailing.leading.equalTo(self.view)
+            $0.top.bottom.trailing.leading.equalToSuperview()
         }
         self.mainLoginImage.snp.makeConstraints {
             $0.width.height.equalTo(310)
-            $0.center.equalToSuperview()
+            $0.top.equalTo(self.view).offset(102)
+            $0.centerX.equalToSuperview()
         }
         self.loginStackView.snp.makeConstraints {
-            $0.height.equalTo( HEIGHT * 3 + 20 )
-            $0.leading.trailing.equalTo(self.view).inset(20)
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(60)
+            $0.height.equalTo( HEIGHT * 3 + ( SPACING * 3 - 1 ))
+            $0.width.centerX.equalTo(self.mainLoginImage)
+            $0.top.equalTo(self.mainLoginImage.snp.bottom).offset(105)
         }
  
         
