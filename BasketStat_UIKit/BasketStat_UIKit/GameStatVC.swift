@@ -92,7 +92,7 @@ class GameStatVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.fromRGB(58, 53, 48)
+        view.backgroundColor = UIColor.fromRGB(58, 53, 48, 1)
         view.addSubview(quarterLabel)
         view.addSubview(backgroundImage)
         view.addSubview(firstTeamSpaceView)
