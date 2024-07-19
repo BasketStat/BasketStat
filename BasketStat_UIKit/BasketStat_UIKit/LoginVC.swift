@@ -6,6 +6,7 @@ import SnapKit
 import CryptoKit
 import CryptoTokenKit
 import AuthenticationServices
+import Then
 
 class LoginViewController: UIViewController {
     
@@ -13,19 +14,22 @@ class LoginViewController: UIViewController {
     
     fileprivate var currentNonce: String?
     
-    
-    
 
     
-    var kakaoButton: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 254 / 255, green: 229 / 255, blue: 0 / 255, alpha: 1)
-        view.layer.cornerRadius = 30
+    
+    
+    var kakaoButton = UIView().then { view in
+        view.backgroundColor = .fromRGB(254, 229, 0, 1)
         
-        let label = UILabel()
-        label.text = "카카오로 로그인"
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18 )
+        view.layer.cornerRadius = 10
+        
+        let label = UILabel().then {
+            $0.text = "카카오로 로그인"
+            $0.textAlignment = .center
+            $0.font = .boldSystemFont(ofSize: 18 )
+            $0.textColor = .fromRGB(55, 29, 30, 1)
+        }
+        
         
         let image = UIImageView(image: UIImage(named: "kakaoLogin.png"))
         
@@ -42,22 +46,20 @@ class LoginViewController: UIViewController {
             $0.centerY.equalTo(view)
         }
         
-        
-        
-        
-        return view
-    }()
+    }
     
-    var appleButton: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.layer.cornerRadius = 30
+    var appleButton = UIView().then { view in
         
-        let label = UILabel()
-        label.text = "Apple로 로그인"
-        label.textColor = .white
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18 )
+        view.backgroundColor = .black
+        view.layer.cornerRadius = 10
+        
+        let label = UILabel().then {
+            $0.text = "Apple로 로그인"
+            $0.textColor = .white
+            $0.textAlignment = .center
+            $0.font = .boldSystemFont(ofSize: 18 )
+        }
+        
         
         
         let image = UIImageView(image: UIImage(named: "appleLogin.png"))
@@ -77,22 +79,22 @@ class LoginViewController: UIViewController {
             $0.centerY.equalTo(view).offset(-2)
         }
         
-        return view
-    }()
+    }
     
     
     var googleLoginButton = GIDSignInButton()
     
-    var googleButton: UIView = {
-        let view = UIView()
+    var googleButton = UIView().then { view in
         view.backgroundColor = .white
-        view.layer.cornerRadius = 30
+        view.layer.cornerRadius = 10
         
-        let label = UILabel()
-        label.text = "Google 로그인"
-        label.textColor = .black
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18 )
+        let label = UILabel().then {
+            $0.text = "Google 로그인"
+            $0.textColor = .black
+            $0.textAlignment = .center
+            $0.font = .boldSystemFont(ofSize: 18 )
+        }
+
         
         
         let image = UIImageView(image: UIImage(named: "googleLogin.png"))
@@ -112,46 +114,27 @@ class LoginViewController: UIViewController {
             $0.centerY.equalTo(view).offset(-2)
         }
         
-        return view
-    }()
+    }
     
     
     
     
     
-    lazy var loginStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ kakaoButton, appleButton, googleButton ])
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
+    lazy var loginStackView = UIStackView(arrangedSubviews: [ kakaoButton, appleButton, googleButton ]).then {
         
-        
-        
-        
-        
-        return stackView
-        
-        
-    }()
-    
+        $0.axis = .vertical
+        $0.spacing = 14
+        $0.distribution = .fillEqually
+        $0.alignment = .fill
 
-    let mainLoginImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "mainImage.jpeg"))
-        
-        return image
-        
-    }()
+    }
     
-    let mainView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 14 / 255, green: 38 / 255, blue: 60 / 255, alpha: 1)
-        
-        view.layer.cornerRadius = 8
-        
-        return view
-        
-    }()
+    
+    let mainLoginImage = UIImageView(image: UIImage(named: "mainIcon.png"))
+    
+    let mainView = UIView().then {
+        $0.backgroundColor = .mainColor()
+    }
     
     
     override func viewDidLoad() {
@@ -188,32 +171,32 @@ class LoginViewController: UIViewController {
     
     @objc
     func googleLoginTapped() {
-            // 구글 인증
-            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-            let config = GIDConfiguration(clientID: clientID)
+        // 구글 인증
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        _ = GIDConfiguration(clientID: clientID)
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
             
-            GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
-                   
-               if let error {
-                   return
-               }
-                   
-               // 로그인 성공 시 result에서 user와 ID Token 추출
-               guard let user = result?.user, let idToken = user.idToken?.tokenString else {
-                   return
-               }
-                   
-               // user에서 Access Token 추출
-               let accessToken = user.accessToken.tokenString
-               
-               // Token을 토대로 Credential(사용자 인증 정보) 생성
-               let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+            if error != nil {
+                return
+            }
+            
+            // 로그인 성공 시 result에서 user와 ID Token 추출
+            guard let user = result?.user, let idToken = user.idToken?.tokenString else {
+                return
+            }
+            
+            // user에서 Access Token 추출
+            let accessToken = user.accessToken.tokenString
+            
+            // Token을 토대로 Credential(사용자 인증 정보) 생성
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
             Auth.auth().signIn(with: credential) {_,_ in
                 
             }
-           }
         }
-      
+    }
+    
     @objc
     func AppleRevokeTapped() {
         
@@ -222,28 +205,28 @@ class LoginViewController: UIViewController {
     
     
     func setUI() {
-        let HEIGHT: CGFloat = 60
-        
+        let HEIGHT: CGFloat = 52
+        let SPACING: CGFloat = 14
         
         view.addSubview(mainView)
         view.addSubview(mainLoginImage)
         view.addSubview(loginStackView)
         
         
-        
         self.mainView.snp.makeConstraints {
-            $0.top.bottom.trailing.leading.equalTo(self.view)
+            $0.top.bottom.trailing.leading.equalToSuperview()
         }
         self.mainLoginImage.snp.makeConstraints {
-            $0.width.height.equalTo(240)
-            $0.center.equalTo(self.view)
+            $0.width.height.equalTo(310)
+            $0.top.equalTo(self.view).offset(102)
+            $0.centerX.equalToSuperview()
         }
         self.loginStackView.snp.makeConstraints {
-            $0.height.equalTo( HEIGHT * 3 + 20 )
-            $0.leading.trailing.equalTo(self.view).inset(20)
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(60)
+            $0.height.equalTo( HEIGHT * 3 + ( SPACING * 3 - 1 ))
+            $0.width.centerX.equalTo(self.mainLoginImage)
+            $0.top.equalTo(self.mainLoginImage.snp.bottom).offset(105)
         }
-        
+ 
         
         
         
@@ -288,14 +271,14 @@ extension LoginViewController {
         }
     }
     
-   
+    
     func signOut() {
         let firebaseAuth = Auth.auth()
         do {
-          try firebaseAuth.signOut()
+            try firebaseAuth.signOut()
             print("signOut")
         } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError)
         }
     }
     
@@ -370,7 +353,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             
             self.signIn(credential: credential)
             
-
+            
         }
     }
     
