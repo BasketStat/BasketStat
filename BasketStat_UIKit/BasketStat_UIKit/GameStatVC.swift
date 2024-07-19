@@ -10,7 +10,7 @@ import Then
 import SnapKit
 
 class GameStatVC: UIViewController {
-
+    
     let backgroundImage = UIImageView().then {
         $0.image = UIImage(named: "background")!
         $0.contentMode = .scaleAspectFill
@@ -61,7 +61,7 @@ class GameStatVC: UIViewController {
         $0.distribution = .fillEqually
         $0.spacing = 15
     }
-
+    
     let secondTeamSpaceView = UIView().then {
         $0.backgroundColor = UIColor.fromRGB(0, 0, 0, 0.16)
         $0.layer.cornerRadius = 5
