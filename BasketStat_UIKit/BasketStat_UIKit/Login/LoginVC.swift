@@ -8,7 +8,7 @@ import CryptoTokenKit
 import AuthenticationServices
 import Then
 
-class LoginViewController: UIViewController {
+class LoginVC: UIViewController {
     
     
     
@@ -178,6 +178,7 @@ class LoginViewController: UIViewController {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
             
             if error != nil {
+                print("google Login error \(error)")
                 return
             }
             
@@ -191,8 +192,17 @@ class LoginViewController: UIViewController {
             
             // Token을 토대로 Credential(사용자 인증 정보) 생성
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-            Auth.auth().signIn(with: credential) {_,_ in
-                
+            Auth.auth().signIn(with: credential) {result, error in
+                if let error {
+                    // Error. If error.code == .MissingOrInvalidNonce, make sure
+                    // you're sending the SHA256-hashed nonce as a hex string with
+                    // your request to Apple.
+                    print(error.localizedDescription)
+                    return
+                } else {
+                    self.navigationController?.viewControllers = [ UINavigationController() ]
+                    
+                }
             }
         }
     }
@@ -218,11 +228,11 @@ class LoginViewController: UIViewController {
         }
         self.mainLoginImage.snp.makeConstraints {
             $0.width.height.equalTo(310)
-            $0.top.equalTo(self.view).offset(102)
+            $0.top.equalTo(self.view.safeAreaLayoutGuide).offset(102)
             $0.centerX.equalToSuperview()
         }
         self.loginStackView.snp.makeConstraints {
-            $0.height.equalTo( HEIGHT * 3 + ( SPACING * 3 - 1 ))
+            $0.height.equalTo( HEIGHT * 3 + ( SPACING * ( 3 - 1 ) ))
             $0.width.centerX.equalTo(self.mainLoginImage)
             $0.top.equalTo(self.mainLoginImage.snp.bottom).offset(105)
         }
@@ -251,7 +261,7 @@ class LoginViewController: UIViewController {
 }
 
 
-extension LoginViewController {
+extension LoginVC {
     
     
     
@@ -265,7 +275,7 @@ extension LoginViewController {
                 print(error.localizedDescription)
                 return
             } else {
-                self.navigationController?.viewControllers = [BuilderVC()]
+                self.navigationController?.viewControllers = [UINavigationController()]
                 
             }
         }
@@ -326,7 +336,7 @@ extension LoginViewController {
     }
 }
 
-extension LoginViewController: ASAuthorizationControllerDelegate {
+extension LoginVC: ASAuthorizationControllerDelegate {
     
     
     
@@ -372,7 +382,7 @@ func authorizationController(controller: ASAuthorizationController, didCompleteW
 }
 
 
-extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window ?? UIWindow()
     }

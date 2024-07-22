@@ -23,23 +23,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let navigationController: UINavigationController
+//        
+//        if Auth.auth().currentUser != nil { // <- Firebase Auth
+//            let firebaseAuth = Auth.auth()
+//            do {
+//                try firebaseAuth.signOut()
+//                print("signOut")
+//            } catch let signOutError as NSError {
+//                print("Error signing out: %@", signOutError)
+//            }
+//            navigationController = UINavigationController(rootViewController: LoginVC())
+//        } else {
+//            navigationController = UINavigationController(rootViewController: LoginVC())
+//        }
+//        
+//        navigationController.view.backgroundColor = .white
         
-        if let user = Auth.auth().currentUser { // <- Firebase Auth
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                print("signOut")
-            } catch let signOutError as NSError {
-                print("Error signing out: %@", signOutError)
-            }
-            navigationController = UINavigationController(rootViewController: LoginViewController())
-        } else {
-            navigationController = UINavigationController(rootViewController: LoginViewController())
-        }
-        
-        navigationController.view.backgroundColor = .white
-        
-        window?.rootViewController = navigationController // 루트 뷰컨트롤러 생성
+        window?.rootViewController = UINavigationController(rootViewController: SignUpVC())
         window?.makeKeyAndVisible()
     }
     
