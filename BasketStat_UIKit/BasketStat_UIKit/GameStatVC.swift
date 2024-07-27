@@ -322,7 +322,7 @@ class GameStatVC: UIViewController {
     }
 }
 
-#Preview {
-    GameStatVC()
-}
-
+//#Preview {
+//    GameStatVC()
+//}
+//
