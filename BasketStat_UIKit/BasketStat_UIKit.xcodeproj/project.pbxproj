@@ -40,6 +40,7 @@
 		BD3572C72C463B32004CB49F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C62C463B32004CB49F /* FirebaseAuth */; };
 		BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3572D42C46A591004CB49F /* UIFont+Extension.swift */; };
 		BD8B9D892C55090C000AB1B0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B9D882C55090C000AB1B0 /* Player.swift */; };
+		BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B9D8A2C55529C000AB1B0 /* Stat.swift */; };
 		BDA48F352C46A9EA002F75D9 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */; };
 		BDA48F362C46A9EA002F75D9 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */; };
 		BDA48F372C46A9EA002F75D9 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */; };
@@ -95,6 +96,7 @@
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		BD8B9D882C55090C000AB1B0 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		BD8B9D8A2C55529C000AB1B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
 		BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				BD8B9D882C55090C000AB1B0 /* Player.swift */,
+				BD8B9D8A2C55529C000AB1B0 /* Stat.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */,
 				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
+				BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
 			);

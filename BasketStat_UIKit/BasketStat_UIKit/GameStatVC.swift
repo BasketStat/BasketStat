@@ -8,8 +8,14 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import ReactorKit
+import RxCocoa
 
-class GameStatVC: UIViewController {
+class GameStatVC: UIViewController, View {
+    
+    var disposeBag = DisposeBag()
+    let reactor = GameStatReactor()
     
     let backgroundImage = UIImageView().then {
         $0.image = UIImage(named: "background")!
@@ -128,7 +134,7 @@ class GameStatVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        bind(reactor: reactor)
         view.backgroundColor = UIColor.mainColor()
         view.addSubview(backgroundImage)
         view.addSubview(quarterLabel)
@@ -160,9 +166,10 @@ class GameStatVC: UIViewController {
     
     private func setupBtn(_ stackView: UIStackView) {
         let backNumber = [13, 15, 2, 3, 23]
-        for title in backNumber {
+        for number in backNumber {
             let button = UIButton().then {
-                $0.setTitle("\(title)", for: .normal)
+                $0.setTitle("\(number)", for: .normal)
+                $0.titleLabel?.font = UIFont.regular3
                 $0.backgroundColor = .white
                 $0.setTitleColor(.black, for: .normal)
                 $0.layer.cornerRadius = 5
@@ -172,6 +179,10 @@ class GameStatVC: UIViewController {
                     make.height.equalTo(40)
                 }
             }
+            button.rx.tap
+                .map { Reactor.Action.selectedPlayer(number: number, button: button) }
+                .bind(to: reactor.action)
+                .disposed(by: disposeBag)
             stackView.addArrangedSubview(button)
         }
     }
@@ -238,8 +249,8 @@ class GameStatVC: UIViewController {
         
         // 나머지 줄 버튼 추가
         let otherRowsItems = [
-            ["AST", "REB", "BLK"],
-            ["STL", "FOUL", "TO"]
+            [Stat.AST, Stat.REB, Stat.BLK],
+            [Stat.STL, Stat.FOUL, Stat.TO]
         ]
         
         for row in otherRowsItems {
@@ -251,7 +262,7 @@ class GameStatVC: UIViewController {
             
             for title in row {
                 let button = UIButton().then {
-                    $0.setTitle(title, for: .normal)
+                    $0.setTitle(title.rawValue, for: .normal)
                     $0.titleLabel?.font = UIFont.boldButton
                     $0.backgroundColor = .clear
                     $0.setTitleColor(.white, for: .normal)
@@ -263,7 +274,6 @@ class GameStatVC: UIViewController {
                         make.height.equalTo(40)
                     }
                 }
-                
                 rowStackView.addArrangedSubview(button)
             }
             
@@ -316,12 +326,37 @@ class GameStatVC: UIViewController {
             make.horizontalEdges.equalTo(buttonGridStackView.snp.horizontalEdges)
             make.top.equalTo(buttonGridStackView.snp.bottom).offset(15)
             make.height.equalTo(40)
-                       
         }
         
     }
 }
-
+extension GameStatVC {
+    
+    func bind(reactor: GameStatReactor) {
+        // 이전에 선택된 버튼과 새로운 선택된 버튼을 구독
+        let previousSelectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.previousSelectedButton }
+        let selectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.selectedButton }
+        
+        previousSelectedButtonObservable
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] previousSelectedButton in
+                guard self != nil else { return }
+                previousSelectedButton?.layer.borderWidth = 0
+                previousSelectedButton?.layer.borderColor = UIColor.clear.cgColor
+            })
+            .disposed(by: disposeBag)
+        
+        // 새로운 선택된 버튼에 스트로크 추가
+        selectedButtonObservable
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] selectedButton in
+                guard self != nil else { return }
+                selectedButton?.layer.borderWidth = 4
+                selectedButton?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
+            })
+            .disposed(by: disposeBag)
+    }
+}
 //#Preview {
 //    GameStatVC()
 //}
