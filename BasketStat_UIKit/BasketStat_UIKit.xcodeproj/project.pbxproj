@@ -39,6 +39,8 @@
 		BD3572C42C463AEF004CB49F /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C32C463AEF004CB49F /* RxMoya */; };
 		BD3572C72C463B32004CB49F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C62C463B32004CB49F /* FirebaseAuth */; };
 		BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3572D42C46A591004CB49F /* UIFont+Extension.swift */; };
+		BD8B9D892C55090C000AB1B0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B9D882C55090C000AB1B0 /* Player.swift */; };
+		BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B9D8A2C55529C000AB1B0 /* Stat.swift */; };
 		BDA48F352C46A9EA002F75D9 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */; };
 		BDA48F362C46A9EA002F75D9 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */; };
 		BDA48F372C46A9EA002F75D9 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */; };
@@ -93,6 +95,8 @@
 		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatVC.swift; sourceTree = "<group>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		BD8B9D882C55090C000AB1B0 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		BD8B9D8A2C55529C000AB1B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		BDA48F2D2C46A9E8002F75D9 /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
 		BDA48F2E2C46A9E8002F75D9 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
@@ -180,13 +184,14 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				BD8B9D872C550872000AB1B0 /* Reactor */,
+				BD8B9D862C55085F000AB1B0 /* Model */,
 				608BD4E32C4803EC0003CCA0 /* Resources */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
 				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
 				BD3572982C46066D004CB49F /* GameStatVC.swift */,
-				BD35729B2C461002004CB49F /* GameStatReactor.swift */,
 				6034257C2C3DAB7900DA49D5 /* LoginVC.swift */,
 				6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
@@ -243,6 +248,23 @@
 				BDA48F322C46A9E9002F75D9 /* Pretendard-Thin.ttf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		BD8B9D862C55085F000AB1B0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BD8B9D882C55090C000AB1B0 /* Player.swift */,
+				BD8B9D8A2C55529C000AB1B0 /* Stat.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BD8B9D872C550872000AB1B0 /* Reactor */ = {
+			isa = PBXGroup;
+			children = (
+				BD35729B2C461002004CB49F /* GameStatReactor.swift */,
+			);
+			path = Reactor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,11 +438,13 @@
 				603425942C3DAB7900DA49D5 /* PlayerModel.swift in Sources */,
 				603425A82C3DAC3700DA49D5 /* LoginVC.swift in Sources */,
 				BD3572992C46066D004CB49F /* GameStatVC.swift in Sources */,
+				BD8B9D892C55090C000AB1B0 /* Player.swift in Sources */,
 				603425922C3DAB7900DA49D5 /* LoginVC.swift in Sources */,
 				BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */,
 				BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */,
 				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
+				BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
 			);

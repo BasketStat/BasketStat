@@ -8,8 +8,14 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import ReactorKit
+import RxCocoa
 
-class GameStatVC: UIViewController {
+class GameStatVC: UIViewController, View {
+    
+    var disposeBag = DisposeBag()
+    let reactor = GameStatReactor()
     
     let backgroundImage = UIImageView().then {
         $0.image = UIImage(named: "background")!
@@ -21,7 +27,7 @@ class GameStatVC: UIViewController {
         $0.text = "1Q"
         $0.frame = CGRect(x: 0, y: 0,width: 84, height: 76)
         $0.textColor = .white
-        $0.font = UIFont.systemFont(ofSize: 64, weight: .bold)
+        $0.font = UIFont.customBoldFont(size: 64)
     }
     
     let firstTeamSpaceView = UIView().then {
@@ -39,13 +45,13 @@ class GameStatVC: UIViewController {
     let firstTeamLabel = UILabel().then {
         $0.text = "Red"
         $0.frame = CGRect(x: 0, y: 0,width: 39, height: 24)
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        $0.font = UIFont.h1b
         $0.textColor = .systemRed
     }
     
     let firstTeamScoreLabel = UILabel().then {
         $0.text = "24"
-        $0.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
+        $0.font = UIFont.regular1
         $0.textColor = .white
         $0.textAlignment = .center
     }
@@ -77,20 +83,20 @@ class GameStatVC: UIViewController {
     let secondTeamLabel = UILabel().then {
         $0.text = "Blue"
         $0.frame = CGRect(x: 0, y: 0,width: 39, height: 24)
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        $0.font = UIFont.h1b
         $0.textColor = .systemBlue
     }
     
     let secondTeamScoreLabel = UILabel().then {
         $0.text = "20"
-        $0.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
+        $0.font = UIFont.regular1
         $0.textColor = .white
         $0.textAlignment = .center
     }
     
     let recordLabel = UILabel().then {
         $0.text = "기록"
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        $0.font = UIFont.regular4
         $0.textColor = .white
     }
     
@@ -99,29 +105,44 @@ class GameStatVC: UIViewController {
         $0.spacing = 10
     }
     
+    let recordStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 15
+        $0.distribution = .fillEqually
+    }
+    
     let cancleButton = UIButton().then {
         $0.setTitle("X", for: .normal)
+        $0.titleLabel?.font = UIFont.customFont(fontName: "Pretendard-Black", size: 14)
         $0.backgroundColor = .clear
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         $0.layer.borderWidth = 1
         $0.layer.masksToBounds = true
-        $0.snp.makeConstraints { make in
-            make.height.equalTo(40)
-        }
+    }
+    
+    let saveButton = UIButton().then {
+        $0.setTitle("O", for: .normal)
+        $0.titleLabel?.font = UIFont.customFont(fontName: "Pretendard-Black", size: 14)
+        $0.setTitleColor(.white, for: .normal)
+        $0.layer.cornerRadius = 5
+        $0.backgroundColor = UIColor.fromRGB(255, 107, 0, 0.9)
+        $0.layer.masksToBounds = true
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = UIColor.fromRGB(58, 53, 48)
+        bind(reactor: reactor)
+        view.backgroundColor = UIColor.mainColor()
         view.addSubview(backgroundImage)
         view.addSubview(quarterLabel)
         view.addSubview(firstTeamSpaceView)
         view.addSubview(recordLabel)
         view.addSubview(secondTeamSpaceView)
         view.addSubview(buttonGridStackView)
+        view.addSubview(recordStackView)
         
         firstTeamSpaceView.addSubview(firstTeamStackView)
         firstTeamStackView.addArrangedSubview(firstTeamLabel)
@@ -136,14 +157,19 @@ class GameStatVC: UIViewController {
         
         setupBtn(secondButtonStackView)
         setupButtonGrid()
+        
+        recordStackView.addArrangedSubview(cancleButton)
+        recordStackView.addArrangedSubview(saveButton)
+        
         layout()
     }
     
     private func setupBtn(_ stackView: UIStackView) {
         let backNumber = [13, 15, 2, 3, 23]
-        for title in backNumber {
+        for number in backNumber {
             let button = UIButton().then {
-                $0.setTitle("\(title)", for: .normal)
+                $0.setTitle("\(number)", for: .normal)
+                $0.titleLabel?.font = UIFont.regular3
                 $0.backgroundColor = .white
                 $0.setTitleColor(.black, for: .normal)
                 $0.layer.cornerRadius = 5
@@ -153,6 +179,10 @@ class GameStatVC: UIViewController {
                     make.height.equalTo(40)
                 }
             }
+            button.rx.tap
+                .map { Reactor.Action.selectedPlayer(number: number, button: button) }
+                .bind(to: reactor.action)
+                .disposed(by: disposeBag)
             stackView.addArrangedSubview(button)
         }
     }
@@ -177,11 +207,11 @@ class GameStatVC: UIViewController {
                 $0.layer.cornerRadius = 5
                 $0.layer.borderWidth = 1
                 $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
-                $0.spacing = 5
             }
             
             let button = UIButton().then {
                 $0.setTitle(title, for: .normal)
+                $0.titleLabel?.font = UIFont.boldButton
                 $0.backgroundColor = .clear
                 $0.setTitleColor(.white, for: .normal)
                 $0.layer.cornerRadius = 5
@@ -195,6 +225,21 @@ class GameStatVC: UIViewController {
             
             let segmentControl = UISegmentedControl(items: segments).then {
                 $0.selectedSegmentIndex = 0
+                let normalTextAttributes: [NSAttributedString.Key: Any] = [
+                       .foregroundColor: UIColor.lightGray,
+                       .font: UIFont.regularButton
+                ]
+                $0.setTitleTextAttributes(normalTextAttributes, for: .normal)
+                
+                let selectedTextAttributes: [NSAttributedString.Key: Any] = [
+                    .foregroundColor: UIColor.fromRGB(255, 107, 0, 0.9),
+                    .font: UIFont.boldButton
+                ]
+                $0.setTitleTextAttributes(selectedTextAttributes, for: .selected)
+                $0.selectedSegmentTintColor = UIColor.mainColor()
+                $0.backgroundColor = .clear
+                $0.layer.cornerRadius = 5
+                $0.layer.masksToBounds = true
             }
             buttonStack.addArrangedSubview(segmentControl)
             
@@ -204,8 +249,8 @@ class GameStatVC: UIViewController {
         
         // 나머지 줄 버튼 추가
         let otherRowsItems = [
-            ["AST", "REB", "BLK"],
-            ["STL", "FOUL", "TO"]
+            [Stat.AST, Stat.REB, Stat.BLK],
+            [Stat.STL, Stat.FOUL, Stat.TO]
         ]
         
         for row in otherRowsItems {
@@ -217,7 +262,8 @@ class GameStatVC: UIViewController {
             
             for title in row {
                 let button = UIButton().then {
-                    $0.setTitle(title, for: .normal)
+                    $0.setTitle(title.rawValue, for: .normal)
+                    $0.titleLabel?.font = UIFont.boldButton
                     $0.backgroundColor = .clear
                     $0.setTitleColor(.white, for: .normal)
                     $0.layer.cornerRadius = 5
@@ -228,7 +274,6 @@ class GameStatVC: UIViewController {
                         make.height.equalTo(40)
                     }
                 }
-                
                 rowStackView.addArrangedSubview(button)
             }
             
@@ -276,9 +321,43 @@ class GameStatVC: UIViewController {
             make.left.right.equalTo(secondTeamSpaceView)
             make.top.equalTo(recordLabel.snp.bottom).offset(10)
         }
+        
+        recordStackView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(buttonGridStackView.snp.horizontalEdges)
+            make.top.equalTo(buttonGridStackView.snp.bottom).offset(15)
+            make.height.equalTo(40)
+        }
+        
     }
 }
-#Preview {
-    GameStatVC()
+extension GameStatVC {
+    
+    func bind(reactor: GameStatReactor) {
+        // 이전에 선택된 버튼과 새로운 선택된 버튼을 구독
+        let previousSelectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.previousSelectedButton }
+        let selectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.selectedButton }
+        
+        previousSelectedButtonObservable
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] previousSelectedButton in
+                guard self != nil else { return }
+                previousSelectedButton?.layer.borderWidth = 0
+                previousSelectedButton?.layer.borderColor = UIColor.clear.cgColor
+            })
+            .disposed(by: disposeBag)
+        
+        // 새로운 선택된 버튼에 스트로크 추가
+        selectedButtonObservable
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] selectedButton in
+                guard self != nil else { return }
+                selectedButton?.layer.borderWidth = 4
+                selectedButton?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
+            })
+            .disposed(by: disposeBag)
+    }
 }
-
+//#Preview {
+//    GameStatVC()
+//}
+//

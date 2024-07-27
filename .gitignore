@@ -1,3 +1,9 @@
 .DS_Store
+<<<<<<< HEAD
+BasketStat_UIKit/.DS_Store
+BasketStat_UIKit.xcodeproj/project.xcworkspace/xcuserdata/kim-jeongwon.xcuserdatad/UserInterfaceState.xcuserstate
+BasketStat_UIKit/BasketStat_UIKit.xcodeproj/project.xcworkspace/xcuserdata/kim-jeongwon.xcuserdatad/UserInterfaceState.xcuserstate
+=======
 BasketStat_UIKit.xcodeproj/project.xcworkspace/xcuserdata/kim-jeongwon.xcuserdatad/UserInterfaceState.xcuserstate
 BasketStat_UIKit.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+>>>>>>> main
