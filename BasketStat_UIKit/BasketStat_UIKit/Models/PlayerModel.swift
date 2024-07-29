@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 
-struct PlayerModel {
+struct PlayerModel: Codable {
     
-    let nickname: String
-    let position: String
-    let weight: Double
-    let profileImage: UIImage
+    var nickname: String
+    var position: String
+    var weight: Double
+    var profileImageUrl: String
     
     
     

@@ -1,4 +1,5 @@
 import UIKit
+import ReactorKit
 import GoogleSignIn
 import FirebaseAuth
 import Firebase
@@ -7,21 +8,21 @@ import CryptoKit
 import CryptoTokenKit
 import AuthenticationServices
 import Then
+import RxGesture
 
-
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, View {
     
     
-    
+    private let reactor = LoginReactor()
+    var disposeBag = DisposeBag()
     fileprivate var currentNonce: String?
     
 
-    
+    let loginOauthCredential = PublishSubject<OAuthCredential>()
     
     
     var kakaoButton = UIView().then { view in
         view.backgroundColor = .fromRGB(254, 229, 0, 1)
-        
         view.layer.cornerRadius = 10
         
         let label = UILabel().then {
@@ -53,6 +54,7 @@ class LoginVC: UIViewController {
         
         view.backgroundColor = .black
         view.layer.cornerRadius = 10
+
         
         let label = UILabel().then {
             $0.text = "Apple로 로그인"
@@ -83,11 +85,11 @@ class LoginVC: UIViewController {
     }
     
     
-    var googleLoginButton = GIDSignInButton()
     
     var googleButton = UIView().then { view in
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
+
         
         let label = UILabel().then {
             $0.text = "Google 로그인"
@@ -142,86 +144,56 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
         
         
-        
+        self.bind(reactor: self.reactor)
         self.setUI()
-        
-        let appleLoginTapGesture = UITapGestureRecognizer(target: self, action: #selector(AppleLoginTapped))
-        let googleLoginTapGesture = UITapGestureRecognizer(target: self, action: #selector(googleLoginTapped))
-        let kakaoLoginTapGesture = UITapGestureRecognizer(target: self, action: #selector(kakaoLoginTapped))
-        appleButton.addGestureRecognizer(appleLoginTapGesture)
-        googleButton.addGestureRecognizer(googleLoginTapGesture)
-        kakaoButton.addGestureRecognizer(kakaoLoginTapGesture)
-        
+
+       
         
         
     }
     
-    @objc
-    func AppleLoginTapped() {
+   
+    func bind(reactor: LoginReactor) {
         
-        self.startSignInWithAppleFlow()
-    }
-    
-    
-    @objc
-    func kakaoLoginTapped() {
-        
-        KakaoService.shared.kakaoLogin()
-    }
-    
-    
-    @objc
-    func googleLoginTapped() {
-        // 구글 인증
-        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-        _ = GIDConfiguration(clientID: clientID)
-        
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
+        self.appleButton.rx.tapGesture().when(.recognized).subscribe({ _ in
             
-            if error != nil {
-                print("google Login error \(error)")
-                return
+            self.startSignInWithAppleFlow()
+            
+        }).disposed(by: disposeBag)
+        
+        self.kakaoButton.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.kakaoLogin }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        self.googleButton.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.googleLogin(self) }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        self.loginOauthCredential.map{ credential in Reactor.Action.appleLogin(credential) }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        reactor.state.map { $0.isPushed }.distinctUntilChanged().bind { isPushed in
+            if isPushed {
+                self.navigationController?.pushViewController( SignUpVC() , animated: false)
             }
             
-            // 로그인 성공 시 result에서 user와 ID Token 추출
-            guard let user = result?.user, let idToken = user.idToken?.tokenString else {
-                return
-            }
-            
-            // user에서 Access Token 추출
-            let accessToken = user.accessToken.tokenString
-            
-            // Token을 토대로 Credential(사용자 인증 정보) 생성
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-            Auth.auth().signIn(with: credential) {result, error in
-                if let error {
-                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                    // you're sending the SHA256-hashed nonce as a hex string with
-                    // your request to Apple.
-                    print(error.localizedDescription)
-                    return
-                } else {
-                    self.navigationController?.viewControllers = [ UINavigationController() ]
-                    
-                }
-            }
-        }
+        }.disposed(by: self.disposeBag)
+                  
     }
     
-    @objc
-    func AppleRevokeTapped() {
-        
-        self.signOut()
-    }
+    
+    
+
+    
+ 
+    
+  
     
     
     func setUI() {
         let HEIGHT: CGFloat = 52
         let SPACING: CGFloat = 14
         
-        view.addSubview(mainView)
-        view.addSubview(mainLoginImage)
-        view.addSubview(loginStackView)
+        
+        
+        self.view.addSubview(mainView)
+        self.view.addSubview(mainLoginImage)
+        self.view.addSubview(loginStackView)
         
         
         self.mainView.snp.makeConstraints {
@@ -267,20 +239,7 @@ extension LoginVC {
     
     
     
-    func signIn(credential: OAuthCredential) {
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            if let error {
-                // Error. If error.code == .MissingOrInvalidNonce, make sure
-                // you're sending the SHA256-hashed nonce as a hex string with
-                // your request to Apple.
-                print(error.localizedDescription)
-                return
-            } else {
-                self.navigationController?.viewControllers = [UINavigationController()]
-                
-            }
-        }
-    }
+
     
     
     func signOut() {
@@ -337,9 +296,8 @@ extension LoginVC {
     }
 }
 
+// AppleLogin
 extension LoginVC: ASAuthorizationControllerDelegate {
-    
-    
     
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -362,7 +320,7 @@ extension LoginVC: ASAuthorizationControllerDelegate {
                                                            rawNonce: nonce,
                                                            fullName: appleIDCredential.fullName)
             
-            self.signIn(credential: credential)
+            self.loginOauthCredential.onNext(credential)
             
             
         }
@@ -372,8 +330,6 @@ extension LoginVC: ASAuthorizationControllerDelegate {
         // Handle error.
         print("Sign in with Apple errored: \(error)")
     }
-    
-    
 }
 
 
