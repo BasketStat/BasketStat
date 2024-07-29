@@ -220,7 +220,6 @@ class GameStatVC: UIViewController, View {
                     make.height.equalTo(40)
                 }
             }
-            
             buttonStack.addArrangedSubview(button)
             
             let segmentControl = UISegmentedControl(items: segments).then {
@@ -334,10 +333,7 @@ extension GameStatVC {
     
     func bind(reactor: GameStatReactor) {
         // 이전에 선택된 버튼과 새로운 선택된 버튼을 구독
-        let previousSelectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.previousSelectedButton }
-        let selectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.selectedButton }
-        
-        previousSelectedButtonObservable
+        reactor.state.map { $0.previousSelectedPlayerButton }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] previousSelectedButton in
                 guard self != nil else { return }
@@ -347,7 +343,7 @@ extension GameStatVC {
             .disposed(by: disposeBag)
         
         // 새로운 선택된 버튼에 스트로크 추가
-        selectedButtonObservable
+        reactor.state.map { $0.playerButtons }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] selectedButton in
                 guard self != nil else { return }
