@@ -9,6 +9,7 @@ import Foundation
 import FirebaseAuth
 import KakaoSDKAuth
 import KakaoSDKUser
+
 class KakaoService {
     
     static let shared = KakaoService()

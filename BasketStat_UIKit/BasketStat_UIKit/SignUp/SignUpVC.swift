@@ -1,4 +1,5 @@
 import UIKit
+import DropDown
 import RxSwift
 import RxCocoa
 import Photos
@@ -85,10 +86,27 @@ class SignUpVC: UIViewController {
         }
     }
     
-    let positionTextView = UIView().then {
+    
+    lazy var dropDown = DropDown().then {
+        //$0.dataSource = ["test1", "test2", "test3"]
+        $0.anchorView = self.positionTextView
+        $0.bottomOffset = CGPoint(x: 0, y:40)
+        $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
+        $0.textColor = .white.withAlphaComponent(0.5)
+
+    }
+    
+    var polygon = UIImageView(image: UIImage(named: "Polygon.png")).then {
+        $0.isUserInteractionEnabled = true
+    }
+    
+
+    
+    lazy var positionTextView = UIView().then {
         $0.layer.cornerRadius = 2
         $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
-        
+        $0.isUserInteractionEnabled = true
+
         let label = UILabel().then {
             $0.tintColor = .white.withAlphaComponent(0.5)
             $0.text = "포지션을 선택해주세요"
@@ -96,10 +114,8 @@ class SignUpVC: UIViewController {
             
         }
         
-        let polygon = UIImageView(image: UIImage(named: "Polygon.png"))
-        
         $0.addSubview(label)
-        $0.addSubview(polygon)
+        $0.addSubview(self.polygon)
         
         label.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
@@ -107,7 +123,7 @@ class SignUpVC: UIViewController {
             $0.bottom.equalToSuperview().offset(-10)
         }
         
-        polygon.snp.makeConstraints {
+        self.polygon.snp.makeConstraints {
             
             $0.trailing.equalToSuperview().inset(16)
             
@@ -138,6 +154,18 @@ class SignUpVC: UIViewController {
     
     
     func setUI() {
+      
+        let index1 = ["test1", "test2","test3","test4",]
+        let index2 = ["테스트", "테스트","테스트","테스트",]
+
+
+        dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+           guard let cell = cell as? PostionCell else { return }
+
+           // Setup your custom UI components
+            cell.krLabel.text = index1[index]
+            cell.engLabel.text = index2[index]
+        }
         
         self.view.addSubview(self.mainView)
         self.view.addSubview(self.stackView)
@@ -183,7 +211,6 @@ class SignUpVC: UIViewController {
         
         
         
-        
     }
     
     func setBind() {
@@ -194,6 +221,28 @@ class SignUpVC: UIViewController {
             
         }).disposed(by: disposeBag)
         
+        
+        self.positionTextView.rx.tapGesture().when(.recognized).subscribe(onNext: { _ in
+         
+            self.dropDown.show()
+             self.polygon.transform = CGAffineTransformMakeScale(1, -1);
+
+            
+        }).disposed(by: disposeBag)
+        
+       
+
+        dropDown.willShowAction = { [unowned self] in
+             self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
+
+        }
+        dropDown.cancelAction = { [unowned self] in
+             self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
+
+        }
+
+      
+
     }
     
     
@@ -322,3 +371,28 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     
 }
 
+class PostionCell: DropDownCell {
+   
+    let krLabel = UILabel()
+    let engLabel = UILabel()
+    
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        krLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(10)
+        } 
+        engLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(10)
+        }
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+}

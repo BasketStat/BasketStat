@@ -9,7 +9,7 @@ import UIKit
 import FirebaseCore
 import GoogleSignIn
 import KakaoSDKCommon
-
+import DropDown
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -22,7 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         // Kakao 초기화
         KakaoSDK.initSDK(appKey: "61bd93bb18af831c8f6a58018fe4c998")
+        // DropDown 라이브러리 초기화
+        DropDown.startListeningToKeyboard()
 
+        
         return true
     }
     
