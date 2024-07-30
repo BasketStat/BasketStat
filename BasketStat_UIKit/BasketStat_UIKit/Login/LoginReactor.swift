@@ -59,9 +59,9 @@ class LoginReactor: Reactor {
                         self.provider.firebaseService.getPlayer().subscribe({ result in
                             
                             switch result {
-                            case.success(let model):
+                            case.success(_):
                                 print("model")
-                            case.failure(let err):
+                            case.failure(_):
                                 observable.onNext(.loginSuccess)
                                 
                                 

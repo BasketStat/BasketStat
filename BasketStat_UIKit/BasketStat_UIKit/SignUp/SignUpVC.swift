@@ -1,4 +1,5 @@
 import UIKit
+import ReactorKit
 import DropDown
 import RxSwift
 import RxCocoa
@@ -11,17 +12,20 @@ import AuthenticationServices
 import Then
 import RxGesture
 
-class SignUpVC: UIViewController {
+class SignUpVC: UIViewController, View {
+    
+    private let reactor = SignUpReactor()
+    var disposeBag = DisposeBag()
+    
     
     var cnt = 0
     
-    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.setUI()
-        self.setBind()
+        self.bind(reactor: self.reactor)
 
     }
 
@@ -209,7 +213,7 @@ class SignUpVC: UIViewController {
         
     }
     
-    func setBind() {
+    func bind(reactor: SignUpReactor) {
         
         self.profileImageView.rx.tapGesture().when(.recognized).subscribe(onNext: { _ in
             
@@ -243,6 +247,9 @@ class SignUpVC: UIViewController {
 
             self.dropDown.clearSelection()
         }
+        
+        
+        
         
         
 

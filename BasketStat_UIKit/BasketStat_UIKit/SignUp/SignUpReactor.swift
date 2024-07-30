@@ -17,17 +17,32 @@ class SignUpReactor: Reactor {
     var disposeBag = DisposeBag()
     
     enum Action {
+        case setTall
+        case setPosition
+        
+        
+        case pushBtn
+        case btnEnable(Bool)
+        
+        
 
     }
     
     enum Mutation {
-
+        case isPushed
+        case setTall(Double)
+        case setPosition(String)
+        case btnEnable(Bool)
         
     }
     
     struct State {
         var isPushed : Bool
-        
+        var tall: Double?
+        var position: String?
+        var isLoginButtonEnabled: Bool {
+            return position != nil && tall != nil
+        }
         
     }
     
@@ -38,10 +53,21 @@ class SignUpReactor: Reactor {
             
             
             
+        
+        case .pushBtn:
+            return .just(.isPushed)
+        case .setTall:
+            return .just(.isPushed)
+        case .setPosition:
+            return .just(.isPushed)
+        case .btnEnable(let enable):
+            return .just(.isPushed)
         }
+         
         
     }
     
+   
  
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
