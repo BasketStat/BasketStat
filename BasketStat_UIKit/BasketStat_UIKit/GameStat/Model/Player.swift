@@ -6,11 +6,20 @@
 //
 
 import Foundation
-// codable 왜쓰지 ?
+import UIKit
+
 struct Player:Codable {
     
     var playerNumber: Int
     
     
     
+}
+struct StatButton {
+    
+    var newSelectedPlayerButton: UIButton?
+    var preSelectedPointButton: UIButton?
+    var newSelectedPointButton: UIButton?
+    var preSelectedStatButton: UIButton?
+    var newSelectedStatButton: UIButton?
 }

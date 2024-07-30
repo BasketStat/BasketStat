@@ -6,7 +6,11 @@
 //
 
 import Foundation
-
+enum BasketButton {
+    case player
+    case point
+    case stat 
+}
 enum Point: String, CaseIterable {
     case TwoPT = "2점슛"
     case ThreePT = "3점슛"

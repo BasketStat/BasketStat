@@ -14,21 +14,22 @@ class GameStatReactor: Reactor {
     
     enum Action {
         case selectedPlayer(number: Int, button: UIButton)
-        case selectedPoint(point: Point)
-        case selectedStat(stat: Stat)
+        case selectedPoint(point: Point, button: UIButton)
+        case selectedStat(stat: Stat, button: UIButton)
     }
     
     enum Mutation {
         case setSelectedPlayer(number: Int, button: UIButton)
-        case setSelectedPoint(point: Point)
-        case setSelectedStat(stat: Stat)
+        case setSelectedPoint(point: Point, button: UIButton)
+        case setSelectedStat(stat: Stat, button: UIButton)
     }
     
     struct State {
         var currentPlayerNumber: Int = 0
-        var selectedPlayerButton: UIButton?
-        var previousSelectedPlayerButton: UIButton?
-        var pointButton: UIButton?
+        var playerButton: (UIButton?, UIButton?)
+        var pointButton: (UIButton?, UIButton?)
+        var statButton: (UIButton?, UIButton?)
+        var button = StatButton()
         var players = [Int :Player]() // 번호로 플레이어 구분
         
     }
@@ -40,10 +41,10 @@ class GameStatReactor: Reactor {
             
         case let .selectedPlayer(number, button):
                 .just(.setSelectedPlayer(number: number, button: button))
-        case let .selectedPoint(point):
-                .just(.setSelectedPoint(point: point))
-        case let .selectedStat(stat):
-                .just(.setSelectedStat(stat: stat))
+        case let .selectedPoint(point, button):
+                .just(.setSelectedPoint(point: point, button: button))
+        case let .selectedStat(stat, button):
+                .just(.setSelectedStat(stat: stat, button: button))
         }
     }
     
@@ -51,22 +52,18 @@ class GameStatReactor: Reactor {
         var newState = state
         switch mutation {
         case let .setSelectedPlayer(number, button):
-            newState.previousSelectedPlayerButton = newState.selectedPlayerButton
-          
-            if newState.previousSelectedPlayerButton == button {
-                newState.selectedPlayerButton = nil
-            } else {
-                newState.selectedPlayerButton = button
-            }
-            
+            newState.playerButton.0 = newState.playerButton.1
+            newState.playerButton.1 = newState.playerButton.0 == button ? nil : button
             newState.currentPlayerNumber = number
             return newState
-        case let .setSelectedPoint(point):
-            <#code#>
-        case let .setSelectedStat(stat):
-            <#code#>
+        case let .setSelectedPoint(point, button):
+            newState.pointButton.0 = newState.pointButton.1
+            newState.pointButton.1 = newState.pointButton.0 == button ? nil : button
+            return newState
+        case let .setSelectedStat(stat, button):
+            newState.statButton.0 = newState.statButton.1
+            newState.statButton.1 = newState.statButton.0 == button ? nil : button
+            return newState
         }
     }
-    
-    
 }
