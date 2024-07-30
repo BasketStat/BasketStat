@@ -163,6 +163,55 @@ class GameStatVC: UIViewController, View {
         
         layout()
     }
+}
+extension GameStatVC {
+    enum ButtonType {
+        case selectedButton
+    }
+    func updateButton(_ button: (UIButton?, UIButton?)) {
+        button.0?.layer.borderWidth = 0
+        button.0?.layer.borderColor = UIColor.clear.cgColor
+        button.1?.layer.borderWidth = 4
+        button.1?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
+    }
+    
+}
+
+//MARK: Reactor
+extension GameStatVC {
+    
+    func bind(reactor: GameStatReactor) {
+        // 이전에 선택된 버튼과 새로운 선택된 버튼을 구독
+        Observable.combineLatest(
+            reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.playerButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+    }
+}
+//MARK: Layout
+extension GameStatVC {
     
     private func setupBtn(_ stackView: UIStackView) {
         let backNumber = [13, 15, 2, 3, 23]
@@ -196,12 +245,12 @@ class GameStatVC: UIViewController, View {
         }
         
         let firstRowItems = [
-            ("2점슛", ["성공", "실패"]),
-            ("3점슛", ["성공", "실패"]),
-            ("자유투", ["성공", "실패"])
+            (Point.TwoPT, ["성공", "실패"]),
+            (Point.ThreePT, ["성공", "실패"]),
+            (Point.FreeThrow, ["성공", "실패"])
         ]
         
-        for (title, segments) in firstRowItems {
+        for (point, segments) in firstRowItems {
             let buttonStack = UIStackView().then {
                 $0.axis = .vertical
                 $0.layer.cornerRadius = 5
@@ -210,7 +259,7 @@ class GameStatVC: UIViewController, View {
             }
             
             let button = UIButton().then {
-                $0.setTitle(title, for: .normal)
+                $0.setTitle(point.rawValue, for: .normal)
                 $0.titleLabel?.font = UIFont.boldButton
                 $0.backgroundColor = .clear
                 $0.setTitleColor(.white, for: .normal)
@@ -220,7 +269,10 @@ class GameStatVC: UIViewController, View {
                     make.height.equalTo(40)
                 }
             }
-            
+            button.rx.tap
+                .map { Reactor.Action.selectedPoint(point: point ,button: button) }
+                .bind(to: reactor.action)
+                .disposed(by: disposeBag)
             buttonStack.addArrangedSubview(button)
             
             let segmentControl = UISegmentedControl(items: segments).then {
@@ -260,9 +312,9 @@ class GameStatVC: UIViewController, View {
                 $0.spacing = 15
             }
             
-            for title in row {
+            for stat in row {
                 let button = UIButton().then {
-                    $0.setTitle(title.rawValue, for: .normal)
+                    $0.setTitle(stat.rawValue, for: .normal)
                     $0.titleLabel?.font = UIFont.boldButton
                     $0.backgroundColor = .clear
                     $0.setTitleColor(.white, for: .normal)
@@ -273,10 +325,14 @@ class GameStatVC: UIViewController, View {
                     $0.snp.makeConstraints { make in
                         make.height.equalTo(40)
                     }
-                }
+                } 
+                button.rx.tap
+                    .map { Reactor.Action.selectedStat(stat: stat, button: button) }
+                    .bind(to: reactor.action)
+                    .disposed(by: disposeBag)
                 rowStackView.addArrangedSubview(button)
             }
-            
+           
             buttonGridStackView.addArrangedSubview(rowStackView)
         }
     }
@@ -329,33 +385,7 @@ class GameStatVC: UIViewController, View {
         }
         
     }
-}
-extension GameStatVC {
     
-    func bind(reactor: GameStatReactor) {
-        // 이전에 선택된 버튼과 새로운 선택된 버튼을 구독
-        let previousSelectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.previousSelectedButton }
-        let selectedButtonObservable: Observable<UIButton?> = reactor.state.map { $0.selectedButton }
-        
-        previousSelectedButtonObservable
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] previousSelectedButton in
-                guard self != nil else { return }
-                previousSelectedButton?.layer.borderWidth = 0
-                previousSelectedButton?.layer.borderColor = UIColor.clear.cgColor
-            })
-            .disposed(by: disposeBag)
-        
-        // 새로운 선택된 버튼에 스트로크 추가
-        selectedButtonObservable
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] selectedButton in
-                guard self != nil else { return }
-                selectedButton?.layer.borderWidth = 4
-                selectedButton?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
-            })
-            .disposed(by: disposeBag)
-    }
 }
 //#Preview {
 //    GameStatVC()

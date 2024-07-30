@@ -184,14 +184,12 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				BD8B9D872C550872000AB1B0 /* Reactor */,
-				BD8B9D862C55085F000AB1B0 /* Model */,
+				BD8B9D8C2C556434000AB1B0 /* GameStat */,
 				608BD4E32C4803EC0003CCA0 /* Resources */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
 				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
-				BD3572982C46066D004CB49F /* GameStatVC.swift */,
 				6034257C2C3DAB7900DA49D5 /* LoginVC.swift */,
 				6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
@@ -265,6 +263,24 @@
 				BD35729B2C461002004CB49F /* GameStatReactor.swift */,
 			);
 			path = Reactor;
+			sourceTree = "<group>";
+		};
+		BD8B9D8C2C556434000AB1B0 /* GameStat */ = {
+			isa = PBXGroup;
+			children = (
+				BD8B9D872C550872000AB1B0 /* Reactor */,
+				BD8B9D8D2C556445000AB1B0 /* View */,
+				BD8B9D862C55085F000AB1B0 /* Model */,
+			);
+			path = GameStat;
+			sourceTree = "<group>";
+		};
+		BD8B9D8D2C556445000AB1B0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD3572982C46066D004CB49F /* GameStatVC.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
