@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
 //        window?.windowScene = windowScene
 //        let navigationController: UINavigationController
-//        
+//
 //        if let user = Auth.auth().currentUser { // <- Firebase Auth
 //            let firebaseAuth = Auth.auth()
 //            do {
@@ -36,9 +36,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        } else {
 //            navigationController = UINavigationController(rootViewController: LoginViewController())
 //        }
-//        
+//
 //        navigationController.view.backgroundColor = .white
-//        
+//
 //        window?.rootViewController = navigationController // 루트 뷰컨트롤러 생성
 //        window?.makeKeyAndVisible()
     }
@@ -81,4 +81,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
 }
-

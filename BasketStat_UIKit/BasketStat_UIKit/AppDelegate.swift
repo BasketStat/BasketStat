@@ -9,7 +9,7 @@ import UIKit
 import FirebaseCore
 import GoogleSignIn
 import KakaoSDKCommon
-
+import DropDown
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,9 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Firebase 초기화
         FirebaseApp.configure()
-        KakaoSDK.initSDK(appKey: "kakao61bd93bb18af831c8f6a58018fe4c998")
+        // Kakao 초기화
+        KakaoSDK.initSDK(appKey: "61bd93bb18af831c8f6a58018fe4c998")
+        // DropDown 라이브러리 초기화
+        DropDown.startListeningToKeyboard()
 
+        
         return true
     }
     
