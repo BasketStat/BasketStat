@@ -139,7 +139,7 @@
 		600941A72C58C8A700BA9123 /* SignUpReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpReactor.swift; sourceTree = "<group>"; };
 		600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderProtocol.swift; sourceTree = "<group>"; };
 		600941AB2C58CB9100BA9123 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
-		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoService.swift; sourceTree = "<group>"; };
+		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = ../KakaoService.swift; sourceTree = "<group>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257C2C3DAB7900DA49D5 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatVC.swift; sourceTree = "<group>"; };
-		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
+		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameStatReactor.swift; path = ../../GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		BD8B9D882C55090C000AB1B0 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BD8B9D8A2C55529C000AB1B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
@@ -218,9 +218,9 @@
 		600941642C4A545900BA9123 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
 				600941AB2C58CB9100BA9123 /* BaseService.swift */,
 				600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */,
-				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
 				600941652C4A546600BA9123 /* FirebaseService.swift */,
 				6009419E2C5776C700BA9123 /* GoogleService.swift */,
 			);
@@ -230,7 +230,6 @@
 		6009416C2C4E524200BA9123 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				6034257C2C3DAB7900DA49D5 /* LoginVC.swift */,
 				600941982C575E6A00BA9123 /* LoginReactor.swift */,
 			);
 			path = Login;
@@ -239,7 +238,6 @@
 		6009416D2C4E524F00BA9123 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -324,7 +322,6 @@
 				600941A02C5777EA00BA9123 /* Errors.swift */,
 				6009419A2C5770BA00BA9123 /* Enums */,
 				BD8B9D8C2C556434000AB1B0 /* GameStat */,
-				608BD4E32C4803EC0003CCA0 /* Resources */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				6009416D2C4E524F00BA9123 /* Models */,
@@ -332,11 +329,9 @@
 				6009416E2C4E527500BA9123 /* SignUp */,
 				6009416C2C4E524200BA9123 /* Login */,
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
-				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
 				6034257C2C3DAB7900DA49D5 /* LoginVC.swift */,
 				6034257F2C3DAB7900DA49D5 /* PlayerModel.swift */,
 				BD3572982C46066D004CB49F /* GameStatVC.swift */,
-				BD35729B2C461002004CB49F /* GameStatReactor.swift */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
 				BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */,
 				608BD4E32C4803EC0003CCA0 /* Resources */,
@@ -422,7 +417,6 @@
 		BD8B9D8D2C556445000AB1B0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BD3572982C46066D004CB49F /* GameStatVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
