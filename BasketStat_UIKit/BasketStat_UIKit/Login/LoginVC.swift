@@ -13,7 +13,7 @@ import RxGesture
 class LoginVC: UIViewController, View {
     
     
-    private let reactor = LoginReactor()
+    private let reactor = LoginReactor(provider: ServiceProvider())
     var disposeBag = DisposeBag()
     fileprivate var currentNonce: String?
     

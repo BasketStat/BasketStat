@@ -11,7 +11,14 @@ import GoogleSignIn
 import FirebaseAuth
 import RxSwift
 
-final class GoogleService {
+
+protocol GoogleServiceProtocol {
+    func signIn(vc: UIViewController) -> Observable<Bool>
+
+}
+
+
+final class GoogleService: BaseService, GoogleServiceProtocol {
     
     
     func signIn(vc: UIViewController) -> Observable<Bool> {

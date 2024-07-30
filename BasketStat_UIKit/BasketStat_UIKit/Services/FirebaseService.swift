@@ -9,7 +9,15 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import RxSwift
-final class FirebaseService {
+
+protocol FirebaseServiceProtocol {
+    func getPlayer() -> Single<PlayerModel>
+    func uploadImage(imageData: Data?, pathRoot: String) -> Single<String>
+    func signInCredential(credential: OAuthCredential) -> Completable
+    func signIn(email: String, password: String) -> Completable
+}
+
+final class FirebaseService: BaseService, FirebaseServiceProtocol {
     
     let db = Firestore.firestore()
     

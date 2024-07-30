@@ -88,11 +88,13 @@ class SignUpVC: UIViewController {
     
     
     lazy var dropDown = DropDown().then {
-        //$0.dataSource = ["test1", "test2", "test3"]
         $0.anchorView = self.positionTextView
         $0.bottomOffset = CGPoint(x: 0, y:40)
-        $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
+        $0.backgroundColor = .black.withAlphaComponent(0.2)
         $0.textColor = .white.withAlphaComponent(0.5)
+        $0.cellHeight = 36
+    
+        
 
     }
     
@@ -101,27 +103,23 @@ class SignUpVC: UIViewController {
     }
     
 
-    
+    let positionLabel = UILabel().then {
+        $0.tintColor = .white.withAlphaComponent(0.5)
+        $0.text = "포지션을 선택해주세요"
+        $0.textColor = .white.withAlphaComponent(0.5)
+        
+    }
     lazy var positionTextView = UIView().then {
         $0.layer.cornerRadius = 2
         $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
         $0.isUserInteractionEnabled = true
 
-        let label = UILabel().then {
-            $0.tintColor = .white.withAlphaComponent(0.5)
-            $0.text = "포지션을 선택해주세요"
-            $0.textColor = .white.withAlphaComponent(0.5)
-            
-        }
+       
         
-        $0.addSubview(label)
+        $0.addSubview(positionLabel)
         $0.addSubview(self.polygon)
         
-        label.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.top.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().offset(-10)
-        }
+       
         
         self.polygon.snp.makeConstraints {
             
@@ -155,17 +153,10 @@ class SignUpVC: UIViewController {
     
     func setUI() {
       
-        let index1 = ["test1", "test2","test3","test4",]
-        let index2 = ["테스트", "테스트","테스트","테스트",]
+        let index = ["PG(포인트 가드)", "SG(슈팅 가드)","SF(스몰 포워드)", "PF(파워 포워드)", "C(센터)"]
+        dropDown.dataSource = index
 
-
-        dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
-           guard let cell = cell as? PostionCell else { return }
-
-           // Setup your custom UI components
-            cell.krLabel.text = index1[index]
-            cell.engLabel.text = index2[index]
-        }
+    
         
         self.view.addSubview(self.mainView)
         self.view.addSubview(self.stackView)
@@ -185,14 +176,14 @@ class SignUpVC: UIViewController {
         self.stackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(50)
             $0.height.equalTo(40 * 3 + (16 * 2))
-            $0.top.equalToSuperview().inset(420)
+            $0.top.equalToSuperview().inset(400)
         }
         
      
         self.profileImageView.snp.makeConstraints {
             $0.width.height.equalTo(174)
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(150)
+            $0.top.equalToSuperview().inset(130)
         }
         
         self.nicknameTextField.snp.makeConstraints {
@@ -206,6 +197,11 @@ class SignUpVC: UIViewController {
             $0.height.equalTo(40)
             $0.width.equalTo(170)
             
+        }
+        self.positionLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(10)
+            $0.bottom.equalToSuperview().offset(-10)
         }
         
         
@@ -240,6 +236,15 @@ class SignUpVC: UIViewController {
              self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
 
         }
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
+            self.positionLabel.text = item
+
+            self.dropDown.clearSelection()
+        }
+        
+        
 
       
 

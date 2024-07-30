@@ -10,11 +10,14 @@ import FirebaseAuth
 import KakaoSDKAuth
 import KakaoSDKUser
 import RxSwift
-class KakaoService {
+
+protocol KakaoServiceProtocol {
+    func kakaoLogin() -> Completable
+}
+class KakaoService: BaseService, KakaoServiceProtocol {
     
-    let firebaseService = FirebaseService()
     var disposeBag = DisposeBag()
-    static let shared = KakaoService()
+    
     
     
     
@@ -62,12 +65,16 @@ class KakaoService {
                                             outputName = name
                                             
                                            
-                                            self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] result in
-                                                guard let self else {return}
+                                            Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
+                                                if let err {
+                                                    completable(.error(err))
+
+                                                } else {
+                                                    UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
+                                                    completable(.completed)
+                                                }
                                                 
-                                                completable(result)
-                                                
-                                            }).disposed(by: self.disposeBag)
+                                            }
                                             
                                             
                                         }
@@ -108,13 +115,17 @@ class KakaoService {
                                             outputPassword = "kakao_" + String(describing: pw )
                                             outputName = name
                                             
-                                            self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] result in
-                                                guard let self else {return}
+                                      
+                                            Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
+                                                if let err {
+                                                    completable(.error(err))
+
+                                                } else {
+                                                    UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
+                                                    completable(.completed)
+                                                }
                                                 
-                                                completable(result)
-                                                
-                                            }).disposed(by: self.disposeBag)
-                                            
+                                            }
                                             
                                         }
                                     }
@@ -136,12 +147,16 @@ class KakaoService {
                             outputPassword = "kakao_" + String(describing: pw )
                             outputName = name
                             
-                            self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] result in
-                                guard let self else {return}
+                            Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
+                                if let err {
+                                    completable(.error(err))
+
+                                } else {
+                                    UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
+                                    completable(.completed)
+                                }
                                 
-                                completable(result)
-                                
-                            }).disposed(by: self.disposeBag)
+                            }
                             
                         }
                         
@@ -177,12 +192,16 @@ class KakaoService {
                                     outputPassword = "kakao_" + String(describing: pw )
                                     outputName = name
                                     
-                                    self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] result in
-                                        guard let self else {return}
+                                    Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
+                                        if let err {
+                                            completable(.error(err))
+
+                                        } else {
+                                            UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
+                                            completable(.completed)
+                                        }
                                         
-                                        completable(result)
-                                        
-                                    }).disposed(by: self.disposeBag)
+                                    }
                                     
                                 }
                             }
@@ -218,12 +237,16 @@ class KakaoService {
                                     outputPassword = "kakao_" + String(describing: pw )
                                     outputName = name
                                     
-                                    self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] result in
-                                        guard let self else {return}
+                                    Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
+                                        if let err {
+                                            completable(.error(err))
+
+                                        } else {
+                                            UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
+                                            completable(.completed)
+                                        }
                                         
-                                        completable(result)
-                                        
-                                    }).disposed(by: self.disposeBag)
+                                    }
                                     
                                 }
                             }

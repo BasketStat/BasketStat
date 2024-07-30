@@ -13,9 +13,7 @@ import FirebaseAuth
 
 class LoginReactor: Reactor {
     
-    private let googleService = GoogleService()
-    private let firebaseService = FirebaseService()
-    private let kakaoService = KakaoService()
+    
     var disposeBag = DisposeBag()
     
     enum Action {
@@ -36,17 +34,29 @@ class LoginReactor: Reactor {
         
     }
     
-    let initialState: State = .init(isPushed: false)
+    let initialState: State
+    let provider: ServiceProviderProtocol
+    
+    init(provider: ServiceProviderProtocol) {
+        self.initialState = State(isPushed: false)
+        self.provider = provider
+    }
+    
+    
+
+    
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .appleLogin(let credential):
             return Observable.create { observable in
                 
-                self.firebaseService.signInCredential(credential: credential).subscribe({ completable in
+                self.provider.firebaseService.signInCredential(credential: credential).subscribe({ [weak self] completable in
+                    guard let self else {return}
+                 
                     switch completable {
-                    case .completed:
-                        self.firebaseService.getPlayer().subscribe({ [weak self] result in
+                    case.completed:
+                        self.provider.firebaseService.getPlayer().subscribe({ result in
                             
                             switch result {
                             case.success(let model):
@@ -59,12 +69,8 @@ class LoginReactor: Reactor {
                             }
                             
                         }).disposed(by: self.disposeBag)
-                        
-                        
-                        
-                    case .error(_):
+                    case .error(let err):
                         observable.onNext(Mutation.loginFailed)
-                        
                     }
                     
                     
@@ -77,7 +83,7 @@ class LoginReactor: Reactor {
         case .kakaoLogin:
             return Observable.create { [weak self] observable in
                 guard let self else { return Disposables.create() }
-                self.kakaoService.kakaoLogin().subscribe({ completable in
+                self.provider.kakaoService.kakaoLogin().subscribe({ completable in
                     switch completable {
                     case.completed:
                         print("appleLogin Success")
@@ -92,7 +98,7 @@ class LoginReactor: Reactor {
             }
         case .googleLogin(let vc):
             
-            return googleService.signIn(vc: vc).map { value -> Mutation in
+            return provider.googleService.signIn(vc: vc).map { value -> Mutation in
                 if value {
                     print("로그인 성공")
                     return Mutation.loginSuccess
@@ -108,7 +114,7 @@ class LoginReactor: Reactor {
         
     }
     
- 
+    
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         
@@ -123,4 +129,7 @@ class LoginReactor: Reactor {
         
         return newState
     }
+    
+    
+    
 }

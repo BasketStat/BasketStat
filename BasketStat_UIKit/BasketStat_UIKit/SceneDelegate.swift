@@ -16,30 +16,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//                window = UIWindow(windowScene: windowScene)
-//                window?.rootViewController = GameStatVC()
-//                window?.makeKeyAndVisible()
+        //                window = UIWindow(windowScene: windowScene)
+        //                window?.rootViewController = GameStatVC()
+        //                window?.makeKeyAndVisible()
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let navigationController: UINavigationController
         
-        if Auth.auth().currentUser != nil { // <- Firebase Auth
-           
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                print("signOut")
-            } catch let signOutError as NSError {
-                print("Error signing out: %@", signOutError)
-            }
-            navigationController = UINavigationController(rootViewController: GameStatVC())
-            
-        } else {
-            navigationController = UINavigationController(rootViewController: LoginVC())
-
-     
-        }
+        //        if Auth.auth().currentUser != nil { // <- Firebase Auth
+        //
+        //            let firebaseAuth = Auth.auth()
+        //            do {
+        //                try firebaseAuth.signOut()
+        //                print("signOut")
+        //            } catch let signOutError as NSError {
+        //                print("Error signing out: %@", signOutError)
+        //            }
+        //            navigationController = UINavigationController(rootViewController: GameStatVC())
+        //
+        //        } else {
+        //            navigationController = UINavigationController(rootViewController: LoginVC())
+        //
+        //
+        //        }
+        
+        navigationController = UINavigationController(rootViewController: SignUpVC())
         
         navigationController.view.backgroundColor = .white
         
