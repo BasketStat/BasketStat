@@ -53,7 +53,13 @@ class SignUpReactor: Reactor {
         
     }
     
-    let initialState: State = .init(isPushed: false)
+    let initialState: State
+    let provider: ServiceProviderProtocol
+    
+    init(provider: ServiceProviderProtocol) {
+        self.initialState = State(isPushed: false)
+        self.provider = provider
+    }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
@@ -62,11 +68,22 @@ class SignUpReactor: Reactor {
             
             
         case .pushBtn:
-            let playerModel = PlayerModel.init(nickname: initialState.nickname, tall: initialState.tall, position: PlayerModel.PositionType(rawValue: positionDic[initialState.position!]!)!  , weight: initialState.weight)
+            let playerModel = PlayerModel.init(nickname: self.currentState.nickname, tall: self.currentState.tall, position: PlayerModel.PositionType(rawValue: positionDic[self.currentState.position!]!)!  , weight: self.currentState.weight)
             
-            provider.firebaseService.setPlayer()
             
-            return .just(.isPushed)
+            return .create { [weak self] ob in
+                guard let self else {return Disposables.create()}
+                provider.firebaseService.setPlayer(playerModel: playerModel).subscribe({ com in
+                    switch com {
+                    case .completed:
+                        ob.onNext(.isPushed)
+                    case .error(_):
+                        break
+                    }
+                }).disposed(by: self.disposeBag)
+                
+                return Disposables.create()
+            }
             
             
         case .setTall(let tall):
@@ -97,6 +114,7 @@ class SignUpReactor: Reactor {
         case .isPushed:
             newState.isPushed.toggle()
         case .setPosition(let position):
+            print("position \(position)")
             newState.position = position
             
         case .setWeight(let weight):

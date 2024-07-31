@@ -15,6 +15,7 @@ protocol FirebaseServiceProtocol {
     func uploadImage(imageData: Data?, pathRoot: String) -> Single<String>
     func signInCredential(credential: OAuthCredential) -> Completable
     func signIn(email: String, password: String) -> Completable
+    func setPlayer(playerModel: PlayerModel) -> Completable
 }
 
 final class FirebaseService: BaseService, FirebaseServiceProtocol {
@@ -43,12 +44,12 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
                         }
                         
                     }
-                 
-
-                }
-               
+                    
                     
                 }
+                
+                
+            }
             
             return Disposables.create()
         }
@@ -139,9 +140,24 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
     
     func setPlayer(playerModel: PlayerModel) -> Completable {
         
-        return Completable.create { com in
+        
+        
+        
+        return Completable.create { [weak self] com in
+            guard let self, let uid = UserDefaults.standard.string(forKey: "uid"), let playerDic = playerModel.toDictionary else {
+                com(.error(CustomError.CustomNil))
+                return Disposables.create() }
+            do {
+                self.db.collection("BasketStat_Player").document("\(uid)").setData(playerDic)
+                com(.completed)
+
+            } catch let error {
+                print("Error writing city to Firestore: \(error)")
+                com(.error(error))
+            }
             
             
+            return Disposables.create()
             
         }
     }
