@@ -14,22 +14,35 @@ import RxGesture
 
 class SignUpVC: UIViewController, View {
     
+   
+    
     private let reactor = SignUpReactor()
     var disposeBag = DisposeBag()
     
+    let positionBinder = PublishSubject<Int>()
     
     var cnt = 0
     
-
+    let index = ["PG(포인트 가드)", "SG(슈팅 가드)","SF(스몰 포워드)", "PF(파워 포워드)", "C(센터)"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
+        KeyBoard.shared.KeyBoardSetting(vc: self)
+
+        
         self.setUI()
         self.bind(reactor: self.reactor)
-
+        
     }
-
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        KeyBoard.shared.removeOb(vc: self)
+    }
+    
+    
     let mainView = UIView().then {
         $0.backgroundColor = .mainColor()
     }
@@ -39,7 +52,7 @@ class SignUpVC: UIViewController, View {
         $0.layer.cornerRadius = 87
         $0.layer.masksToBounds = true
     }
-     
+    
     let nicknameTextField = UITextField().then {
         $0.textAlignment = .center
         $0.backgroundColor = .clear
@@ -48,21 +61,24 @@ class SignUpVC: UIViewController, View {
         $0.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white.withAlphaComponent(0.5)])
     }
     
-    let tallTextView = UIView().then {
+    
+    let tallTextField = UITextField().then {
+        $0.keyboardType = .numberPad
+        $0.backgroundColor = .clear
+        $0.textColor = .white.withAlphaComponent(0.5)
+        $0.tintColor = .white.withAlphaComponent(0.5)
+        $0.attributedPlaceholder = NSAttributedString(string: "키를 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white.withAlphaComponent(0.5)])
+    }
+    lazy var tallTextView = UIView().then {
         $0.layer.cornerRadius = 2
         $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
-    
-        let textField = UITextField().then {
-            $0.backgroundColor = .clear
-            $0.textColor = .white.withAlphaComponent(0.5)
-            $0.tintColor = .white.withAlphaComponent(0.5)
-            $0.attributedPlaceholder = NSAttributedString(string: "키를 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white.withAlphaComponent(0.5)])
-        }
         
         
-        $0.addSubview(textField)
         
-        textField.snp.makeConstraints {
+        
+        $0.addSubview(tallTextField)
+        
+        tallTextField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().offset(-10)
@@ -70,20 +86,24 @@ class SignUpVC: UIViewController, View {
         
     }
     
-    let weightTextView = UIView().then {
+    let weightTextField = UITextField().then {
+        $0.keyboardType = .numberPad
+
+        $0.tintColor = .white.withAlphaComponent(0.5)
+        $0.backgroundColor = .clear
+        $0.textColor = .white.withAlphaComponent(0.5)
+        $0.attributedPlaceholder = NSAttributedString(string: "몸무게를 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white.withAlphaComponent(0.5)])
+        
+    }
+    
+    lazy var weightTextView = UIView().then {
         $0.layer.cornerRadius = 2
         $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
         
-        let textField = UITextField().then {
-            $0.tintColor = .white.withAlphaComponent(0.5)
-            $0.backgroundColor = .clear
-            $0.textColor = .white.withAlphaComponent(0.5)
-            $0.attributedPlaceholder = NSAttributedString(string: "몸무게를 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white.withAlphaComponent(0.5)])
- 
-        }
-        $0.addSubview(textField)
         
-        textField.snp.makeConstraints {
+        $0.addSubview(weightTextField)
+        
+        weightTextField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().offset(-10)
@@ -97,16 +117,16 @@ class SignUpVC: UIViewController, View {
         $0.backgroundColor = .black.withAlphaComponent(0.2)
         $0.textColor = .white.withAlphaComponent(0.5)
         $0.cellHeight = 36
-    
         
-
+        
+        
     }
     
     var polygon = UIImageView(image: UIImage(named: "Polygon.png")).then {
         $0.isUserInteractionEnabled = true
     }
     
-
+    
     let positionLabel = UILabel().then {
         $0.tintColor = .white.withAlphaComponent(0.5)
         $0.text = "포지션을 선택해주세요"
@@ -117,20 +137,20 @@ class SignUpVC: UIViewController, View {
         $0.layer.cornerRadius = 2
         $0.backgroundColor = .fromRGB(217, 217, 217, 0.2)
         $0.isUserInteractionEnabled = true
-
-       
+        
+        
         
         $0.addSubview(positionLabel)
         $0.addSubview(self.polygon)
         
-       
+        
         
         self.polygon.snp.makeConstraints {
             
             $0.trailing.equalToSuperview().inset(16)
             
             $0.centerY.equalToSuperview()
-
+            
             
         }
         
@@ -156,25 +176,24 @@ class SignUpVC: UIViewController, View {
     
     
     func setUI() {
-      
-        let index = ["PG(포인트 가드)", "SG(슈팅 가드)","SF(스몰 포워드)", "PF(파워 포워드)", "C(센터)"]
+        
         dropDown.dataSource = index
-
-    
+        
+        
         
         self.view.addSubview(self.mainView)
         self.view.addSubview(self.stackView)
         self.view.addSubview(self.profileImageView)
         self.view.addSubview(self.nicknameTextField)
         self.view.addSubview(self.checkBtn)
-     
-    
+        
+        
         self.mainView.snp.makeConstraints {
             $0.width.height.equalToSuperview()
             
         }
         
-    
+        
         
         
         self.stackView.snp.makeConstraints {
@@ -183,7 +202,7 @@ class SignUpVC: UIViewController, View {
             $0.top.equalToSuperview().inset(400)
         }
         
-     
+        
         self.profileImageView.snp.makeConstraints {
             $0.width.height.equalTo(174)
             $0.centerX.equalToSuperview()
@@ -223,38 +242,57 @@ class SignUpVC: UIViewController, View {
         
         
         self.positionTextView.rx.tapGesture().when(.recognized).subscribe(onNext: { _ in
-         
+            
             self.dropDown.show()
-             self.polygon.transform = CGAffineTransformMakeScale(1, -1);
-
+            self.polygon.transform = CGAffineTransformMakeScale(1, -1);
+            
             
         }).disposed(by: disposeBag)
         
-       
-
+        
+        
         dropDown.willShowAction = { [unowned self] in
-             self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
-
+            self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
+            
         }
         dropDown.cancelAction = { [unowned self] in
-             self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
-
+            self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
+            
         }
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.polygon.transform = CGAffineTransformMakeScale(-1, 1);
             self.positionLabel.text = item
-
+            
+            self.positionBinder.onNext(index)
             self.dropDown.clearSelection()
         }
         
+        reactor.state.map { $0.isLoginButtonEnabled }.subscribe(onNext: { val in
+            
+            if val {
+                self.checkBtn.backgroundColor = .btnColor()
+            } else {
+                self.checkBtn.backgroundColor = .lightGray
+                
+            }
+            
+            self.checkBtn.isEnabled = val
+            
+        }).disposed(by: disposeBag)
         
         
+        self.nicknameTextField.rx.text.orEmpty.distinctUntilChanged().map { text in Reactor.Action.setNickname(text) }.bind(to: reactor.action).disposed(by: disposeBag)
+        
+        self.tallTextField.rx.text.orEmpty.distinctUntilChanged().map { text in Reactor.Action.setTall(text) }.bind(to: reactor.action).disposed(by: disposeBag)
+        
+        self.weightTextField.rx.text.orEmpty.distinctUntilChanged().map { text in Reactor.Action.setWeight(text) }.bind(to: reactor.action).disposed(by: disposeBag)
+        
+        self.positionBinder.distinctUntilChanged().map { index in Reactor.Action.setPosition(index)}.bind(to: reactor.action).disposed(by: disposeBag)
+        
+        self.checkBtn.rx.tap.map{ Reactor.Action.pushBtn }.bind(to: reactor.action).disposed(by: disposeBag)
         
         
-
-      
-
     }
     
     
@@ -363,17 +401,17 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
         print("picker -> \(String(describing: info[UIImagePickerController.InfoKey.imageURL]))")
         
         if let image = info[.editedImage] as? UIImage {
-          
+            
             self.profileImageView.image = image
-
+            
             
         } else if let image = info[.originalImage] as? UIImage {
             self.profileImageView.image = image
         }
-
         
         
-
+        
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -383,28 +421,8 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     
 }
 
-class PostionCell: DropDownCell {
-   
-    let krLabel = UILabel()
-    let engLabel = UILabel()
+extension SignUpVC  {
     
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        krLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(10)
-        } 
-        engLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(10)
-        }
-        
+    override func viewDidDisappear(_ animated: Bool) {
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
 }

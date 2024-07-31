@@ -8,13 +8,14 @@
 import Foundation
 import UIKit
 
+let positionDic = [0:"PG", 1:"SG", 2:"SF", 3:"PF", 4:"C"]
 
 struct PlayerModel: Codable, Equatable {
     
     var nickname: String
-    var tall: Double
+    var tall: String
     var position: PositionType
-    var weight: Double
+    var weight: String
     var profileImageUrl: String?
     
     enum PositionType: String, Codable {
@@ -24,6 +25,7 @@ struct PlayerModel: Codable, Equatable {
         case PF = "PF"
         case C = "C"
       }
+    
     
     
     

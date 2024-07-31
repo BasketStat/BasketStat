@@ -137,5 +137,14 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         }
     }
     
+    func setPlayer(playerModel: PlayerModel) -> Completable {
+        
+        return Completable.create { com in
+            
+            
+            
+        }
+    }
+    
     
 }

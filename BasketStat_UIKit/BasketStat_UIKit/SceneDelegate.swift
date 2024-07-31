@@ -16,14 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-                window = UIWindow(windowScene: windowScene)
-                window?.rootViewController = GameStatVC()
-                window?.makeKeyAndVisible()
+//                window = UIWindow(windowScene: windowScene)
+//                window?.rootViewController = GameStatVC()
+//                window?.makeKeyAndVisible()
         
-//        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//        window?.windowScene = windowScene
-//        let navigationController: UINavigationController
-//
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        let navigationController: UINavigationController
+        navigationController = UINavigationController(rootViewController: SignUpVC())
+
+
 //        if let user = Auth.auth().currentUser { // <- Firebase Auth
 //            let firebaseAuth = Auth.auth()
 //            do {
@@ -36,11 +38,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        } else {
 //            navigationController = UINavigationController(rootViewController: LoginViewController())
 //        }
-//
-//        navigationController.view.backgroundColor = .white
-//
-//        window?.rootViewController = navigationController // 루트 뷰컨트롤러 생성
-//        window?.makeKeyAndVisible()
+
+        navigationController.view.backgroundColor = .white
+
+        window?.rootViewController = navigationController // 루트 뷰컨트롤러 생성
+        window?.makeKeyAndVisible()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
