@@ -19,6 +19,7 @@ class SignUpReactor: Reactor {
     enum Action {
         case pushBtn
         
+        case setProfileImage(UIImage?)
         case setTall(String)
         case setWeight(String)
         case setNickname(String)
@@ -30,6 +31,7 @@ class SignUpReactor: Reactor {
     enum Mutation {
         case isPushed
         
+        case setProfileImage(UIImage?)
         case setTall(String)
         case setWeight(String)
         case setNickname(String)
@@ -41,6 +43,7 @@ class SignUpReactor: Reactor {
     struct State {
         var isPushed : Bool
         
+        var profileImage: UIImage?
         var nickname: String = ""
         var tall: String = ""
         var weight: String = ""
@@ -68,7 +71,9 @@ class SignUpReactor: Reactor {
             
             
         case .pushBtn:
-            let playerModel = PlayerModel.init(nickname: self.currentState.nickname, tall: self.currentState.tall, position: PlayerModel.PositionType(rawValue: positionDic[self.currentState.position!]!)!  , weight: self.currentState.weight)
+            var playerModel = PlayerModel.init(nickname: self.currentState.nickname, tall: self.currentState.tall, position: PositionType(rawValue: positionDic[self.currentState.position!]!)!  , weight: self.currentState.weight)
+            
+            playerModel.profileImage = self.currentState.profileImage
             
             
             return .create { [weak self] ob in
@@ -97,6 +102,8 @@ class SignUpReactor: Reactor {
             
         case .setNickname(let nickname):
             return .just(.setNickname(nickname))
+        case .setProfileImage(let image):
+            return .just(.setProfileImage(image))
         }
         
         
@@ -110,17 +117,16 @@ class SignUpReactor: Reactor {
         switch mutation {
         case .setTall(let tall):
             newState.tall = tall
-            
         case .isPushed:
             newState.isPushed.toggle()
         case .setPosition(let position):
-            print("position \(position)")
             newState.position = position
-            
         case .setWeight(let weight):
             newState.weight = weight
         case .setNickname(let nickname):
             newState.nickname = nickname
+        case .setProfileImage(let image):
+            newState.profileImage = image
         }
         
         

@@ -21,12 +21,13 @@ protocol FirebaseServiceProtocol {
 final class FirebaseService: BaseService, FirebaseServiceProtocol {
     
     let db = Firestore.firestore()
+    var disposeBag = DisposeBag()
     
     func getPlayer() -> Single<PlayerModel> {
         
         Single.create { single in
-            
-            guard let uid = UserDefaults.standard.string(forKey: "uid") else { return Disposables.create() }
+            guard let uid = UserDefaults.standard.string(forKey: "uid") else {
+                return Disposables.create() }
             self.db.collection("Players").document(uid).getDocument { doc, err in
                 
                 if let err {
@@ -36,13 +37,17 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
                     if let data = doc?.data() {
                         do {
                             let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                            let playerModel = try JSONDecoder().decode(PlayerModel.self, from: jsonData)
-                            single(.success(playerModel))
+                            let playerDto = try JSONDecoder().decode(PlayerDto.self, from: jsonData)
+                            
+                            single(.success(playerDto.getModel()))
                         } catch {
                             
                             single(.failure(CustomError.CustomNil))
                         }
                         
+                    } else {
+                        single(.failure(CustomError.CustomNil))
+
                     }
                     
                     
@@ -64,6 +69,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
                 single(.success(""))
                 return Disposables.create()  }
             
+            let path = pathRoot + "/" + "profile"
             
             let metaData = StorageMetadata()
             
@@ -71,12 +77,23 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
             
             let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
             
-            let firebaseReference = Storage.storage().reference().child("\(pathRoot)/\(imageName)")
+            let firebaseReference = Storage.storage().reference().child("\(path)/\(imageName)")
             
             
-            firebaseReference.putData(imageData, metadata: metaData) { _, _ in
-                firebaseReference.downloadURL { url, _ in
-                    single(.success(url?.absoluteString ?? ""))
+            firebaseReference.putData(imageData, metadata: metaData) { _, err in
+                if err != nil {
+                    print("putData \(err)")
+                } else {
+
+                    firebaseReference.downloadURL { url, err in
+                        if err != nil {
+                            print(err)
+                        } else {
+                            print("\(url?.absoluteString ?? "") url")
+                            single(.success(url?.absoluteString ?? ""))
+                            
+                        }
+                    }
                 }
             }
             
@@ -138,23 +155,69 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         }
     }
     
-    func setPlayer(playerModel: PlayerModel) -> Completable {
+    func setStore(playerDto: PlayerDto, uid: String) -> Completable{
         
-        
-        
-        
-        return Completable.create { [weak self] com in
-            guard let self, let uid = UserDefaults.standard.string(forKey: "uid"), let playerDic = playerModel.toDictionary else {
-                com(.error(CustomError.CustomNil))
-                return Disposables.create() }
+        Completable.create { com in
+            guard let playerDto = playerDto.toDictionary else {return Disposables.create()}
             do {
-                self.db.collection("BasketStat_Player").document("\(uid)").setData(playerDic)
+                self.db.collection("BasketStat_Player").document("\(uid)").setData(playerDto)
                 com(.completed)
 
             } catch let error {
                 print("Error writing city to Firestore: \(error)")
                 com(.error(error))
             }
+            return Disposables.create()
+        }
+        
+
+        
+    }
+    
+    
+    func setPlayer(playerModel: PlayerModel) -> Completable {
+        
+      
+        
+        
+        
+        return Completable.create { [weak self] com in
+            
+            guard let self, let uid = UserDefaults.standard.string(forKey: "uid") else {
+                com(.error(CustomError.CustomNil))
+                return Disposables.create() }
+            
+            var playerDto = playerModel.getDto(profileImageUrl: "")
+            
+            if let profileImage = playerModel.profileImage {
+                let data = profileImage.jpegData(compressionQuality: 0.9)
+                self.uploadImage(imageData: data , pathRoot: uid).subscribe({ single in
+
+                    print("single")
+                    switch single {
+                    case .success(let url):
+                        playerDto.profileImageUrl = url
+                        self.setStore(playerDto: playerDto, uid: uid).subscribe({ comp in
+                            com(comp)
+                            
+                        }).disposed(by: self.disposeBag)
+                        print("success")
+                    case .failure(let err):
+                        self.setStore(playerDto: playerDto, uid: uid).subscribe({ comp in
+                            com(comp)
+                            
+                        }).disposed(by: self.disposeBag)
+                        break
+                    }
+                    
+                }).disposed(by: self.disposeBag)
+            } else {
+                self.setStore(playerDto: playerDto, uid: uid).subscribe({ comp in
+                    com(comp)
+                    
+                }).disposed(by: self.disposeBag)
+            }
+            
             
             
             return Disposables.create()

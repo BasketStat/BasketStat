@@ -86,7 +86,6 @@ class LoginReactor: Reactor {
                 self.provider.kakaoService.kakaoLogin().subscribe({ completable in
                     switch completable {
                     case.completed:
-                        print("appleLogin Success")
                         observable.onNext(Mutation.loginSuccess)
                     case .error(_):
                         observable.onNext(Mutation.loginFailed)
@@ -100,7 +99,6 @@ class LoginReactor: Reactor {
             
             return provider.googleService.signIn(vc: vc).map { value -> Mutation in
                 if value {
-                    print("로그인 성공")
                     return Mutation.loginSuccess
                 }
                 else {

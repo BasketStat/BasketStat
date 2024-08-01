@@ -8,10 +8,13 @@
 import UIKit
 import FirebaseAuth
 import KakaoSDKAuth
+import RxSwift
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    
+    var disposeBag = DisposeBag()
+    let provider: ServiceProviderProtocol = ServiceProvider()
+
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -19,14 +22,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //                window = UIWindow(windowScene: windowScene)
 //                window?.rootViewController = GameStatVC()
 //                window?.makeKeyAndVisible()
-        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        let navigationController: UINavigationController
+        var navigationController: UINavigationController
         navigationController = UINavigationController(rootViewController: SignUpVC())
+        print("signUp")
 
+        if let user = Auth.auth().currentUser { 
 
-//        if let user = Auth.auth().currentUser { // <- Firebase Auth
+            // <- Firebase Auth
 //            let firebaseAuth = Auth.auth()
 //            do {
 //                try firebaseAuth.signOut()
@@ -34,13 +38,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            } catch let signOutError as NSError {
 //                print("Error signing out: %@", signOutError)
 //            }
-//            navigationController = UINavigationController(rootViewController: LoginViewController())
-//        } else {
-//            navigationController = UINavigationController(rootViewController: LoginViewController())
-//        }
+            print("uid")
+            UserDefaults.standard.setValue(user.uid, forKey: "uid")
+            provider.firebaseService.getPlayer().subscribe({ single in
+                switch single {
+                case.success(let model):
+                    print("success")
 
+                   // navigationController = UINavigationController(rootViewController: GameStatVC())
+                    navigationController = UINavigationController(rootViewController: SignUpVC())
+                    self.pushViewController(navigationController: navigationController)
+                case.failure(let err):
+                    print("\(err)err")
+
+                    navigationController = UINavigationController(rootViewController: SignUpVC())
+
+                    self.pushViewController(navigationController: navigationController)
+
+                    
+                }
+                
+                
+            }).disposed(by: self.disposeBag)
+          
+        } else {
+            print("else")
+
+            navigationController = UINavigationController(rootViewController: LoginVC())
+            self.pushViewController(navigationController: navigationController)
+
+        }
+
+
+    }
+    
+    func pushViewController(navigationController: UINavigationController) {
         navigationController.view.backgroundColor = .white
-
         window?.rootViewController = navigationController // 루트 뷰컨트롤러 생성
         window?.makeKeyAndVisible()
     }

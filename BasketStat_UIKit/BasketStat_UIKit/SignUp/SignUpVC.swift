@@ -20,6 +20,7 @@ class SignUpVC: UIViewController, View {
     var disposeBag = DisposeBag()
     
     let positionBinder = PublishSubject<Int>()
+    let profileImageBinder = PublishSubject<UIImage?>()
         
     let index = ["PG(포인트 가드)", "SG(슈팅 가드)","SF(스몰 포워드)", "PF(파워 포워드)", "C(센터)"]
     
@@ -232,6 +233,7 @@ class SignUpVC: UIViewController, View {
     
     func bind(reactor: SignUpReactor) {
         
+        
         self.profileImageView.rx.tapGesture().when(.recognized).subscribe(onNext: { _ in
             
             self.actionSheetAlert()
@@ -279,6 +281,8 @@ class SignUpVC: UIViewController, View {
             
         }).disposed(by: disposeBag)
         
+        self.profileImageBinder.distinctUntilChanged().map { image in
+            Reactor.Action.setProfileImage(image) }.bind(to: reactor.action).disposed(by: disposeBag)
         
         self.nicknameTextField.rx.text.orEmpty.distinctUntilChanged().map { text in Reactor.Action.setNickname(text) }.bind(to: reactor.action).disposed(by: disposeBag)
         
@@ -289,6 +293,15 @@ class SignUpVC: UIViewController, View {
         self.positionBinder.distinctUntilChanged().map { index in Reactor.Action.setPosition(index)}.bind(to: reactor.action).disposed(by: disposeBag)
         
         self.checkBtn.rx.tap.map{ Reactor.Action.pushBtn }.bind(to: reactor.action).disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isPushed }.subscribe(onNext: { val in
+            
+            if val {
+                self.navigationController?.pushViewController( GameStatVC() , animated: false)
+            }
+            
+            
+        }).disposed(by: disposeBag)
         
         
     }
@@ -401,11 +414,15 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
         if let image = info[.editedImage] as? UIImage {
             
             self.profileImageView.image = image
-            
+            self.profileImageBinder.onNext(image)
             
         } else if let image = info[.originalImage] as? UIImage {
             self.profileImageView.image = image
+            self.profileImageBinder.onNext(image)
+
+            
         }
+        
         
         
         
@@ -419,8 +436,3 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     
 }
 
-extension SignUpVC  {
-    
-    override func viewDidDisappear(_ animated: Bool) {
-    }
-}
