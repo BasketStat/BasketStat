@@ -9,7 +9,7 @@ import UIKit
 import FirebaseCore
 import GoogleSignIn
 import KakaoSDKCommon
-
+import DropDown
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,9 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Firebase 초기화
         FirebaseApp.configure()
-        KakaoSDK.initSDK(appKey: "kakao61bd93bb18af831c8f6a58018fe4c998")
+        // Kakao 초기화
+        KakaoSDK.initSDK(appKey: "61bd93bb18af831c8f6a58018fe4c998")
+        // DropDown 라이브러리 초기화
+        DropDown.startListeningToKeyboard()
 
+        
         return true
     }
     
@@ -58,3 +64,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIViewController {
+   
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+      
+    
+
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame.origin.y = -keyboardHeight + 100
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y = 0
+        }
+    }
+   
+}

@@ -17,4 +17,8 @@ extension UIColor {
         return .fromRGB(58, 53, 48, 1)
     }
     
+    class func btnColor() -> UIColor {
+        return UIColor(red: 0.922, green: 0.4, blue: 0.02, alpha: 1)
+    }
+    
 }
