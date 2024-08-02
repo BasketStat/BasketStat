@@ -28,7 +28,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         Single.create { single in
             guard let uid = UserDefaults.standard.string(forKey: "uid") else {
                 return Disposables.create() }
-            self.db.collection("Players").document(uid).getDocument { doc, err in
+            self.db.collection("BasketStat_Player").document(uid).getDocument { doc, err in
                 
                 if let err {
                     single(.failure(err))
@@ -41,11 +41,12 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
                             
                             single(.success(playerDto.getModel()))
                         } catch {
-                            
+                            print("catch")
                             single(.failure(CustomError.CustomNil))
                         }
                         
                     } else {
+                        print("else")
                         single(.failure(CustomError.CustomNil))
 
                     }

@@ -25,12 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         var navigationController: UINavigationController
-        navigationController = UINavigationController(rootViewController: SignUpVC())
-        print("signUp")
+        navigationController = UINavigationController()
 
         if let user = Auth.auth().currentUser { 
 
-            // <- Firebase Auth
+//            // <- Firebase Auth
 //            let firebaseAuth = Auth.auth()
 //            do {
 //                try firebaseAuth.signOut()
@@ -38,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            } catch let signOutError as NSError {
 //                print("Error signing out: %@", signOutError)
 //            }
-            print("uid")
+
             UserDefaults.standard.setValue(user.uid, forKey: "uid")
             provider.firebaseService.getPlayer().subscribe({ single in
                 switch single {
@@ -46,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print("success")
 
                    // navigationController = UINavigationController(rootViewController: GameStatVC())
-                    navigationController = UINavigationController(rootViewController: SignUpVC())
+                    navigationController = UINavigationController(rootViewController: MainVC())
                     self.pushViewController(navigationController: navigationController)
                 case.failure(let err):
                     print("\(err)err")
