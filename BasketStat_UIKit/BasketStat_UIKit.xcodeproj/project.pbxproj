@@ -143,7 +143,7 @@
 		600941A72C58C8A700BA9123 /* SignUpReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpReactor.swift; sourceTree = "<group>"; };
 		600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderProtocol.swift; sourceTree = "<group>"; };
 		600941AB2C58CB9100BA9123 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
-		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
+		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITests.swift; sourceTree = "<group>"; };
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameStatVC.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/GameStat/View/GameStatVC.swift; sourceTree = "<absolute>"; };
+		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameStatVC.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/GameStat/View/GameStatVC.swift"; sourceTree = "<absolute>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		BD8B9D882C55090C000AB1B0 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
