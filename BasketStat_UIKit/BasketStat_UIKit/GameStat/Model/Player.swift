@@ -16,7 +16,6 @@ struct Player:Codable {
     
 }
 struct StatButton {
-    
     var newSelectedPlayerButton: UIButton?
     var preSelectedPointButton: UIButton?
     var newSelectedPointButton: UIButton?

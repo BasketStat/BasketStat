@@ -119,6 +119,7 @@ class GameStatVC: UIViewController, View {
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         $0.layer.borderWidth = 1
+        
         $0.layer.masksToBounds = true
     }
     
@@ -129,12 +130,19 @@ class GameStatVC: UIViewController, View {
         $0.layer.cornerRadius = 5
         $0.backgroundColor = UIColor.fromRGB(255, 107, 0, 0.9)
         $0.layer.masksToBounds = true
-
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         bind(reactor: reactor)
+        layout()
+    }
+}
+// MARK: View Setup
+extension GameStatVC {
+    private func setupView() {
         view.backgroundColor = UIColor.mainColor()
         view.addSubview(backgroundImage)
         view.addSubview(quarterLabel)
@@ -154,65 +162,16 @@ class GameStatVC: UIViewController, View {
         secondTeamStackView.addArrangedSubview(secondTeamLabel)
         secondTeamStackView.addArrangedSubview(secondTeamScoreLabel)
         secondTeamStackView.addArrangedSubview(secondButtonStackView)
-        
         setupBtn(secondButtonStackView)
         setupButtonGrid()
         
         recordStackView.addArrangedSubview(cancleButton)
         recordStackView.addArrangedSubview(saveButton)
-        
-        layout()
     }
-}
-extension GameStatVC {
-    enum ButtonType {
-        case selectedButton
-    }
-    func updateButton(_ button: (UIButton?, UIButton?)) {
-        button.0?.layer.borderWidth = 0
-        button.0?.layer.borderColor = UIColor.clear.cgColor
-        button.1?.layer.borderWidth = 4
-        button.1?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
-    }
-    
 }
 
-//MARK: Reactor
+// MARK: Button Setup
 extension GameStatVC {
-    
-    func bind(reactor: GameStatReactor) {
-        // 이전에 선택된 버튼과 새로운 선택된 버튼을 구독
-        Observable.combineLatest(
-            reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.playerButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-    }
-}
-//MARK: Layout
-extension GameStatVC {
-    
     private func setupBtn(_ stackView: UIStackView) {
         let backNumber = [13, 15, 2, 3, 23]
         for number in backNumber {
@@ -278,8 +237,8 @@ extension GameStatVC {
             let segmentControl = UISegmentedControl(items: segments).then {
                 $0.selectedSegmentIndex = 0
                 let normalTextAttributes: [NSAttributedString.Key: Any] = [
-                       .foregroundColor: UIColor.lightGray,
-                       .font: UIFont.regularButton
+                    .foregroundColor: UIColor.lightGray,
+                    .font: UIFont.regularButton
                 ]
                 $0.setTitleTextAttributes(normalTextAttributes, for: .normal)
                 
@@ -325,17 +284,66 @@ extension GameStatVC {
                     $0.snp.makeConstraints { make in
                         make.height.equalTo(40)
                     }
-                } 
+                }
                 button.rx.tap
                     .map { Reactor.Action.selectedStat(stat: stat, button: button) }
                     .bind(to: reactor.action)
                     .disposed(by: disposeBag)
                 rowStackView.addArrangedSubview(button)
             }
-           
+            
             buttonGridStackView.addArrangedSubview(rowStackView)
         }
     }
+    
+    func updateButton(_ button: (UIButton?, UIButton?)) {
+        button.0?.layer.borderWidth = 1
+        button.0?.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+        button.1?.layer.borderWidth = 4
+        button.1?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
+    }
+}
+//MARK: Reactor
+extension GameStatVC {
+    
+    func bind(reactor: GameStatReactor) {
+        // MARK: Action
+        cancleButton.rx.tap
+            .map{Reactor.Action.selectedCancleButton}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // MARK: State
+        Observable.combineLatest(
+            reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.playerButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+    }
+}
+//MARK: Layout
+extension GameStatVC {
     
     private func layout() {
         backgroundImage.snp.makeConstraints { make in
@@ -383,10 +391,10 @@ extension GameStatVC {
             make.top.equalTo(buttonGridStackView.snp.bottom).offset(15)
             make.height.equalTo(40)
         }
-        
     }
-    
 }
+
+
 //#Preview {
 //    GameStatVC()
 //}
