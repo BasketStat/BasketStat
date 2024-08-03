@@ -43,6 +43,7 @@
 		BD0D63F22C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */; };
 		BD0D63F42C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */; };
 		BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */; };
+		BD1FB9672C5E598B0060C368 /* StatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1FB9662C5E598B0060C368 /* StatButton.swift */; };
 		BD3572992C46066D004CB49F /* GameStatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3572982C46066D004CB49F /* GameStatVC.swift */; };
 		BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD35729B2C461002004CB49F /* GameStatReactor.swift */; };
 		BD3572AA2C463A3A004CB49F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572A92C463A3A004CB49F /* KakaoSDK */; };
@@ -167,6 +168,7 @@
 		BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITests.swift; sourceTree = "<group>"; };
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		BD1FB9662C5E598B0060C368 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
 		BD3572982C46066D004CB49F /* GameStatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameStatVC.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/GameStat/View/GameStatVC.swift"; sourceTree = "<absolute>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				BD8B9D882C55090C000AB1B0 /* Player.swift */,
+				BD1FB9662C5E598B0060C368 /* StatButton.swift */,
 				BD8B9D8A2C55529C000AB1B0 /* Stat.swift */,
 			);
 			path = Model;
@@ -679,6 +682,7 @@
 				BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */,
+				BD1FB9672C5E598B0060C368 /* StatButton.swift in Sources */,
 				600941A82C58C8A700BA9123 /* SignUpReactor.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
 			);

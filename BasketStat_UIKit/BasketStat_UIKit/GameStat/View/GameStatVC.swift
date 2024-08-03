@@ -56,13 +56,13 @@ class GameStatVC: UIViewController, View {
         $0.textAlignment = .center
     }
     
-    let firstButtonStackView = UIStackView().then {
+    var firstButtonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.spacing = 15
     }
     
-    let secondButtonStackView = UIStackView().then {
+    var secondButtonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.spacing = 15
@@ -102,6 +102,7 @@ class GameStatVC: UIViewController, View {
     
     let buttonGridStackView = UIStackView().then {
         $0.axis = .vertical
+        $0.distribution = .fill
         $0.spacing = 10
     }
     
@@ -119,7 +120,6 @@ class GameStatVC: UIViewController, View {
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         $0.layer.borderWidth = 1
-        
         $0.layer.masksToBounds = true
     }
     
@@ -132,6 +132,19 @@ class GameStatVC: UIViewController, View {
         $0.layer.masksToBounds = true
         
     }
+    var playersButton: [UIButton] = []
+    var twoPointButton: UIButton!
+    var threePointButton: UIButton!
+    var freeThrowButton: UIButton!
+    var astButton: UIButton!
+    var rebButton: UIButton!
+    var blkButton: UIButton!
+    var stlButton: UIButton!
+    var foulButton: UIButton!
+    var toButton: UIButton!
+    var twoPointSegmentControl: UISegmentedControl!
+    var threePointSegmentControl: UISegmentedControl!
+    var freeThrowPointSegmentControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,24 +169,31 @@ extension GameStatVC {
         firstTeamStackView.addArrangedSubview(firstTeamLabel)
         firstTeamStackView.addArrangedSubview(firstTeamScoreLabel)
         firstTeamStackView.addArrangedSubview(firstButtonStackView)
-        setupBtn(firstButtonStackView)
         
         secondTeamSpaceView.addSubview(secondTeamStackView)
         secondTeamStackView.addArrangedSubview(secondTeamLabel)
         secondTeamStackView.addArrangedSubview(secondTeamScoreLabel)
         secondTeamStackView.addArrangedSubview(secondButtonStackView)
-        setupBtn(secondButtonStackView)
-        setupButtonGrid()
+                
+        setupButtons()
         
         recordStackView.addArrangedSubview(cancleButton)
         recordStackView.addArrangedSubview(saveButton)
     }
+       
 }
 
 // MARK: Button Setup
 extension GameStatVC {
-    private func setupBtn(_ stackView: UIStackView) {
-        let backNumber = [13, 15, 2, 3, 23]
+    
+    private func createPlayerButton(backNumber: [Int]) -> UIStackView {
+       
+        let stackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.spacing = 15
+        }
+        
         for number in backNumber {
             let button = UIButton().then {
                 $0.setTitle("\(number)", for: .normal)
@@ -193,107 +213,129 @@ extension GameStatVC {
                 .disposed(by: disposeBag)
             stackView.addArrangedSubview(button)
         }
+        return stackView
     }
     
-    private func setupButtonGrid() {
-        // 첫 번째 줄 버튼과 세그먼트 컨트롤 추가
-        let firstRowStackView = UIStackView().then {
-            $0.axis = .horizontal
-            $0.distribution = .fillEqually
-            $0.spacing = 15
-        }
-        
-        let firstRowItems = [
-            (Point.TwoPT, ["성공", "실패"]),
-            (Point.ThreePT, ["성공", "실패"]),
-            (Point.FreeThrow, ["성공", "실패"])
-        ]
-        
-        for (point, segments) in firstRowItems {
-            let buttonStack = UIStackView().then {
-                $0.axis = .vertical
-                $0.layer.cornerRadius = 5
-                $0.layer.borderWidth = 1
-                $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
-            }
-            
+    private func updatePlayerStackView(backNumber: [Int]) {
+        for (index,number) in backNumber.enumerated() {
             let button = UIButton().then {
-                $0.setTitle(point.rawValue, for: .normal)
-                $0.titleLabel?.font = UIFont.boldButton
-                $0.backgroundColor = .clear
-                $0.setTitleColor(.white, for: .normal)
+                $0.setTitle("\(number)", for: .normal)
+                $0.titleLabel?.font = UIFont.regular3
+                $0.backgroundColor = .white
+                $0.setTitleColor(.black, for: .normal)
                 $0.layer.cornerRadius = 5
                 $0.layer.masksToBounds = true
                 $0.snp.makeConstraints { make in
+                    make.width.equalTo(50)
                     make.height.equalTo(40)
                 }
             }
-            button.rx.tap
-                .map { Reactor.Action.selectedPoint(point: point ,button: button) }
-                .bind(to: reactor.action)
-                .disposed(by: disposeBag)
-            buttonStack.addArrangedSubview(button)
-            
-            let segmentControl = UISegmentedControl(items: segments).then {
-                $0.selectedSegmentIndex = 0
-                let normalTextAttributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: UIColor.lightGray,
-                    .font: UIFont.regularButton
-                ]
-                $0.setTitleTextAttributes(normalTextAttributes, for: .normal)
-                
-                let selectedTextAttributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: UIColor.fromRGB(255, 107, 0, 0.9),
-                    .font: UIFont.boldButton
-                ]
-                $0.setTitleTextAttributes(selectedTextAttributes, for: .selected)
-                $0.selectedSegmentTintColor = UIColor.mainColor()
-                $0.backgroundColor = .clear
-                $0.layer.cornerRadius = 5
-                $0.layer.masksToBounds = true
+            if index < 5 {
+                firstButtonStackView.addArrangedSubview(button)
             }
-            buttonStack.addArrangedSubview(segmentControl)
-            
-            firstRowStackView.addArrangedSubview(buttonStack)
+            playersButton.append(button)
         }
+    }
+    
+    func createButton(title: String) -> UIButton {
+        return UIButton().then {
+            $0.setTitle(title, for: .normal)
+            $0.titleLabel?.font = UIFont.boldButton
+            $0.backgroundColor = .clear
+            $0.setTitleColor(.white, for: .normal)
+            $0.layer.cornerRadius = 5
+            $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+            $0.layer.borderWidth = 1
+            $0.layer.masksToBounds = true
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(50)
+                make.height.equalTo(40)
+            }
+        }
+    }
+    
+    func createFirstRowStack(button: UIButton, segment : UISegmentedControl) -> UIStackView {
+        return UIStackView().then {
+            $0.axis = .vertical
+            $0.distribution = .fill
+            $0.addArrangedSubview(button)
+            $0.addArrangedSubview(segment)
+            $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+            $0.layer.borderWidth = 1
+            $0.layer.cornerRadius = 5
+        }
+    }
+    
+    func createSegmentControls() -> UISegmentedControl {
+        return UISegmentedControl(items: ["성공", "실패"]).then {
+            $0.selectedSegmentIndex = 0
+            let normalTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.lightGray,
+                .font: UIFont.regularButton
+            ]
+            $0.setTitleTextAttributes(normalTextAttributes, for: .normal)
+            let selectedTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.fromRGB(255, 107, 0, 0.9),
+                .font: UIFont.boldButton
+            ]
+            $0.setTitleTextAttributes(selectedTextAttributes, for: .selected)
+            $0.selectedSegmentTintColor = UIColor.mainColor()
+            $0.backgroundColor = .clear
+            $0.layer.cornerRadius = 5
+            $0.layer.masksToBounds = true
+            $0.snp.makeConstraints { make in
+                make.height.equalTo(25)
+            }
+        }
+    }
+    
+    func setupButtons() {
+        
+        let firstRowStackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.spacing = 10
+        }
+        
+        let secondRowStackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.spacing = 10
+        }
+        
+        let thirdRowStackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.spacing = 10
+        }
+
+        twoPointButton = createButton(title: "2점슛")
+        threePointButton = createButton(title: "3점슛")
+        freeThrowButton = createButton(title: "자유투")
+        astButton = createButton(title: "AST")
+        rebButton = createButton(title: "REB")
+        blkButton = createButton(title: "BLK")
+        stlButton = createButton(title: "STL")
+        foulButton = createButton(title: "FOUL")
+        toButton = createButton(title: "TO")
+        
+        for (index, button) in [twoPointButton, threePointButton, freeThrowButton, astButton, rebButton, blkButton, stlButton, foulButton, toButton].enumerated() {
+            if index < 3 {
+               let stackView = createFirstRowStack(button: button!, segment: createSegmentControls())
+                firstRowStackView.addArrangedSubview(stackView)
+                continue
+            }
+            if index < 6 {
+                secondRowStackView.addArrangedSubview(button!)
+                continue
+            }
+            thirdRowStackView.addArrangedSubview(button!)
+        }
+
         buttonGridStackView.addArrangedSubview(firstRowStackView)
-        
-        // 나머지 줄 버튼 추가
-        let otherRowsItems = [
-            [Stat.AST, Stat.REB, Stat.BLK],
-            [Stat.STL, Stat.FOUL, Stat.TO]
-        ]
-        
-        for row in otherRowsItems {
-            let rowStackView = UIStackView().then {
-                $0.axis = .horizontal
-                $0.distribution = .fillEqually
-                $0.spacing = 15
-            }
-            
-            for stat in row {
-                let button = UIButton().then {
-                    $0.setTitle(stat.rawValue, for: .normal)
-                    $0.titleLabel?.font = UIFont.boldButton
-                    $0.backgroundColor = .clear
-                    $0.setTitleColor(.white, for: .normal)
-                    $0.layer.cornerRadius = 5
-                    $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
-                    $0.layer.borderWidth = 1
-                    $0.layer.masksToBounds = true
-                    $0.snp.makeConstraints { make in
-                        make.height.equalTo(40)
-                    }
-                }
-                button.rx.tap
-                    .map { Reactor.Action.selectedStat(stat: stat, button: button) }
-                    .bind(to: reactor.action)
-                    .disposed(by: disposeBag)
-                rowStackView.addArrangedSubview(button)
-            }
-            
-            buttonGridStackView.addArrangedSubview(rowStackView)
-        }
+        buttonGridStackView.addArrangedSubview(secondRowStackView)
+        buttonGridStackView.addArrangedSubview(thirdRowStackView)
+
     }
     
     func updateButton(_ button: (UIButton?, UIButton?)) {
@@ -301,45 +343,6 @@ extension GameStatVC {
         button.0?.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         button.1?.layer.borderWidth = 4
         button.1?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
-    }
-}
-//MARK: Reactor
-extension GameStatVC {
-    
-    func bind(reactor: GameStatReactor) {
-        // MARK: Action
-        cancleButton.rx.tap
-            .map{Reactor.Action.selectedCancleButton}
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
-        // MARK: State
-        Observable.combineLatest(
-            reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.playerButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
     }
 }
 //MARK: Layout
@@ -394,8 +397,63 @@ extension GameStatVC {
     }
 }
 
+//MARK: Reactor
+extension GameStatVC {
+    
+    func bind(reactor: GameStatReactor) {
+        // MARK: Action
+        twoPointButton.rx.tap
+            .map{Reactor.Action.selectedCancleButton}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        cancleButton.rx.tap
+            .map{Reactor.Action.selectedCancleButton}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // MARK: State
+        reactor.state.map {state in
+            Array(state.players).sorted()
+            }
+            .distinctUntilChanged()
+            .subscribe(with: self) { owner, number in
+                owner.firstTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
+                owner.secondTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
+            }
+            .disposed(by: disposeBag)
+    
+        Observable.combineLatest(
+            reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.playerButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
+            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
+        ) .subscribe(onNext: { [weak self] preButton, newButton in
+            guard let vc = self else { return }
+            vc.updateButton((preButton, newButton))
+        })
+        .disposed(by: disposeBag)
+    }
+}
 
 //#Preview {
 //    GameStatVC()
 //}
-//
+
+

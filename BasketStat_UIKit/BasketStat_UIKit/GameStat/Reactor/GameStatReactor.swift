@@ -32,11 +32,10 @@ class GameStatReactor: Reactor {
         var pointButton: (UIButton?, UIButton?)
         var statButton: (UIButton?, UIButton?)
         var button = StatButton()
-        var players = [Int :Player]() // 번호로 플레이어 구분
-        
+        var players:[Int] = [1,2,3,4,5] // 번호로 플레이어 구분
     }
     
-    let initialState: State = .init()
+    let initialState = State()
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
