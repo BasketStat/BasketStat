@@ -29,6 +29,8 @@
 		60550D912C59F1A50027CF4E /* KeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D902C59F1A50027CF4E /* KeyBoard.swift */; };
 		60550D932C5A0A5B0027CF4E /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D922C5A0A5B0027CF4E /* Encodable+.swift */; };
 		60550D982C5B79D30027CF4E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 60550D972C5B79D30027CF4E /* FirebaseFirestoreSwift */; };
+		60550D9B2C5CA28C0027CF4E /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D9A2C5CA28C0027CF4E /* MainVC.swift */; };
+		60550D9D2C5CA7F80027CF4E /* MainReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D9C2C5CA7F80027CF4E /* MainReactor.swift */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
@@ -147,6 +149,8 @@
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
 		60550D902C59F1A50027CF4E /* KeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoard.swift; sourceTree = "<group>"; };
 		60550D922C5A0A5B0027CF4E /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		60550D9A2C5CA28C0027CF4E /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		60550D9C2C5CA7F80027CF4E /* MainReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainReactor.swift; sourceTree = "<group>"; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -224,9 +228,9 @@
 		600941642C4A545900BA9123 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
-				600941AB2C58CB9100BA9123 /* BaseService.swift */,
 				600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */,
+				600941AB2C58CB9100BA9123 /* BaseService.swift */,
+				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
 				600941652C4A546600BA9123 /* FirebaseService.swift */,
 				6009419E2C5776C700BA9123 /* GoogleService.swift */,
 			);
@@ -285,6 +289,15 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		60550D992C5CA2730027CF4E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				60550D9A2C5CA28C0027CF4E /* MainVC.swift */,
+				60550D9C2C5CA7F80027CF4E /* MainReactor.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		608BD4E32C4803EC0003CCA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +349,7 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				60550D992C5CA2730027CF4E /* Main */,
 				60550D8F2C59F1900027CF4E /* Custom */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
@@ -655,7 +669,9 @@
 				600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */,
 				600941AC2C58CB9100BA9123 /* BaseService.swift in Sources */,
 				BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */,
+				60550D9B2C5CA28C0027CF4E /* MainVC.swift in Sources */,
 				600941662C4A546700BA9123 /* FirebaseService.swift in Sources */,
+				60550D9D2C5CA7F80027CF4E /* MainReactor.swift in Sources */,
 				BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */,
 				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
