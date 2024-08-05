@@ -33,7 +33,7 @@ class LoginVC: UIViewController, View {
         }
         
         
-        let image = UIImageView(image: UIImage(named: "kakaoLogin.png"))
+        let image = UIImageView(image: UIImage(named: "KakaoLogo.png"))
         
         view.addSubview(label)
         view.addSubview(image)
@@ -43,7 +43,8 @@ class LoginVC: UIViewController, View {
             $0.center.equalTo(view)
         }
         image.snp.makeConstraints {
-            $0.width.height.equalTo(20)
+            $0.height.equalTo(22)
+            $0.width.equalTo(24)
             $0.leading.equalTo(view).inset(20)
             $0.centerY.equalTo(view)
         }
@@ -65,7 +66,7 @@ class LoginVC: UIViewController, View {
         
         
         
-        let image = UIImageView(image: UIImage(named: "appleLogin.png"))
+        let image = UIImageView(image: UIImage(named: "AppleLogo.png"))
         
         
         view.addSubview(label)
@@ -76,10 +77,10 @@ class LoginVC: UIViewController, View {
             $0.center.equalTo(view)
         }
         image.snp.makeConstraints {
-            $0.width.equalTo(20)
-            $0.height.equalTo(22)
+            $0.width.equalTo(15.17)
+            $0.height.equalTo(18)
             $0.leading.equalTo(view).inset(20)
-            $0.centerY.equalTo(view).offset(-2)
+            $0.centerY.equalTo(view)
         }
         
     }
@@ -100,7 +101,7 @@ class LoginVC: UIViewController, View {
 
         
         
-        let image = UIImageView(image: UIImage(named: "googleLogin.png"))
+        let image = UIImageView(image: UIImage(named: "GoogleLogo.png"))
         
         
         view.addSubview(label)
@@ -111,10 +112,9 @@ class LoginVC: UIViewController, View {
             $0.center.equalTo(view)
         }
         image.snp.makeConstraints {
-            $0.width.equalTo(20)
-            $0.height.equalTo(22)
+            $0.width.height.equalTo(20)
             $0.leading.equalTo(view).inset(20)
-            $0.centerY.equalTo(view).offset(-2)
+            $0.centerY.equalTo(view)
         }
         
     }

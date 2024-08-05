@@ -33,6 +33,9 @@
 		60550D9D2C5CA7F80027CF4E /* MainReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D9C2C5CA7F80027CF4E /* MainReactor.swift */; };
 		60550DAE2C609F3A0027CF4E /* GameStatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DAD2C609F3A0027CF4E /* GameStatVC.swift */; };
 		60550DB12C60CB380027CF4E /* BuilderReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DB02C60CB380027CF4E /* BuilderReactor.swift */; };
+		60550DBB2C610E910027CF4E /* KakaoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60550DB82C610E910027CF4E /* KakaoLogo.png */; };
+		60550DBC2C610E910027CF4E /* AppleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60550DB92C610E910027CF4E /* AppleLogo.png */; };
+		60550DBD2C610E910027CF4E /* GoogleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60550DBA2C610E910027CF4E /* GoogleLogo.png */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
@@ -154,6 +157,9 @@
 		60550D9C2C5CA7F80027CF4E /* MainReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainReactor.swift; sourceTree = "<group>"; };
 		60550DAD2C609F3A0027CF4E /* GameStatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStatVC.swift; sourceTree = "<group>"; };
 		60550DB02C60CB380027CF4E /* BuilderReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderReactor.swift; sourceTree = "<group>"; };
+		60550DB82C610E910027CF4E /* KakaoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KakaoLogo.png; sourceTree = "<group>"; };
+		60550DB92C610E910027CF4E /* AppleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppleLogo.png; sourceTree = "<group>"; };
+		60550DBA2C610E910027CF4E /* GoogleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoogleLogo.png; sourceTree = "<group>"; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -285,6 +291,7 @@
 		60550D8F2C59F1900027CF4E /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				600941A02C5777EA00BA9123 /* Errors.swift */,
 				60550D902C59F1A50027CF4E /* KeyBoard.swift */,
 				60550D922C5A0A5B0027CF4E /* Encodable+.swift */,
 			);
@@ -320,6 +327,9 @@
 		608BD4E42C4803FA0003CCA0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				60550DB92C610E910027CF4E /* AppleLogo.png */,
+				60550DBA2C610E910027CF4E /* GoogleLogo.png */,
+				60550DB82C610E910027CF4E /* KakaoLogo.png */,
 				60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */,
 				6009416A2C4E4D0A00BA9123 /* Polygon.png */,
 				608BD4E52C4804180003CCA0 /* mainIcon.png */,
@@ -360,10 +370,9 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				60550D8F2C59F1900027CF4E /* Custom */,
-				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
-				600941A02C5777EA00BA9123 /* Errors.swift */,
+				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
+				60550D8F2C59F1900027CF4E /* Custom */,
 				60E334C82C59815000B110D2 /* Models */,
 				6009419A2C5770BA00BA9123 /* Enums */,
 				600941642C4A545900BA9123 /* Services */,
@@ -628,13 +637,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDA48F362C46A9EA002F75D9 /* Pretendard-SemiBold.ttf in Resources */,
+				60550DBC2C610E910027CF4E /* AppleLogo.png in Resources */,
 				BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */,
 				6009416B2C4E4D0A00BA9123 /* Polygon.png in Resources */,
 				60E334D12C59D65D00B110D2 /* DefaultProfileImage.png in Resources */,
 				BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */,
 				BDA48F392C46A9EA002F75D9 /* Pretendard-Light.ttf in Resources */,
 				BDA48F352C46A9EA002F75D9 /* Pretendard-Regular.ttf in Resources */,
+				60550DBD2C610E910027CF4E /* GoogleLogo.png in Resources */,
 				603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */,
+				60550DBB2C610E910027CF4E /* KakaoLogo.png in Resources */,
 				BDA48F372C46A9EA002F75D9 /* Pretendard-Medium.ttf in Resources */,
 				608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */,
 				600846DB2C3DB6FF00DE64E2 /* .gitattributes in Resources */,

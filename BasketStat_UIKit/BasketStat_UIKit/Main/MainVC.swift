@@ -74,13 +74,11 @@ class MainVC: UIViewController, View {
     
     var settingBtnView = UIView().then { view in
         
-        view.backgroundColor = .clear
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
-        view.layer.cornerRadius = 4
+        let gearShape = UIImageView(image: UIImage(systemName: "gearshape")).then {
+            $0.tintColor = .white
+        }
+        
 
-        
-        
         let label = UILabel().then {
             $0.text = "설정"
             $0.textColor = .white
@@ -88,10 +86,27 @@ class MainVC: UIViewController, View {
             $0.font = .boldSystemFont(ofSize: 18 )
         }
         
+        view.backgroundColor = .clear
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
+        view.layer.cornerRadius = 4
+        
         view.addSubview(label)
+        view.addSubview(gearShape)
+        
+        let centerSpacing = 14
         
         label.snp.makeConstraints {
-            $0.center.equalTo(view)
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(centerSpacing)
+            
+        }
+        
+        gearShape.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(-centerSpacing)
+            
+            
         }
         
     }

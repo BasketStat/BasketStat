@@ -195,6 +195,8 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         let data = playerModel.profileImage?.jpegData(compressionQuality: 0.9)
         
         // 이미지를 업로드하고 URL을 받아 설정합니다.
+        
+        
         return self.uploadImage(imageData: data, pathRoot: uid)
             .flatMapCompletable { url in
                 playerDto.profileImageUrl = url
