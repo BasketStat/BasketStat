@@ -126,13 +126,11 @@ class MainVC: UIViewController, View {
                 self.navigationController?.viewControllers = [LoginVC()]
             }
             
-            
         }.disposed(by: disposeBag)
         
         self.reactor.state.map { $0.buildingPush }.distinctUntilChanged().bind {val in
             if val {
-                
-                self.navigationController?.pushViewController(GameStatVC(), animated: false)
+                self.navigationController?.pushViewController(BuilderVC(), animated: false)
             }
             
         }.disposed(by: disposeBag)

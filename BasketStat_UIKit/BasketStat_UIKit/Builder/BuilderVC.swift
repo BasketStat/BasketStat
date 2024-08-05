@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 import ReactorKit
 
-class TeamBuildingVC: UIViewController, View {
+class BuilderVC: UIViewController, View {
     
+    private let reactor = BuilderReactor(provider: ServiceProvider())
     var disposeBag = DisposeBag()
     
     
@@ -19,15 +20,10 @@ class TeamBuildingVC: UIViewController, View {
     private let awayArr: [PlayerModel] = []
     
     lazy var rightButton: UIBarButtonItem = {
- 
         let button = UIBarButtonItem(title: "완료", style: .plain, target: self, action: nil)
-
         button.tag = 2
-
         return button
-        
-        
-        
+
     }()
     
     let homeTableView: UITableView = {
@@ -110,8 +106,12 @@ class TeamBuildingVC: UIViewController, View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTableView()
-        setUI()
+        self.setTableView()
+        self.setUI()
+
+        self.bind(reactor: self.reactor)
+
+       
         // Do any additional setup after loading the view.
     }
     
@@ -124,6 +124,24 @@ class TeamBuildingVC: UIViewController, View {
     }
     
     func bind(reactor: BuilderReactor) {
+        
+        
+        
+        reactor.state.map { _ in reactor.currentState.homeArr }
+            .bind(to: self.homeTableView.rx.items(
+                        cellIdentifier: "PlayerCell1",
+                        cellType: PlayerCell.self)
+                    ) { index, item, cell in
+                cell.nameLabel.text = item.nickname
+                    }.disposed(by: disposeBag)
+        
+        reactor.state.map { _ in reactor.currentState.awayArr }
+            .bind(to: self.awayTableView.rx.items(
+                        cellIdentifier: "PlayerCell2",
+                        cellType: PlayerCell.self)
+                    ) { index, item, cell in
+                cell.nameLabel.text = item.nickname
+                    }.disposed(by: disposeBag)
          
     }
     
@@ -133,17 +151,11 @@ class TeamBuildingVC: UIViewController, View {
         self.view.addSubview(teamNameStackView)
         self.view.addSubview(teamPlayerStackView)
         
-        
-        
+     
         self.homeLogo.contentMode = .scaleAspectFit
         self.awayLogo.contentMode = .scaleAspectFit
         
-        
-        
-        
-        
-        
-        
+      
         self.teamlogoStackView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
             $0.height.equalTo(180)
@@ -155,16 +167,12 @@ class TeamBuildingVC: UIViewController, View {
             $0.height.equalTo(30)
         }
         self.homeTableView.snp.makeConstraints {
-//            $0.top.equalTo(self.teamNameStackView.snp.bottom)
-//            $0.leading.bottom.equalTo(self.view.safeAreaLayoutGuide)
-//            $0.trailing.equalTo(self.view.snp.centerX)
+
             $0.width.equalTo(self.view.frame.width / 2 - 0.5)
         }
         
         self.awayTableView.snp.makeConstraints {
-//            $0.top.equalTo(self.teamNameStackView.snp.bottom)
-//            $0.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
-//            $0.leading.equalTo(self.view.snp.centerX)
+
             $0.width.equalTo(self.view.frame.width / 2 - 0.5)
         }
         self.teamPlayerStackView.snp.makeConstraints {
@@ -189,7 +197,7 @@ class TeamBuildingVC: UIViewController, View {
 
 
 
-extension TeamBuildingVC: UITableViewDataSource, UITableViewDelegate  {
+extension BuilderVC: UITableViewDataSource, UITableViewDelegate  {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         print("selected")
@@ -198,6 +206,9 @@ extension TeamBuildingVC: UITableViewDataSource, UITableViewDelegate  {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        
+        
         if tableView == homeTableView {
             return homeArr.count
         } else {
@@ -225,6 +236,37 @@ extension TeamBuildingVC: UITableViewDataSource, UITableViewDelegate  {
     
 }
 
+class AddCell: UITableViewCell {
+    
+    let plusImage = UIImageView(image: UIImage(systemName: "plus")).then {
+        $0.tintColor = .white
+        
+        
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .mainColor().withAlphaComponent(0.2)
+        self.setUI()
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUI() {
+        self.addSubview(plusImage)
+        
+        self.plusImage.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(40)
+        }
+
+    }
+}
+
 class PlayerCell: UITableViewCell {
     
     var nameLabel : UILabel = {
@@ -243,7 +285,7 @@ class PlayerCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
-        setUI()
+        self.setUI()
         
         
     }

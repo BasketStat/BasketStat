@@ -300,13 +300,13 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		60550DAF2C60CA550027CF4E /* TeamBuilding */ = {
+		60550DAF2C60CA550027CF4E /* Builder */ = {
 			isa = PBXGroup;
 			children = (
 				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
 				60550DB02C60CB380027CF4E /* BuilderReactor.swift */,
 			);
-			path = TeamBuilding;
+			path = Builder;
 			sourceTree = "<group>";
 		};
 		608BD4E32C4803EC0003CCA0 /* Resources */ = {
@@ -371,7 +371,7 @@
 				BD8B9D8C2C556434000AB1B0 /* GameStat */,
 				6009416E2C4E527500BA9123 /* SignUp */,
 				6009416C2C4E524200BA9123 /* Login */,
-				60550DAF2C60CA550027CF4E /* TeamBuilding */,
+				60550DAF2C60CA550027CF4E /* Builder */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
 				BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */,
 				608BD4E32C4803EC0003CCA0 /* Resources */,

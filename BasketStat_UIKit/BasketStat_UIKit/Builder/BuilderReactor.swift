@@ -18,16 +18,20 @@ class BuilderReactor: Reactor {
     let provider: ServiceProviderProtocol
 
     enum Action {
-  
+        case viewWillAppear
+        
+        
+        
     }
     
     enum Mutation {
-     
+     case none
         
     }
     
     struct State {
-     
+        var homeArr = [PlayerModel]()
+        var awayArr = [PlayerModel]()
         
         
     }
@@ -48,6 +52,9 @@ class BuilderReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
+        
+        case .viewWillAppear: 
+            return Observable.just(.none)
             
         }
         
@@ -59,7 +66,10 @@ class BuilderReactor: Reactor {
         var newState = state
         
         switch mutation {
+        
        
+        case .none:
+            break
         }
         
         
