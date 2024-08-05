@@ -32,6 +32,7 @@
 		60550D9B2C5CA28C0027CF4E /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D9A2C5CA28C0027CF4E /* MainVC.swift */; };
 		60550D9D2C5CA7F80027CF4E /* MainReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D9C2C5CA7F80027CF4E /* MainReactor.swift */; };
 		60550DAE2C609F3A0027CF4E /* GameStatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DAD2C609F3A0027CF4E /* GameStatVC.swift */; };
+		60550DB12C60CB380027CF4E /* BuilderReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DB02C60CB380027CF4E /* BuilderReactor.swift */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
@@ -152,6 +153,7 @@
 		60550D9A2C5CA28C0027CF4E /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		60550D9C2C5CA7F80027CF4E /* MainReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainReactor.swift; sourceTree = "<group>"; };
 		60550DAD2C609F3A0027CF4E /* GameStatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStatVC.swift; sourceTree = "<group>"; };
+		60550DB02C60CB380027CF4E /* BuilderReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderReactor.swift; sourceTree = "<group>"; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -298,6 +300,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		60550DAF2C60CA550027CF4E /* TeamBuilding */ = {
+			isa = PBXGroup;
+			children = (
+				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
+				60550DB02C60CB380027CF4E /* BuilderReactor.swift */,
+			);
+			path = TeamBuilding;
+			sourceTree = "<group>";
+		};
 		608BD4E32C4803EC0003CCA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,7 +371,7 @@
 				BD8B9D8C2C556434000AB1B0 /* GameStat */,
 				6009416E2C4E527500BA9123 /* SignUp */,
 				6009416C2C4E524200BA9123 /* Login */,
-				6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */,
+				60550DAF2C60CA550027CF4E /* TeamBuilding */,
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
 				BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */,
 				608BD4E32C4803EC0003CCA0 /* Resources */,
@@ -676,6 +687,7 @@
 				603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */,
 				BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */,
 				600941AA2C58CAEC00BA9123 /* ServiceProviderProtocol.swift in Sources */,
+				60550DB12C60CB380027CF4E /* BuilderReactor.swift in Sources */,
 				BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */,
