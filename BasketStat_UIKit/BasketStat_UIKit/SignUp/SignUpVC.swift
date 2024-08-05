@@ -297,7 +297,7 @@ class SignUpVC: UIViewController, View {
         reactor.state.map { $0.isPushed }.subscribe(onNext: { val in
             
             if val {
-                self.navigationController?.pushViewController( GameStatVC() , animated: false)
+                self.navigationController?.viewControllers = [MainVC()]
             }
             
             

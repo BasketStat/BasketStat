@@ -167,9 +167,16 @@ class LoginVC: UIViewController, View {
         
         self.loginOauthCredential.map{ credential in Reactor.Action.appleLogin(credential) }.bind(to: reactor.action).disposed(by: self.disposeBag)
         
-        reactor.state.map { $0.isPushed }.distinctUntilChanged().bind { isPushed in
+        reactor.state.map { $0.pushSignUp }.distinctUntilChanged().bind { isPushed in
             if isPushed {
-                self.navigationController?.pushViewController( SignUpVC() , animated: false)
+                self.navigationController?.viewControllers = [SignUpVC()]
+            }
+            
+        }.disposed(by: self.disposeBag)
+        
+        reactor.state.map { $0.pushMain }.distinctUntilChanged().bind { isPushed in
+            if isPushed {
+                self.navigationController?.viewControllers = [MainVC()]
             }
             
         }.disposed(by: self.disposeBag)

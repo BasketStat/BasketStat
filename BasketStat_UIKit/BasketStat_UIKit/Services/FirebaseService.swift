@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 import FirebaseStorage
 import RxSwift
 
@@ -16,6 +17,7 @@ protocol FirebaseServiceProtocol {
     func signInCredential(credential: OAuthCredential) -> Completable
     func signIn(email: String, password: String) -> Completable
     func setPlayer(playerModel: PlayerModel) -> Completable
+    func signOut() -> Completable
 }
 
 final class FirebaseService: BaseService, FirebaseServiceProtocol {
@@ -224,6 +226,27 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
             return Disposables.create()
             
         }
+    }
+    
+    func signOut() -> Completable {
+       
+        return Completable.create { com in
+            if let user = Auth.auth().currentUser {
+                
+                // <- Firebase Auth
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
+                    com(.completed)
+                } catch let signOutError as NSError {
+                    print("Error signing out: %@", signOutError)
+                    com(.error(signOutError))
+                }
+            }
+            
+            return Disposables.create()
+        }
+      
     }
     
     

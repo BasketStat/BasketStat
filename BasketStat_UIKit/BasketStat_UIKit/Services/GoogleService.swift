@@ -13,7 +13,7 @@ import RxSwift
 
 
 protocol GoogleServiceProtocol {
-    func signIn(vc: UIViewController) -> Observable<Bool>
+    func signIn(vc: UIViewController) -> Completable
 
 }
 
@@ -21,13 +21,13 @@ protocol GoogleServiceProtocol {
 final class GoogleService: BaseService, GoogleServiceProtocol {
     
     
-    func signIn(vc: UIViewController) -> Observable<Bool> {
+    func signIn(vc: UIViewController) -> Completable {
         
-        return Observable.create { com in
+        return Completable.create { com in
             
             // 구글 인증
             guard let clientID = FirebaseApp.app()?.options.clientID else {
-                com.onNext(false)
+                com(.error(CustomError.CustomNil))
                 return Disposables.create()
             }
             
@@ -35,13 +35,15 @@ final class GoogleService: BaseService, GoogleServiceProtocol {
             
             GIDSignIn.sharedInstance.signIn(withPresenting: vc) { result, error in
                 
-                if error != nil {
-                    print("google Login error \(error)")
+                if let error {
+                    com(.error(error))
                     return
                 }
                 
                 // 로그인 성공 시 result에서 user와 ID Token 추출
                 guard let user = result?.user, let idToken = user.idToken?.tokenString else {
+                    com(.error(CustomError.CustomNil))
+
                     return
                 }
                 
@@ -55,10 +57,12 @@ final class GoogleService: BaseService, GoogleServiceProtocol {
                         // Error. If error.code == .MissingOrInvalidNonce, make sure
                         // you're sending the SHA256-hashed nonce as a hex string with
                         // your request to Apple.
-                        print(error.localizedDescription)
+                        com(.error(error))
+
                         return
                     } else {
-                        com.onNext(true)
+                        com(.completed)
+
 
                     }
                 }

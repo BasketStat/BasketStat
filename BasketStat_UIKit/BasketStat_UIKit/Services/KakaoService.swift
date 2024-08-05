@@ -18,6 +18,8 @@ class KakaoService: BaseService, KakaoServiceProtocol {
     
     var disposeBag = DisposeBag()
     
+    var firebaseService = FirebaseService(provider: ServiceProvider())
+
     
     
     
@@ -31,13 +33,16 @@ class KakaoService: BaseService, KakaoServiceProtocol {
             
             
             if AuthApi.hasToken() {
-                
-                UserApi.shared.accessTokenInfo { _, error in
+                print("토큰있음1")
+
+                UserApi.shared.accessTokenInfo { tokenInfo, error in
+
                     if let error = error {
                         print("_________login error_________")
                         print(error)
                         print("토큰 존재하지 않음.")
                         if UserApi.isKakaoTalkLoginAvailable() {
+
                             print("카카오톡 존재")
                             UserApi.shared.loginWithKakaoTalk { oauthToken, error in
                                 print("1")
@@ -65,16 +70,18 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                                             outputName = name
                                             
                                            
-                                            Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
-                                                if let err {
+                                            self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] single in
+                                                switch single {
+                                                case .completed:
+                                                    completable(.completed)
+
+                                                case .error(let err):
                                                     completable(.error(err))
 
-                                                } else {
-                                                    UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
-                                                    completable(.completed)
                                                 }
+                                           
                                                 
-                                            }
+                                            }).disposed(by: self.disposeBag)
                                             
                                             
                                         }
@@ -86,6 +93,8 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                             }
                             
                         } else {
+                            print("토큰있음2")
+                            
                             UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                                 
                                 print("2")
@@ -115,17 +124,18 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                                             outputPassword = "kakao_" + String(describing: pw )
                                             outputName = name
                                             
-                                      
-                                            Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
-                                                if let err {
+                                            self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] single in
+                                                switch single {
+                                                case .completed:
+                                                    completable(.completed)
+
+                                                case .error(let err):
                                                     completable(.error(err))
 
-                                                } else {
-                                                    UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
-                                                    completable(.completed)
                                                 }
+                                           
                                                 
-                                            }
+                                            }).disposed(by: self.disposeBag)
                                             
                                         }
                                     }
@@ -138,25 +148,31 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                         }
                         
                     } else {
+                        print("토큰있음3")
                         UserApi.shared.me { kuser, _ in
                             guard let email = (kuser?.kakaoAccount?.email) else { return }
                             guard let pw =  kuser?.id else {return}
                             guard let name  = kuser?.kakaoAccount?.profile?.nickname else {return}
                             
+                            print("카카오?")
+
                             outputId = "kakao_" + email
                             outputPassword = "kakao_" + String(describing: pw )
                             outputName = name
                             
-                            Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
-                                if let err {
+                            self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] single in
+                                switch single {
+                                case .completed:
+                                    print("complete")
+                                    completable(.completed)
+
+                                case .error(let err):
                                     completable(.error(err))
 
-                                } else {
-                                    UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
-                                    completable(.completed)
                                 }
+                           
                                 
-                            }
+                            }).disposed(by: self.disposeBag)
                             
                         }
                         
@@ -166,7 +182,7 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                 }
             } else {
                 if UserApi.isKakaoTalkLoginAvailable() {
-                    print("3")
+                    print("토큰있음 3")
                     UserApi.shared.loginWithKakaoTalk { oauthToken, error in
                         if let error = error {
                             print(error)
@@ -192,16 +208,21 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                                     outputPassword = "kakao_" + String(describing: pw )
                                     outputName = name
                                     
-                                    Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
-                                        if let err {
+                                    self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] single in
+                                        switch single {
+                                        case .completed:
+                                            completable(.completed)
+
+                                        case .error(let err):
                                             completable(.error(err))
 
-                                        } else {
-                                            UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
-                                            completable(.completed)
                                         }
+                                   
                                         
-                                    }
+                                    }).disposed(by: self.disposeBag)
+                                        
+                                    
+                              
                                     
                                 }
                             }
@@ -231,22 +252,24 @@ class KakaoService: BaseService, KakaoServiceProtocol {
                                     guard let pw =  kuser?.id else {return}
                                     guard let name = kuser?.kakaoAccount?.profile?.nickname else {return}
                                     
-                                    print("\(email)")
+                                    print("\(email) 이메일")
                                     
                                     outputId = "kakao_" + email
                                     outputPassword = "kakao_" + String(describing: pw )
                                     outputName = name
                                     
-                                    Auth.auth().signIn(withEmail: outputId, password: outputPassword) { authResult, err in
-                                        if let err {
+                                    self.firebaseService.signIn(email: outputId, password: outputPassword).subscribe({ [weak self] single in
+                                        switch single {
+                                        case .completed:
+                                            completable(.completed)
+
+                                        case .error(let err):
                                             completable(.error(err))
 
-                                        } else {
-                                            UserDefaults.standard.set("uid", forKey: (authResult?.user.uid)!)
-                                            completable(.completed)
                                         }
+                                   
                                         
-                                    }
+                                    }).disposed(by: self.disposeBag)
                                     
                                 }
                             }
