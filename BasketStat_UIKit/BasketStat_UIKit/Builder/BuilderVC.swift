@@ -28,7 +28,7 @@ class BuilderVC: UIViewController, View {
     
     let homeTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(PlayerCell.self, forCellReuseIdentifier: "PlayerCell1")
+        tableView.register(PlayerBuilderCell.self, forCellReuseIdentifier: "PlayerCell1")
         tableView.isScrollEnabled = false
         tableView.rowHeight = 50
         tableView.backgroundColor = .systemPink.withAlphaComponent(0.2)
@@ -43,7 +43,7 @@ class BuilderVC: UIViewController, View {
     }()
     let awayTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(PlayerCell.self, forCellReuseIdentifier: "PlayerCell2")
+        tableView.register(PlayerBuilderCell.self, forCellReuseIdentifier: "PlayerCell2")
         tableView.isScrollEnabled = false
         tableView.rowHeight = 50
         tableView.backgroundColor =  .systemBlue.withAlphaComponent(0.2)
@@ -130,7 +130,7 @@ class BuilderVC: UIViewController, View {
         reactor.state.map { _ in reactor.currentState.homeArr }
             .bind(to: self.homeTableView.rx.items(
                         cellIdentifier: "PlayerCell1",
-                        cellType: PlayerCell.self)
+                        cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
@@ -138,7 +138,7 @@ class BuilderVC: UIViewController, View {
         reactor.state.map { _ in reactor.currentState.awayArr }
             .bind(to: self.awayTableView.rx.items(
                         cellIdentifier: "PlayerCell2",
-                        cellType: PlayerCell.self)
+                        cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
@@ -218,14 +218,14 @@ extension BuilderVC: UITableViewDataSource, UITableViewDelegate  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == homeTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell1", for: indexPath) as! PlayerCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell1", for: indexPath) as! PlayerBuilderCell
             cell.nameLabel.text = self.homeArr[indexPath.row].nickname
             //cell.numberLabel.text = self.homeArr[indexPath.row]
             cell.selectionStyle = .none
             
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell2", for: indexPath) as! PlayerCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell2", for: indexPath) as! PlayerBuilderCell
             cell.nameLabel.text = self.awayArr[indexPath.row].nickname
            // cell.numberLabel.text = self.awayArr[indexPath.row].number
             cell.selectionStyle = .none
@@ -265,51 +265,4 @@ class AddCell: UITableViewCell {
         }
 
     }
-}
-
-class PlayerCell: UITableViewCell {
-    
-    var nameLabel : UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-        
-    }()
-    let numberLabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-        
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .clear
-        self.setUI()
-        
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setUI() {
-        self.contentView.addSubview(nameLabel)
-        self.contentView.addSubview(numberLabel)
-        
-        self.numberLabel.snp.makeConstraints {
-            $0.centerY.leading.equalTo(self.contentView)
-            $0.trailing.equalTo(self.contentView.snp.centerX)
-        }
-        
-        self.nameLabel.snp.makeConstraints {
-            $0.centerY.trailing.equalTo(self.contentView)
-            $0.leading.equalTo(self.contentView.snp.centerX)
-        }
-        
-        
-        
-    }
-    
 }

@@ -39,7 +39,7 @@ enum PositionType: String, Codable {
     case C = "C"
   }
 
-struct PlayerModel {
+struct PlayerModel: Equatable {
     var nickname: String
     var tall: String
     var position: PositionType

@@ -20,5 +20,8 @@ extension UIColor {
     class func btnColor() -> UIColor {
         return UIColor(red: 0.922, green: 0.4, blue: 0.02, alpha: 1)
     }
+    class func mainWhite() -> UIColor {
+        return UIColor.white.withAlphaComponent(0.5)
+    }
     
 }

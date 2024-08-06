@@ -26,6 +26,8 @@
 		603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257A2C3DAB7900DA49D5 /* KakaoService.swift */; };
 		603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */; };
 		603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */; };
+		604605042C61D22500C0D4E7 /* AlgoliaSearchClient in Frameworks */ = {isa = PBXBuildFile; productRef = 604605032C61D22500C0D4E7 /* AlgoliaSearchClient */; };
+		604605072C61D29C00C0D4E7 /* BasketStat_UIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63E72C3CB6E5004D3EE6 /* BasketStat_UIKitTests.swift */; };
 		60550D912C59F1A50027CF4E /* KeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D902C59F1A50027CF4E /* KeyBoard.swift */; };
 		60550D932C5A0A5B0027CF4E /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550D922C5A0A5B0027CF4E /* Encodable+.swift */; };
 		60550D982C5B79D30027CF4E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 60550D972C5B79D30027CF4E /* FirebaseFirestoreSwift */; };
@@ -43,11 +45,14 @@
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
 		60E334D12C59D65D00B110D2 /* DefaultProfileImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */; };
+		60FA94592C61D4F400F2A7ED /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FA94582C61D4F400F2A7ED /* XCTest.framework */; };
+		60FA945A2C61DA0300F2A7ED /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
+		60FA945C2C6202EF00F2A7ED /* AlgoliaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA945B2C6202EF00F2A7ED /* AlgoliaService.swift */; };
+		60FA94612C62194A00F2A7ED /* PlayerCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA94602C62194A00F2A7ED /* PlayerCells.swift */; };
 		BD0D63D12C3CB6E4004D3EE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */; };
 		BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */; };
 		BD0D63DA2C3CB6E5004D3EE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD0D63D92C3CB6E5004D3EE6 /* Assets.xcassets */; };
 		BD0D63DD2C3CB6E5004D3EE6 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BD0D63DC2C3CB6E5004D3EE6 /* Base */; };
-		BD0D63E82C3CB6E5004D3EE6 /* BasketStat_UIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63E72C3CB6E5004D3EE6 /* BasketStat_UIKitTests.swift */; };
 		BD0D63F22C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */; };
 		BD0D63F42C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */; };
 		BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */; };
@@ -107,6 +112,13 @@
 			remoteGlobalIDString = 0AB5D8701D0EEECD002D3A17;
 			remoteInfo = DropDown;
 		};
+		60550DD42C61C6BA0027CF4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD0D63C52C3CB6E4004D3EE6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD0D63CC2C3CB6E4004D3EE6;
+			remoteInfo = BasketStat_UIKit;
+		};
 		BD0D63E42C3CB6E5004D3EE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BD0D63C52C3CB6E4004D3EE6 /* Project object */;
@@ -165,10 +177,14 @@
 		60550DBA2C610E910027CF4E /* GoogleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoogleLogo.png; sourceTree = "<group>"; };
 		60550DC42C613CD20027CF4E /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		60550DC72C613D1B0027CF4E /* SearchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReactor.swift; sourceTree = "<group>"; };
+		60550DD02C61C6BA0027CF4E /* BasketStat_AlgoliaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasketStat_AlgoliaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultProfileImage.png; sourceTree = "<group>"; };
+		60FA94582C61D4F400F2A7ED /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		60FA945B2C6202EF00F2A7ED /* AlgoliaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlgoliaService.swift; sourceTree = "<group>"; };
+		60FA94602C62194A00F2A7ED /* PlayerCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCells.swift; sourceTree = "<group>"; };
 		BD0D63CD2C3CB6E4004D3EE6 /* BasketStat_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasketStat_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -197,10 +213,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		60550DCD2C61C6BA0027CF4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD0D63CA2C3CB6E4004D3EE6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60FA94592C61D4F400F2A7ED /* XCTest.framework in Frameworks */,
 				BD3572B82C463AAE004CB49F /* RxCocoa in Frameworks */,
 				60550D982C5B79D30027CF4E /* FirebaseFirestoreSwift in Frameworks */,
 				600941702C4E5CB800BA9123 /* FirebaseFirestore in Frameworks */,
@@ -226,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				604605042C61D22500C0D4E7 /* AlgoliaSearchClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +272,7 @@
 				6034257A2C3DAB7900DA49D5 /* KakaoService.swift */,
 				600941652C4A546600BA9123 /* FirebaseService.swift */,
 				6009419E2C5776C700BA9123 /* GoogleService.swift */,
+				60FA945B2C6202EF00F2A7ED /* AlgoliaService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -282,6 +308,7 @@
 		600941882C4FE6F400BA9123 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60FA94582C61D4F400F2A7ED /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -334,6 +361,7 @@
 		608BD4E32C4803EC0003CCA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BD3572CA2C46A530004CB49F /* Font */,
 				608BD4E42C4803FA0003CCA0 /* Images */,
 			);
 			path = Resources;
@@ -360,6 +388,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		60FA945F2C62194100F2A7ED /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				60FA94602C62194A00F2A7ED /* PlayerCells.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		BD0D63C42C3CB6E4004D3EE6 = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +414,7 @@
 				BD0D63CD2C3CB6E4004D3EE6 /* BasketStat_UIKit.app */,
 				BD0D63E32C3CB6E5004D3EE6 /* BasketStat_UIKitTests.xctest */,
 				BD0D63ED2C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.xctest */,
+				60550DD02C61C6BA0027CF4E /* BasketStat_AlgoliaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -385,6 +422,7 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				60FA945F2C62194100F2A7ED /* Cells */,
 				60550DC62C613D0D0027CF4E /* Search */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
@@ -400,7 +438,6 @@
 				BD0D63D02C3CB6E4004D3EE6 /* AppDelegate.swift */,
 				BD0D63D22C3CB6E4004D3EE6 /* SceneDelegate.swift */,
 				608BD4E32C4803EC0003CCA0 /* Resources */,
-				BD3572CA2C46A530004CB49F /* Font */,
 				BD0D64102C3CDBEE004D3EE6 /* Extension */,
 				BD0D63D92C3CB6E5004D3EE6 /* Assets.xcassets */,
 				BD0D63DB2C3CB6E5004D3EE6 /* LaunchScreen.storyboard */,
@@ -490,6 +527,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		60550DCF2C61C6BA0027CF4E /* BasketStat_AlgoliaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60550DD62C61C6BA0027CF4E /* Build configuration list for PBXNativeTarget "BasketStat_AlgoliaTests" */;
+			buildPhases = (
+				60550DCC2C61C6BA0027CF4E /* Sources */,
+				60550DCD2C61C6BA0027CF4E /* Frameworks */,
+				60550DCE2C61C6BA0027CF4E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60550DD52C61C6BA0027CF4E /* PBXTargetDependency */,
+			);
+			name = BasketStat_AlgoliaTests;
+			productName = BasketStat_AlgoliaTests;
+			productReference = 60550DD02C61C6BA0027CF4E /* BasketStat_AlgoliaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BD0D63CC2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD0D63F72C3CB6E5004D3EE6 /* Build configuration list for PBXNativeTarget "BasketStat_UIKit" */;
@@ -542,6 +597,9 @@
 				BD0D63E52C3CB6E5004D3EE6 /* PBXTargetDependency */,
 			);
 			name = BasketStat_UIKitTests;
+			packageProductDependencies = (
+				604605032C61D22500C0D4E7 /* AlgoliaSearchClient */,
+			);
 			productName = BasketStat_UIKitTests;
 			productReference = BD0D63E32C3CB6E5004D3EE6 /* BasketStat_UIKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -571,9 +629,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					60550DCF2C61C6BA0027CF4E = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = BD0D63CC2C3CB6E4004D3EE6;
+					};
 					BD0D63CC2C3CB6E4004D3EE6 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -621,6 +683,7 @@
 				BD0D63CC2C3CB6E4004D3EE6 /* BasketStat_UIKit */,
 				BD0D63E22C3CB6E5004D3EE6 /* BasketStat_UIKitTests */,
 				BD0D63EC2C3CB6E5004D3EE6 /* BasketStat_UIKitUITests */,
+				60550DCF2C61C6BA0027CF4E /* BasketStat_AlgoliaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -650,6 +713,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		60550DCE2C61C6BA0027CF4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD0D63CB2C3CB6E4004D3EE6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -693,6 +763,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		60550DCC2C61C6BA0027CF4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD0D63C92C3CB6E4004D3EE6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -707,6 +784,7 @@
 				600941A12C5777EA00BA9123 /* Errors.swift in Sources */,
 				60550D932C5A0A5B0027CF4E /* Encodable+.swift in Sources */,
 				BD8B9D892C55090C000AB1B0 /* Player.swift in Sources */,
+				60FA94612C62194A00F2A7ED /* PlayerCells.swift in Sources */,
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
 				600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */,
 				60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */,
@@ -722,6 +800,7 @@
 				60550DB12C60CB380027CF4E /* BuilderReactor.swift in Sources */,
 				BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
+				60FA945C2C6202EF00F2A7ED /* AlgoliaService.swift in Sources */,
 				6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */,
 				600941A82C58C8A700BA9123 /* SignUpReactor.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
@@ -732,7 +811,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD0D63E82C3CB6E5004D3EE6 /* BasketStat_UIKitTests.swift in Sources */,
+				60FA945A2C61DA0300F2A7ED /* PlayerModel.swift in Sources */,
+				604605072C61D29C00C0D4E7 /* BasketStat_UIKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +832,11 @@
 			isa = PBXTargetDependency;
 			name = DropDown;
 			targetProxy = 600941862C4FE6D700BA9123 /* PBXContainerItemProxy */;
+		};
+		60550DD52C61C6BA0027CF4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD0D63CC2C3CB6E4004D3EE6 /* BasketStat_UIKit */;
+			targetProxy = 60550DD42C61C6BA0027CF4E /* PBXContainerItemProxy */;
 		};
 		BD0D63E52C3CB6E5004D3EE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -777,6 +862,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		60550DD72C61C6BA0027CF4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YH4A87H8M4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wan.UITester.BasketStat-AlgoliaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasketStat_UIKit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BasketStat_UIKit";
+			};
+			name = Debug;
+		};
+		60550DD82C61C6BA0027CF4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YH4A87H8M4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wan.UITester.BasketStat-AlgoliaTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BasketStat_UIKit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BasketStat_UIKit";
+			};
+			name = Release;
+		};
 		BD0D63F52C3CB6E5004D3EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -972,7 +1093,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "xx.BasketStat-UIKitTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -991,7 +1112,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "xx.BasketStat-UIKitTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1039,6 +1160,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		60550DD62C61C6BA0027CF4E /* Build configuration list for PBXNativeTarget "BasketStat_AlgoliaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60550DD72C61C6BA0027CF4E /* Debug */,
+				60550DD82C61C6BA0027CF4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BD0D63C82C3CB6E4004D3EE6 /* Build configuration list for PBXProject "BasketStat_UIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1175,6 +1305,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 600941772C4EB7A000BA9123 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
+		};
+		604605032C61D22500C0D4E7 /* AlgoliaSearchClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60550DC12C613C810027CF4E /* XCRemoteSwiftPackageReference "algoliasearch-client-swift" */;
+			productName = AlgoliaSearchClient;
 		};
 		60550D972C5B79D30027CF4E /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;

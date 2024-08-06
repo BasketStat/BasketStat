@@ -18,14 +18,19 @@ class SearchReactor: Reactor {
     let provider: ServiceProviderProtocol
 
     enum Action {
-    
+        case searchText(String)
     }
     
     enum Mutation {
-    
+        case resultArr([PlayerModel])
     }
     
-    struct State {
+    struct State: Equatable {
+        static func == (lhs: SearchReactor.State, rhs: SearchReactor.State) -> Bool {
+            return lhs.playerArr == rhs.playerArr
+        }
+        
+        var playerArr: [PlayerModel] = []
 
     }
     
@@ -43,6 +48,18 @@ class SearchReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
+        case .searchText(let searchText):
+            print("searchText \(searchText)")
+            return Observable.create { [weak self] ob in
+                guard let self else {return Disposables.create()}
+                self.provider.algoliaService.searchPlayers(searchText: searchText).subscribe(onSuccess: { models in
+                    
+                    ob.onNext(.resultArr(models))
+                    
+                }).disposed(by: self.disposeBag)
+                return Disposables.create()
+
+            }
         }
         
         
@@ -54,6 +71,8 @@ class SearchReactor: Reactor {
         
         switch mutation {
       
+        case .resultArr(let models):
+            newState.playerArr = models
         }
         
         

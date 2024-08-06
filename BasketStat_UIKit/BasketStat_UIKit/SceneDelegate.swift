@@ -9,59 +9,64 @@ import UIKit
 import FirebaseAuth
 import KakaoSDKAuth
 import RxSwift
+import AlgoliaSearchClient
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var disposeBag = DisposeBag()
     let provider: ServiceProviderProtocol = ServiceProvider()
-
+    
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//                window = UIWindow(windowScene: windowScene)
-//                window?.rootViewController = GameStatVC()
-//                window?.makeKeyAndVisible()
+        //                window = UIWindow(windowScene: windowScene)
+        //                window?.rootViewController = GameStatVC()
+        //                window?.makeKeyAndVisible()
+       
+        
+        
+        
+        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        var navigationController: UINavigationController
-        navigationController = UINavigationController()
-
-        if let user = Auth.auth().currentUser { 
-
-           
-
+        var navigationController = UINavigationController()
+        
+        if let user = Auth.auth().currentUser {
+            
+            
+            
             UserDefaults.standard.setValue(user.uid, forKey: "uid")
             provider.firebaseService.getPlayer().subscribe({ single in
                 switch single {
                 case.success(let model):
                     print("success")
-
-                   // navigationController = UINavigationController(rootViewController: GameStatVC())
-                    navigationController = UINavigationController(rootViewController: MainVC())
+                    
+                    // navigationController = UINavigationController(rootViewController: GameStatVC())
+                    navigationController = UINavigationController(rootViewController: SearchVC())
                     self.pushViewController(navigationController: navigationController)
                 case.failure(let err):
                     print("\(err)err")
-
+                    
                     navigationController = UINavigationController(rootViewController: SignUpVC())
-
+                    
                     self.pushViewController(navigationController: navigationController)
-
+                    
                     
                 }
                 
                 
             }).disposed(by: self.disposeBag)
-          
+            
         } else {
             print("else")
-
+            
             navigationController = UINavigationController(rootViewController: LoginVC())
             self.pushViewController(navigationController: navigationController)
-
+            
         }
-
-
+        
+        
     }
     
     func pushViewController(navigationController: UINavigationController) {
