@@ -36,6 +36,9 @@
 		60550DBB2C610E910027CF4E /* KakaoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60550DB82C610E910027CF4E /* KakaoLogo.png */; };
 		60550DBC2C610E910027CF4E /* AppleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60550DB92C610E910027CF4E /* AppleLogo.png */; };
 		60550DBD2C610E910027CF4E /* GoogleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60550DBA2C610E910027CF4E /* GoogleLogo.png */; };
+		60550DC32C613C8C0027CF4E /* AlgoliaSearchClient in Frameworks */ = {isa = PBXBuildFile; productRef = 60550DC22C613C8C0027CF4E /* AlgoliaSearchClient */; };
+		60550DC52C613CD70027CF4E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC42C613CD20027CF4E /* SearchVC.swift */; };
+		60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC72C613D1B0027CF4E /* SearchReactor.swift */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
@@ -160,6 +163,8 @@
 		60550DB82C610E910027CF4E /* KakaoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KakaoLogo.png; sourceTree = "<group>"; };
 		60550DB92C610E910027CF4E /* AppleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppleLogo.png; sourceTree = "<group>"; };
 		60550DBA2C610E910027CF4E /* GoogleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoogleLogo.png; sourceTree = "<group>"; };
+		60550DC42C613CD20027CF4E /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		60550DC72C613D1B0027CF4E /* SearchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReactor.swift; sourceTree = "<group>"; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -199,6 +204,7 @@
 				BD3572B82C463AAE004CB49F /* RxCocoa in Frameworks */,
 				60550D982C5B79D30027CF4E /* FirebaseFirestoreSwift in Frameworks */,
 				600941702C4E5CB800BA9123 /* FirebaseFirestore in Frameworks */,
+				60550DC32C613C8C0027CF4E /* AlgoliaSearchClient in Frameworks */,
 				BD3572B52C463A72004CB49F /* Then in Frameworks */,
 				BD3572C02C463AEF004CB49F /* Moya in Frameworks */,
 				BD3572C42C463AEF004CB49F /* RxMoya in Frameworks */,
@@ -316,6 +322,15 @@
 			path = Builder;
 			sourceTree = "<group>";
 		};
+		60550DC62C613D0D0027CF4E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				60550DC42C613CD20027CF4E /* SearchVC.swift */,
+				60550DC72C613D1B0027CF4E /* SearchReactor.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		608BD4E32C4803EC0003CCA0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +385,7 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				60550DC62C613D0D0027CF4E /* Search */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
 				60550D8F2C59F1900027CF4E /* Custom */,
@@ -506,6 +522,7 @@
 				600941712C4E5CB800BA9123 /* FirebaseStorage */,
 				600941782C4EBA4200BA9123 /* RxGesture */,
 				60550D972C5B79D30027CF4E /* FirebaseFirestoreSwift */,
+				60550DC22C613C8C0027CF4E /* AlgoliaSearchClient */,
 			);
 			productName = BasketStat_UIKit;
 			productReference = BD0D63CD2C3CB6E4004D3EE6 /* BasketStat_UIKit.app */;
@@ -589,6 +606,7 @@
 				BD3572BE2C463AEF004CB49F /* XCRemoteSwiftPackageReference "Moya" */,
 				BD3572C52C463B32004CB49F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				600941772C4EB7A000BA9123 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				60550DC12C613C810027CF4E /* XCRemoteSwiftPackageReference "algoliasearch-client-swift" */,
 			);
 			productRefGroup = BD0D63CE2C3CB6E4004D3EE6 /* Products */;
 			projectDirPath = "";
@@ -682,6 +700,7 @@
 				600941682C4D7F0400BA9123 /* SignUpVC.swift in Sources */,
 				603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */,
 				60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */,
+				60550DC52C613CD70027CF4E /* SearchVC.swift in Sources */,
 				60550D912C59F1A50027CF4E /* KeyBoard.swift in Sources */,
 				60550DAE2C609F3A0027CF4E /* GameStatVC.swift in Sources */,
 				6009419C2C5770D300BA9123 /* Enums.swift in Sources */,
@@ -690,6 +709,7 @@
 				BD8B9D892C55090C000AB1B0 /* Player.swift in Sources */,
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
 				600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */,
+				60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */,
 				600941AC2C58CB9100BA9123 /* BaseService.swift in Sources */,
 				BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */,
 				60550D9B2C5CA28C0027CF4E /* MainVC.swift in Sources */,
@@ -1066,6 +1086,14 @@
 				minimumVersion = 4.0.4;
 			};
 		};
+		60550DC12C613C810027CF4E /* XCRemoteSwiftPackageReference "algoliasearch-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/algolia/algoliasearch-client-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.20.1;
+			};
+		};
 		BD3572A82C463A3A004CB49F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1152,6 +1180,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BD3572C52C463B32004CB49F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		60550DC22C613C8C0027CF4E /* AlgoliaSearchClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60550DC12C613C810027CF4E /* XCRemoteSwiftPackageReference "algoliasearch-client-swift" */;
+			productName = AlgoliaSearchClient;
 		};
 		BD3572A92C463A3A004CB49F /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
