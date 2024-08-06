@@ -30,7 +30,7 @@ class BuilderReactor: Reactor {
     }
     
     struct State {
-        var homeArr = [PlayerModel]()
+        var homeArr = [PlayerModel.init(nickname: "양승완", tall: "167", position: .C, weight: "67")]
         var awayArr = [PlayerModel]()
         
         

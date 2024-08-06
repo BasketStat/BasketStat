@@ -11,7 +11,7 @@ import ReactorKit
 import AlgoliaSearchClient
 import Then
 import SnapKit
-
+import Kingfisher
 
 class SearchVC: UIViewController, View {
     
@@ -23,12 +23,15 @@ class SearchVC: UIViewController, View {
     
     lazy var tableView = UITableView().then {
         $0.delegate = self
+        $0.backgroundColor = .clear
+        $0.register(PlayerSearchCell.self , forCellReuseIdentifier: "PlayerSearchCell")
+        $0.rowHeight = 60
         $0.backgroundColor = .mainColor()
-        $0.register(PlayerBuilderCell.self , forCellReuseIdentifier: "PlayerCell3")
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
+      
         if #available(iOS 13.0, *) {
             searchController.searchBar.searchTextField.textColor =  .mainWhite()
           
@@ -36,7 +39,7 @@ class SearchVC: UIViewController, View {
     }
     
     override func viewDidLoad() {
-        
+        self.setNavigationBar()
         self.setUI()
         self.setSearchController()
         self.bind(reactor: self.reactor)
@@ -56,11 +59,27 @@ class SearchVC: UIViewController, View {
                 cellIdentifier: "PlayerSearchCell",
                 cellType: PlayerSearchCell.self)
             ) { index, item, cell in
+                
                 cell.nameLabel.text = item.nickname
+                cell.positionLabel.text = item.position.rawValue
+                
+                let url = URL(string: item.profileImageUrl ?? "")
+                let processor = DownsamplingImageProcessor(size: cell.profileImage.bounds.size)
+                             |> RoundCornerImageProcessor(cornerRadius: 25)
+                cell.profileImage.kf.indicatorType = .activity
+                cell.profileImage.kf.setImage(
+                    with: url,
+                    placeholder: UIImage(),
+                    options: [
+                        .processor(processor),
+                        .scaleFactor(UIScreen.main.scale),
+                        .transition(.fade(1)),
+                        .cacheOriginalImage
+                    ])
                 
                 
-                
-                
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
             }.disposed(by: disposeBag)
         
         
@@ -68,9 +87,8 @@ class SearchVC: UIViewController, View {
     
     func setSearchController() {
         
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.mainWhite()]
 
-        searchController.searchBar
+        self.searchController.searchBar
             .searchTextField
             .attributedPlaceholder = NSAttributedString(string: "선수 닉네임을 입력하여 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.mainWhite()])
         self.searchController.searchBar.tintColor = .mainWhite()
@@ -85,14 +103,18 @@ class SearchVC: UIViewController, View {
         
     }
     
+    func setNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .mainColor()
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.mainWhite()]
+        
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
     func setUI() {
-        
-        
-        
-        
-        
-        
-        
+
         self.view.addSubview(self.tableView)
         
         self.tableView.snp.makeConstraints {
@@ -105,6 +127,8 @@ class SearchVC: UIViewController, View {
     
 }
 extension SearchVC: UITableViewDelegate {
+    
+ 
     
     
     

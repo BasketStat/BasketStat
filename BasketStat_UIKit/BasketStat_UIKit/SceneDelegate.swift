@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print("success")
                     
                     // navigationController = UINavigationController(rootViewController: GameStatVC())
-                    navigationController = UINavigationController(rootViewController: SearchVC())
+                    navigationController = UINavigationController(rootViewController: MainVC())
                     self.pushViewController(navigationController: navigationController)
                 case.failure(let err):
                     print("\(err)err")

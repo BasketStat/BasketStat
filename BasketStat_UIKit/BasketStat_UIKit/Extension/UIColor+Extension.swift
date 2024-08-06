@@ -17,7 +17,7 @@ extension UIColor {
         return .fromRGB(58, 53, 48, 1)
     }
     
-    class func btnColor() -> UIColor {
+    class func customOrange() -> UIColor {
         return UIColor(red: 0.922, green: 0.4, blue: 0.02, alpha: 1)
     }
     class func mainWhite() -> UIColor {
