@@ -8,11 +8,27 @@
 import UIKit
 import SnapKit
 import ReactorKit
+import RxCocoa
+import RxSwift
 import Then
+
+
 class BuilderVC: UIViewController, View {
+   
+    
     
     private let reactor = BuilderReactor(provider: ServiceProvider())
     var disposeBag = DisposeBag()
+    
+    
+    
+    let topLine = UIView().then {
+        $0.backgroundColor = .mainWhite()
+    }
+    
+    let bottomLine = UIView().then {
+        $0.backgroundColor = .mainWhite()
+    }
     
     
     let homeAddIcon = UIView().then { view in
@@ -41,11 +57,19 @@ class BuilderVC: UIViewController, View {
         $0.text = "Team Builder"
     }
     
-    let homeTableView = UITableView().then {
+    lazy var homeTableView = UITableView().then {
         $0.register(PlayerBuilderCell.self, forCellReuseIdentifier: "PlayerCell1")
         $0.isScrollEnabled = false
         $0.rowHeight = 50
         $0.backgroundColor = .clear
+        
+        $0.separatorColor = .mainWhite()
+        $0.separatorStyle = .singleLine
+        $0.separatorInset = .init(top: 0, left: 0, bottom: 0, right: 2)
+        
+        $0.delegate = self
+        $0.tag = 0
+        
 
    
     }
@@ -53,11 +77,18 @@ class BuilderVC: UIViewController, View {
         $0.backgroundColor = .mainWhite()
         $0.snp.makeConstraints { $0.width.equalTo(1) }
     }
-    let awayTableView = UITableView().then {
+    lazy var awayTableView = UITableView().then {
         $0.register(PlayerBuilderCell.self, forCellReuseIdentifier: "PlayerCell2")
         $0.isScrollEnabled = false
         $0.rowHeight = 50
         $0.backgroundColor = .clear
+        
+        $0.separatorColor = .mainWhite()
+        $0.separatorStyle = .singleLine
+        $0.separatorInset = .init(top: 0, left: 2, bottom: 0, right: 0)
+
+        $0.delegate = self
+        $0.tag = 1
     }
     
     let homeLogo = UIImageView(image: UIImage(named: "image1.png")).then {
@@ -89,9 +120,19 @@ class BuilderVC: UIViewController, View {
         $0.alignment = .fill
         $0.distribution = .fillProportionally
         $0.axis = .horizontal
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.mainWhite().cgColor
+
     }
+    
+    let checkBtn = UIButton().then {
+        $0.setTitle("확인", for: .normal)
+        
+        $0.titleLabel?.textColor = .white
+        $0.titleLabel?.font = .systemFont(ofSize: 14)
+        $0.backgroundColor = .customOrange()
+        $0.layer.cornerRadius = 4
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -103,15 +144,20 @@ class BuilderVC: UIViewController, View {
         super.viewDidLoad()
         
         self.setUI()
-
         self.bind(reactor: self.reactor)
 
        
-        // Do any additional setup after loading the view.
     }
     
 
+    let homeArrRemove = PublishSubject<Int>()
+    let awayArrRemove = PublishSubject<Int>()
+    
+    let homeArrUpdate = PublishSubject<Int>()
+    let awayArrUpdate = PublishSubject<Int>()
+    
     func bind(reactor: BuilderReactor) {
+        
         
         
         
@@ -120,6 +166,8 @@ class BuilderVC: UIViewController, View {
                         cellIdentifier: "PlayerCell1",
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
         
@@ -128,8 +176,33 @@ class BuilderVC: UIViewController, View {
                         cellIdentifier: "PlayerCell2",
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                
+
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
+        
+  
+        reactor.state.map { _ in reactor.currentState.pushSearchView }.subscribe(onNext: {
+            if $0 {
+                let vc = SearchVC()
+                vc.reactor = SearchReactor(provider: ServiceProvider())
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }).disposed(by: disposeBag)
+        
+        
+        self.homeArrRemove.map { index in Reactor.Action.homeArrRemove(index) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+        
+        self.awayArrRemove.map { index in Reactor.Action.awayArrRemove(index) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+        
+        self.homeArrUpdate.map { index in Reactor.Action.homeArrUpdate(index) }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        self.awayArrUpdate.map { index in Reactor.Action.awayArrUpdate(index) }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        
+        
+    
          
     }
     
@@ -143,6 +216,9 @@ class BuilderVC: UIViewController, View {
         self.view.addSubview(homeName)
         self.view.addSubview(awayName)
         self.view.addSubview(teamPlayerStackView)
+        self.view.addSubview(checkBtn)
+        self.teamPlayerStackView.addSubview(topLine)
+        self.teamPlayerStackView.addSubview(bottomLine)
         
         self.homeLogo.addSubview(self.homeAddIcon)
         
@@ -182,6 +258,7 @@ class BuilderVC: UIViewController, View {
         
         self.homeTableView.snp.makeConstraints {
             
+            
             $0.width.equalTo(VIEW_WIDTH / 2 - 0.5)
         }
         
@@ -191,7 +268,7 @@ class BuilderVC: UIViewController, View {
         }
         self.teamPlayerStackView.snp.makeConstraints {
             $0.top.equalTo(self.awayName.snp.bottom)
-            $0.leading.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(52)
+            $0.leading.trailing.equalToSuperview().inset(52)
             $0.bottom.equalToSuperview().inset(260)
         }
         
@@ -206,47 +283,73 @@ class BuilderVC: UIViewController, View {
             $0.width.height.equalTo(30)
         }
         
-        
-        
-        
-        
-    }
-    
-    
-}
+        self.bottomLine.snp.makeConstraints {
+            $0.width.centerX.equalToSuperview()
+            $0.top.equalTo(self.teamPlayerStackView.snp.bottom)
+            $0.height.equalTo(1)
 
-
-
-
-
-class AddCell: UITableViewCell {
-    
-    let plusImage = UIImageView(image: UIImage(systemName: "plus")).then {
-        $0.tintColor = .white
-  
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .mainColor().withAlphaComponent(0.2)
-        self.setUI()
-        
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setUI() {
-        self.addSubview(plusImage)
-        
-        self.plusImage.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.width.height.equalTo(40)
         }
-
+        
+        self.topLine.snp.makeConstraints {
+            $0.width.centerX.equalToSuperview()
+            $0.bottom.equalTo(self.teamPlayerStackView.snp.top)
+            $0.height.equalTo(1)
+        }
+        
+        self.checkBtn.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(50)
+            $0.height.equalTo(40)
+            $0.width.equalTo(170)
+            
+        }
+        
+        
+        
+        
     }
+    
+    
 }
 
+
+
+extension BuilderVC: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let updateAction = UIContextualAction(style: .normal, title:  "수정", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            if tableView.tag == 0 {
+                self.homeArrUpdate.onNext(indexPath.row)
+            } else {
+                self.awayArrUpdate.onNext(indexPath.row)
+            }
+            success(true)
+        })
+        updateAction.backgroundColor = .customOrange()
+       
+
+        return UISwipeActionsConfiguration(actions: [updateAction])
+    }
+    
+    public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+     
+        let deleteAction = UIContextualAction(style: .normal, title:  "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            
+            if tableView.tag == 0 {
+                self.homeArrRemove.onNext(indexPath.row)
+
+            } else {
+                self.awayArrRemove.onNext(indexPath.row)
+
+            }
+            
+            
+            success(true)
+        })
+        deleteAction.backgroundColor = .customOrange()
+       
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
 

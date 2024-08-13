@@ -50,6 +50,7 @@ struct PlayerModel: Equatable {
     var weight: String
     var profileImageUrl: String?
     var profileImage: UIImage?
+    var number: String?
 
     
    

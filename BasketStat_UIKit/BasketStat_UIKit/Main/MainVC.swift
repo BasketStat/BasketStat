@@ -136,23 +136,22 @@ class MainVC: UIViewController, View {
         
         self.buildingBtnView.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.buildingPush }.bind(to: reactor.action).disposed(by: disposeBag)
 
-        self.reactor.state.map { $0.settingPush }.distinctUntilChanged().bind { val in
+        self.reactor.state.map { $0.settingPush }.bind { val in
             if val {
                 self.navigationController?.viewControllers = [LoginVC()]
             }
             
         }.disposed(by: disposeBag)
         
-        self.reactor.state.map { $0.buildingPush }.distinctUntilChanged().bind {val in
+        self.reactor.state.map { $0.buildingPush }.bind {val in
             if val {
                 self.navigationController?.pushViewController(BuilderVC(), animated: false)
             }
             
         }.disposed(by: disposeBag)
         
-        self.reactor.state.map { $0.recordPush }.distinctUntilChanged().bind {val in
+        self.reactor.state.map { $0.recordPush }.bind { val in
             if val {
-                print("recordPush")
 //                self.navigationController?.viewControllers = [GameStatVC()]
             }
             

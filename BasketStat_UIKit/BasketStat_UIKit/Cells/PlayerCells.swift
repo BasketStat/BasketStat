@@ -9,21 +9,22 @@ import Foundation
 import UIKit
 import Then
 import SnapKit
-
+import RxSwift
 class PlayerBuilderCell: UITableViewCell {
     
-    var nameLabel : UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
+    var nameLabel = UILabel().then {
+        $0.textAlignment = .right
+        $0.textColor = .mainWhite()
+        $0.font = .regular4
+    }
+    let numberLabel = UILabel().then {
+        $0.textAlignment = .right
+        $0.textColor = .mainWhite()
+        $0.font = .regular4
+
+
         
-    }()
-    let numberLabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-        
-    }()
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,13 +43,14 @@ class PlayerBuilderCell: UITableViewCell {
         self.contentView.addSubview(numberLabel)
         
         self.numberLabel.snp.makeConstraints {
-            $0.centerY.leading.equalTo(self.contentView)
-            $0.trailing.equalTo(self.contentView.snp.centerX)
+            $0.centerY.equalTo(self.contentView)
+            $0.leading.equalToSuperview().inset(10)
+
         }
         
         self.nameLabel.snp.makeConstraints {
-            $0.centerY.trailing.equalTo(self.contentView)
-            $0.leading.equalTo(self.contentView.snp.centerX)
+            $0.centerY.equalTo(self.contentView)
+            $0.trailing.equalToSuperview().inset(10)
         }
         
         
@@ -57,6 +59,8 @@ class PlayerBuilderCell: UITableViewCell {
     
 }
 class PlayerSearchCell: UITableViewCell {
+    
+    var disposeBag = DisposeBag()
     
     var nameLabel = UILabel().then {
         $0.textAlignment = .center
@@ -111,3 +115,36 @@ class PlayerSearchCell: UITableViewCell {
     }
     
 }
+
+class PlayerAddCell: UITableViewCell {
+    
+    let plusImage = UIImageView(image: UIImage(systemName: "plus")).then {
+        $0.tintColor = .mainWhite()
+  
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .mainColor().withAlphaComponent(0.2)
+        self.setUI()
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setUI() {
+        self.addSubview(plusImage)
+        
+        self.plusImage.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(40)
+        }
+
+    }
+}
+
+
+

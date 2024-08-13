@@ -15,14 +15,22 @@ class SearchReactor: Reactor {
     
     
     var disposeBag = DisposeBag()
+    
     let provider: ServiceProviderProtocol
+    
+    
+ 
 
     enum Action {
         case searchText(String)
+        case alertText(String)
+        case alertTapped(PlayerModel)
     }
     
     enum Mutation {
         case resultArr([PlayerModel])
+        case alertText(String)
+        case popView
     }
     
     struct State: Equatable {
@@ -30,7 +38,16 @@ class SearchReactor: Reactor {
             return lhs.playerArr == rhs.playerArr
         }
         
+
+        
         var playerArr: [PlayerModel] = []
+        
+        var alertText = ""
+        
+        var pickedModel: PlayerModel?
+        
+        var popView = false
+        
 
     }
     
@@ -60,6 +77,13 @@ class SearchReactor: Reactor {
                 return Disposables.create()
 
             }
+        case .alertText(let alertText):
+            return Observable.just(.alertText(alertText))
+            
+        case .alertTapped(let model):
+            var playerModel = model
+            playerModel.number = currentState.alertText
+            return Observable.just(.popView)
         }
         
         
@@ -73,6 +97,11 @@ class SearchReactor: Reactor {
       
         case .resultArr(let models):
             newState.playerArr = models
+        case .popView:
+            newState.popView.toggle()
+        case .alertText(let text):
+            newState.alertText = text
+            
         }
         
         
