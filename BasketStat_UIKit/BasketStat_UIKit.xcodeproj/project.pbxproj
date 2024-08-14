@@ -58,6 +58,7 @@
 		BD3572C42C463AEF004CB49F /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C32C463AEF004CB49F /* RxMoya */; };
 		BD3572C72C463B32004CB49F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572C62C463B32004CB49F /* FirebaseAuth */; };
 		BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3572D42C46A591004CB49F /* UIFont+Extension.swift */; };
+		BD3C338D2C6C990700526EF8 /* StatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3C338C2C6C990700526EF8 /* StatButton.swift */; };
 		BD8B9D892C55090C000AB1B0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B9D882C55090C000AB1B0 /* Player.swift */; };
 		BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B9D8A2C55529C000AB1B0 /* Stat.swift */; };
 		BDA48F352C46A9EA002F75D9 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */; };
@@ -143,7 +144,7 @@
 		600941A72C58C8A700BA9123 /* SignUpReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpReactor.swift; sourceTree = "<group>"; };
 		600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderProtocol.swift; sourceTree = "<group>"; };
 		600941AB2C58CB9100BA9123 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
-		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
+		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		BD3C338C2C6C990700526EF8 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
 		BD8B9D882C55090C000AB1B0 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BD8B9D8A2C55529C000AB1B0 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		BDA48F2C2C46A9E8002F75D9 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			children = (
 				BD8B9D882C55090C000AB1B0 /* Player.swift */,
 				BD8B9D8A2C55529C000AB1B0 /* Stat.swift */,
+				BD3C338C2C6C990700526EF8 /* StatButton.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				BD8B9D8B2C55529C000AB1B0 /* Stat.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */,
+				BD3C338D2C6C990700526EF8 /* StatButton.swift in Sources */,
 				600941A82C58C8A700BA9123 /* SignUpReactor.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
 			);
