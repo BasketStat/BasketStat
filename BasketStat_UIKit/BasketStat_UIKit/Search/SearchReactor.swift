@@ -82,6 +82,8 @@ class SearchReactor: Reactor {
             return Observable.just(.alertText(alertText))
             
         case .alertTapped(let model):
+            
+            print("alertTapped")
             var playerModel = model
             playerModel.number = currentState.alertText
             builderReactor.searchReactorSubject.onNext(playerModel)

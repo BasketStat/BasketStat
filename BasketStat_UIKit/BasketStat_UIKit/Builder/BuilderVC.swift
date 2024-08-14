@@ -156,7 +156,9 @@ class BuilderVC: UIViewController, View {
     
     func bind(reactor: BuilderReactor) {
         
-        self.rx.methodInvoked(#selector(viewWillAppear(_:))).map { [weak self] _ in Reactor.Action.viewWillAppear }
+        
+        self.rx.methodInvoked(#selector(self.viewDidLoad))
+                    .map { _ in Reactor.Action.viewDidLoad }
                     .bind(to: reactor.action)
                     .disposed(by: disposeBag)
         
@@ -183,7 +185,6 @@ class BuilderVC: UIViewController, View {
         
         reactor.state.map { _ in reactor.currentState.pushSearchView }.subscribe(onNext: { [weak self] val in
             guard let self else {return}
-            print("val \(val)")
             if val {
                 let vc = SearchVC()
                 let reactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!)

@@ -21,7 +21,7 @@ class BuilderReactor: Reactor {
     
 
     enum Action {
-        case viewWillAppear
+        case viewDidLoad
         case homeArrRemove(Int)
         case awayArrRemove(Int) 
         
@@ -75,7 +75,7 @@ class BuilderReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
-        case .viewWillAppear: 
+        case .viewDidLoad:
             
             print("viewWillAppear")
             return Observable.create {  ob in
@@ -85,6 +85,7 @@ class BuilderReactor: Reactor {
                     guard let self, let val = val else { return }
                     ob.onNext(.getPickData(val))
                     
+                    searchReactorSubject.dispose()
                 }).disposed(by: self.disposeBag)
                 
                 return Disposables.create()
