@@ -15,7 +15,8 @@ class SignUpReactor: Reactor {
     
     
     var disposeBag = DisposeBag()
-    
+    let provider: ServiceProviderProtocol
+
     enum Action {
         case pushBtn
         
@@ -57,7 +58,6 @@ class SignUpReactor: Reactor {
     }
     
     let initialState: State
-    let provider: ServiceProviderProtocol
     
     init(provider: ServiceProviderProtocol) {
         self.initialState = State(isPushed: false)

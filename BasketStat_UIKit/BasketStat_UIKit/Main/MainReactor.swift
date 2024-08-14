@@ -12,6 +12,13 @@ import UIKit
 
 class MainReactor: Reactor {
     
+    var disposeBag = DisposeBag()
+    let provider: ServiceProviderProtocol
+
+    init(provider: ServiceProviderProtocol) {
+        self.initialState = State()
+        self.provider = provider
+    }
     enum Action {
         case buildingPush
         case recordPush
@@ -23,6 +30,9 @@ class MainReactor: Reactor {
         case buildingPush
         case recordPush
         case settingPush
+        
+        case failedSignOut
+
     }
     
     struct State {
@@ -30,9 +40,10 @@ class MainReactor: Reactor {
         var recordPush = false
         var settingPush = false
         
+        
     }
     
-    let initialState: State = .init()
+    var initialState: State = .init()
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
@@ -42,7 +53,24 @@ class MainReactor: Reactor {
         case .recordPush:
             return .just(.recordPush)
         case .settingPush:
-            return .just(.settingPush)
+            return Observable.create {  [weak self] ob in
+                guard let self else { return Disposables.create()}
+                
+                self.provider.firebaseService.signOut().subscribe({ com in
+                    switch com {
+                    case .completed:
+                        print("signOut")
+                        ob.onNext(.settingPush)
+                        
+                    case .error(let err):
+                        ob.onNext(.failedSignOut)
+                        
+                    }
+                    
+                }).disposed(by: self.disposeBag)
+                
+                return Disposables.create()
+            }
         }
     }
     
@@ -55,7 +83,8 @@ class MainReactor: Reactor {
             newState.recordPush.toggle()
         case .settingPush:
             newState.settingPush.toggle()
-            
+        case .failedSignOut:
+            break
         }
         return newState
     }

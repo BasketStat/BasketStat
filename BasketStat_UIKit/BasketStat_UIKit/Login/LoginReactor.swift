@@ -15,7 +15,8 @@ class LoginReactor: Reactor {
     
     
     var disposeBag = DisposeBag()
-    
+    let provider: ServiceProviderProtocol
+
     enum Action {
         case appleLogin(OAuthCredential)
         case kakaoLogin
@@ -24,21 +25,22 @@ class LoginReactor: Reactor {
     
     enum Mutation {
         case loginSuccess
+        case pushSignUp
         case loginFailed
         
     }
     
     struct State {
-        var isPushed : Bool
+        var pushMain: Bool
+        var pushSignUp: Bool
         
         
     }
     
     let initialState: State
-    let provider: ServiceProviderProtocol
     
     init(provider: ServiceProviderProtocol) {
-        self.initialState = State(isPushed: false)
+        self.initialState = State(pushMain: false, pushSignUp: false)
         self.provider = provider
     }
     
@@ -60,7 +62,7 @@ class LoginReactor: Reactor {
                             
                             switch result {
                             case.success(_):
-                                print("model")
+                                observable.onNext(.pushSignUp)
                             case.failure(_):
                                 observable.onNext(.loginSuccess)
                                 
@@ -86,7 +88,18 @@ class LoginReactor: Reactor {
                 self.provider.kakaoService.kakaoLogin().subscribe({ completable in
                     switch completable {
                     case.completed:
-                        observable.onNext(Mutation.loginSuccess)
+                        self.provider.firebaseService.getPlayer().subscribe({ result in
+                            
+                            switch result {
+                            case.success(_):
+                                observable.onNext(.loginSuccess)
+                            case.failure(_):
+                                observable.onNext(.pushSignUp)
+                                
+                                
+                            }
+                            
+                        }).disposed(by: self.disposeBag)
                     case .error(_):
                         observable.onNext(Mutation.loginFailed)
                         
@@ -97,15 +110,37 @@ class LoginReactor: Reactor {
             }
         case .googleLogin(let vc):
             
-            return provider.googleService.signIn(vc: vc).map { value -> Mutation in
-                if value {
-                    return Mutation.loginSuccess
-                }
-                else {
-                    return Mutation.loginFailed
-                }
-                
+            return Observable.create { [weak self] observable in
+                guard let self else {return Disposables.create()}
+                self.provider.googleService.signIn(vc: vc).subscribe({ com in
+                    switch com {
+                    case .completed:
+                        self.provider.firebaseService.getPlayer().subscribe({ result in
+                            
+                            switch result {
+                            case.success(_):
+                                observable.onNext(.loginSuccess)
+
+                            case.failure(_):
+                                observable.onNext(.pushSignUp)
+
+                                
+                                
+                            }
+                            
+                        }).disposed(by: self.disposeBag)
+                    case .error(let err):
+                        observable.onNext(.loginFailed)
+
+                       
+                    }
+                    
+                    
+                }).disposed(by: disposeBag)
+                return Disposables.create()
             }
+            
+            
             
         }
         
@@ -120,8 +155,10 @@ class LoginReactor: Reactor {
         case .loginFailed:
             break
         case .loginSuccess:
-            newState.isPushed = true
+            newState.pushMain.toggle()
             
+        case .pushSignUp:
+            newState.pushSignUp.toggle()
         }
         
         

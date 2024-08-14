@@ -10,10 +10,11 @@ import UIKit
 import Then
 import SnapKit
 import RxSwift
+import ReactorKit
 
-class MainVC: UIViewController {
+class MainVC: UIViewController, View {
     
-    private let reactor = MainReactor()
+    private let reactor = MainReactor(provider: ServiceProvider())
     var disposeBag = DisposeBag()
     
     
@@ -114,10 +115,43 @@ class MainVC: UIViewController {
     
     func bind(reactor: MainReactor) {
         
-        reactor.state.map { $0.buildingPush }.distinctUntilChanged().bind { isPushed in
+        self.settingBtnView.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.settingPush }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        self.recordBtnView.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.recordPush }.bind(to: reactor.action).disposed(by: disposeBag)
+        
+        self.buildingBtnView.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.buildingPush }.bind(to: reactor.action).disposed(by: disposeBag)
+
+        self.reactor.state.map { $0.settingPush }.distinctUntilChanged().bind { val in
+            if val {
+                self.navigationController?.viewControllers = [LoginVC()]
+            }
+            
             
         }.disposed(by: disposeBag)
         
+        self.reactor.state.map { $0.buildingPush }.distinctUntilChanged().bind {val in
+            if val {
+                
+                self.navigationController?.pushViewController(GameStatVC(), animated: false)
+            }
+            
+        }.disposed(by: disposeBag)
+        
+        self.reactor.state.map { $0.recordPush }.distinctUntilChanged().bind {val in
+            if val {
+                print("recordPush")
+//                self.navigationController?.viewControllers = [GameStatVC()]
+            }
+            
+        }.disposed(by: disposeBag)
+        
+    
+           
+                                                              
+                                                              
+                                                              
+                                                              
+                                                              
     }
 
     func setUI() {
@@ -143,6 +177,10 @@ class MainVC: UIViewController {
             $0.width.centerX.equalTo(self.mainLoginImage)
             $0.top.equalTo(self.mainLoginImage.snp.bottom).offset(105)
         }
+        
+        
+      
+        
         
         
     }

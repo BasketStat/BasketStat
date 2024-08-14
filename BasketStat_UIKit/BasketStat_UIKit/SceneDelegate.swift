@@ -29,14 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let user = Auth.auth().currentUser { 
 
-//            // <- Firebase Auth
-//            let firebaseAuth = Auth.auth()
-//            do {
-//                try firebaseAuth.signOut()
-//                print("signOut")
-//            } catch let signOutError as NSError {
-//                print("Error signing out: %@", signOutError)
-//            }
+           
 
             UserDefaults.standard.setValue(user.uid, forKey: "uid")
             provider.firebaseService.getPlayer().subscribe({ single in
