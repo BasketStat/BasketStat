@@ -17,7 +17,6 @@ class BuilderVC: UIViewController, View {
    
     
     
-    private let reactor = BuilderReactor(provider: ServiceProvider())
     var disposeBag = DisposeBag()
     
     
@@ -144,7 +143,6 @@ class BuilderVC: UIViewController, View {
         super.viewDidLoad()
         
         self.setUI()
-        self.bind(reactor: self.reactor)
 
        
     }
@@ -158,8 +156,9 @@ class BuilderVC: UIViewController, View {
     
     func bind(reactor: BuilderReactor) {
         
-        
-        
+        self.rx.methodInvoked(#selector(viewWillAppear(_:))).map { [weak self] _ in Reactor.Action.viewWillAppear }
+                    .bind(to: reactor.action)
+                    .disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.homeArr }
             .bind(to: self.homeTableView.rx.items(
@@ -182,11 +181,15 @@ class BuilderVC: UIViewController, View {
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
         
-  
-        reactor.state.map { _ in reactor.currentState.pushSearchView }.subscribe(onNext: {
-            if $0 {
+        reactor.state.map { _ in reactor.currentState.pushSearchView }.subscribe(onNext: { [weak self] val in
+            guard let self else {return}
+            print("val \(val)")
+            if val {
                 let vc = SearchVC()
-                vc.reactor = SearchReactor(provider: ServiceProvider())
+                let reactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!)
+                vc.reactor = reactor
+                
+                
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: disposeBag)
@@ -342,7 +345,6 @@ extension BuilderVC: UITableViewDelegate {
                 self.awayArrRemove.onNext(indexPath.row)
 
             }
-            
             
             success(true)
         })

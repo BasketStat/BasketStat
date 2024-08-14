@@ -79,7 +79,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
                         
                     }, over: self)
                     
-                }).disposed(by: cell.disposeBag)
+                }).disposed(by: self.disposeBag)
                 
                 
                 let url = URL(string: item.profileImageUrl ?? "")
@@ -103,6 +103,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
         reactor.state.map { $0.popView }.subscribe(onNext: {
             if $0 {
+                
                 self.navigationController?.popViewController(animated: true)
             }
             
@@ -177,6 +178,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
     
     func showRevoke(title: String, message: String?, onConfirm: @escaping Action, over viewController: UIViewController) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
 
         let gotIn =  UIAlertAction(title: "확인", style: .default, handler: { (_) in
             onConfirm()
@@ -185,7 +187,9 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
         ac.addTextField(configurationHandler: { [weak self] textField in
             guard let self else {return}
+            textField.textAlignment = .center
             textField.rx.text.orEmpty.bind(to: self.alertTextField ).disposed(by: self.disposeBag)
+            
             
         })
 

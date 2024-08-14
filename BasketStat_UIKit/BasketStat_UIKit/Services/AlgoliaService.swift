@@ -40,7 +40,6 @@ final class AlgoliaService: BaseService, AlgoliaServiceProtocol {
                             $0.getModel()
                         }))
                     } catch let error {
-                        print("Contact parsing error: \(error)")
                         single(.failure(error))
 
                     }

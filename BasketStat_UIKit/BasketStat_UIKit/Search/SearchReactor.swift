@@ -18,6 +18,7 @@ class SearchReactor: Reactor {
     
     let provider: ServiceProviderProtocol
     
+    let builderReactor: BuilderReactor
     
  
 
@@ -53,9 +54,10 @@ class SearchReactor: Reactor {
     
     let initialState: State
     
-    init(provider: ServiceProviderProtocol) {
+    init(provider: ServiceProviderProtocol, builderReactor: BuilderReactor) {
         self.initialState = State()
         self.provider = provider
+        self.builderReactor = builderReactor
     }
     
     
@@ -66,10 +68,9 @@ class SearchReactor: Reactor {
         switch action {
             
         case .searchText(let searchText):
-            print("searchText \(searchText)")
             return Observable.create { [weak self] ob in
                 guard let self else {return Disposables.create()}
-                self.provider.algoliaService.searchPlayers(searchText: searchText).subscribe(onSuccess: { models in
+                self.provider.algoliaService.searchPlayers(searchText: searchText).subscribe(onSuccess: { [weak self] models in
                     
                     ob.onNext(.resultArr(models))
                     
@@ -83,6 +84,9 @@ class SearchReactor: Reactor {
         case .alertTapped(let model):
             var playerModel = model
             playerModel.number = currentState.alertText
+            builderReactor.searchReactorSubject.onNext(playerModel)
+            
+            
             return Observable.just(.popView)
         }
         

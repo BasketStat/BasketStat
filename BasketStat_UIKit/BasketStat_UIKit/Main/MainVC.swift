@@ -143,9 +143,11 @@ class MainVC: UIViewController, View {
             
         }.disposed(by: disposeBag)
         
-        self.reactor.state.map { $0.buildingPush }.bind {val in
+        self.reactor.state.map { $0.buildingPush }.bind { val in
             if val {
-                self.navigationController?.pushViewController(BuilderVC(), animated: false)
+                let vc = BuilderVC()
+                vc.reactor = BuilderReactor(provider: ServiceProvider())
+                self.navigationController?.pushViewController( vc, animated: false)
             }
             
         }.disposed(by: disposeBag)
