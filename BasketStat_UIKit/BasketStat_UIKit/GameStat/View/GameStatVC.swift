@@ -237,6 +237,12 @@ extension GameStatVC {
         }
     }
     
+    private func createTeamStack() {
+        firstTeamStackView.addArrangedSubview(createPlayerButton(backNumber: GamePlayerManager().a_TeamPlayerNumber))
+        
+        secondTeamStackView.addArrangedSubview(createPlayerButton(backNumber: GamePlayerManager().b_TeamPlayerNumber))
+    }
+    
     func createButton(title: String) -> UIButton {
         return UIButton().then {
             $0.setTitle(title, for: .normal)
@@ -331,7 +337,7 @@ extension GameStatVC {
             }
             thirdRowStackView.addArrangedSubview(button!)
         }
-
+        createTeamStack()
         buttonGridStackView.addArrangedSubview(firstRowStackView)
         buttonGridStackView.addArrangedSubview(secondRowStackView)
         buttonGridStackView.addArrangedSubview(thirdRowStackView)
@@ -424,13 +430,13 @@ extension GameStatVC {
             .disposed(by: disposeBag)
         
         // MARK: State
-        reactor.state.map {Array($0.players)}
-            .distinctUntilChanged()
-            .subscribe(with: self) { owner, number in
-                owner.firstTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
-                owner.secondTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
-            }
-            .disposed(by: disposeBag)
+//        reactor.state.map {Array($0.players)}
+//            .distinctUntilChanged()
+//            .subscribe(with: self) { owner, number in
+//                owner.firstTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
+//                owner.secondTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
+//            }
+//            .disposed(by: disposeBag)
         
         Observable.combineLatest(
             reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),

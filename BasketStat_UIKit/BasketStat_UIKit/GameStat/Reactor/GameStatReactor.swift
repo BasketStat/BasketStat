@@ -32,7 +32,6 @@ class GameStatReactor: Reactor {
         var pointButton: (UIButton?, UIButton?)
         var statButton: (UIButton?, UIButton?)
         var button = StatButton()
-        var players:[Int] = [1,2,3,4,5] // 번호로 플레이어 구분
         
     }
     

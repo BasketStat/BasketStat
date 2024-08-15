@@ -25,3 +25,38 @@ enum Stat: String,CaseIterable {
     case FOUL = "FOUL"
     case TO = "TO"
 }
+
+enum TeamType {
+    case A
+    case B
+}
+
+//struct Player {
+//    let id: UUID
+//    let number: Int
+//    var stats: [PlayerStat]
+//    
+//}
+//// 데이터가 있을수도 있고 없을수도 있고
+//
+struct PlayerStat {
+    let point: Int?
+    let ast: Int?
+    let reb: Int?
+    let blk: Int?
+    let stl: Int?
+    let foul: Int?
+    let to: Int?
+}
+//
+//// 처음에 유저 Uuid 와 백넘버를 매칭할 거
+////
+//struct PlayerRecord {
+//    
+//    let backNumber : [UUID: Int] = [:]
+//    
+//    var player: [Int: PlayerStat] {
+//        
+//    }
+//    
+//}

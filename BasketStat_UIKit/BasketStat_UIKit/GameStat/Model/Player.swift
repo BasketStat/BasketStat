@@ -8,12 +8,20 @@
 import Foundation
 import UIKit
 
-struct Player:Codable {
-    
-    var playerNumber: Int
-    
-    
-    
+//struct Player:Codable {
+//    
+//    var playerNumber: Int
+//    
+//    
+//    
+//}
+
+struct Player {
+    let id: UUID
+    let number: Int
+    let team : TeamType
+    var stats: [PlayerStat]
+
 }
 //struct StatButton {
 //    var newSelectedPlayerButton: UIButton?
