@@ -18,6 +18,9 @@ enum Point: String, CaseIterable {
 }
 
 enum Stat: String,CaseIterable {
+    case TwoPT = "2점슛"
+    case ThreePT = "3점슛"
+    case FreeThrow = "자유투"
     case AST = "AST"
     case REB = "REB"
     case BLK = "BLK"

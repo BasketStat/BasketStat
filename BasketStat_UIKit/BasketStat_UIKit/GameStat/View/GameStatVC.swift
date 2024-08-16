@@ -243,9 +243,10 @@ extension GameStatVC {
         secondTeamStackView.addArrangedSubview(createPlayerButton(backNumber: GamePlayerManager().b_TeamPlayerNumber))
     }
     
-    func createButton(title: String) -> UIButton {
-        return UIButton().then {
-            $0.setTitle(title, for: .normal)
+    func createButton(stat: Stat) -> UIButton {
+        
+        let button = UIButton().then {
+            $0.setTitle(stat.rawValue, for: .normal)
             $0.titleLabel?.font = UIFont.boldButton
             $0.backgroundColor = .clear
             $0.setTitleColor(.white, for: .normal)
@@ -253,14 +254,21 @@ extension GameStatVC {
             $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
             $0.layer.borderWidth = 1
             $0.layer.masksToBounds = true
+            
             $0.snp.makeConstraints { make in
                 make.width.equalTo(50)
                 make.height.equalTo(40)
             }
         }
+//        button.rx.tap
+//            .map { Reactor.Action.selectedStat(stat: stat, button: button) }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
+        
+        return button
     }
     
-    func createFirstRowStack(button: UIButton, segment : UISegmentedControl) -> UIStackView {
+    private func createFirstRowStack(button: UIButton, segment : UISegmentedControl) -> UIStackView {
         return UIStackView().then {
             $0.axis = .vertical
             $0.distribution = .fill
@@ -272,7 +280,7 @@ extension GameStatVC {
         }
     }
     
-    func createSegmentControls() -> UISegmentedControl {
+    private func createSegmentControls() -> UISegmentedControl {
         return UISegmentedControl(items: ["성공", "실패"]).then {
             $0.selectedSegmentIndex = 0
             let normalTextAttributes: [NSAttributedString.Key: Any] = [
@@ -295,7 +303,7 @@ extension GameStatVC {
         }
     }
     
-    func setupButtons() {
+    private func setupButtons() {
         
         let firstRowStackView = UIStackView().then {
             $0.axis = .horizontal
@@ -315,15 +323,15 @@ extension GameStatVC {
             $0.spacing = 10
         }
 
-        twoPointButton = createButton(title: "2점슛")
-        threePointButton = createButton(title: "3점슛")
-        freeThrowButton = createButton(title: "자유투")
-        astButton = createButton(title: "AST")
-        rebButton = createButton(title: "REB")
-        blkButton = createButton(title: "BLK")
-        stlButton = createButton(title: "STL")
-        foulButton = createButton(title: "FOUL")
-        toButton = createButton(title: "TO")
+        twoPointButton = createButton(stat: .TwoPT)
+        threePointButton = createButton(stat: .ThreePT)
+        freeThrowButton = createButton(stat: .FreeThrow)
+        astButton = createButton(stat: .AST)
+        rebButton = createButton(stat: .REB)
+        blkButton = createButton(stat: .BLK)
+        stlButton = createButton(stat: .STL)
+        foulButton = createButton(stat: .FOUL)
+        toButton = createButton(stat: .TO)
         
         for (index, button) in [twoPointButton, threePointButton, freeThrowButton, astButton, rebButton, blkButton, stlButton, foulButton, toButton].enumerated() {
             if index < 3 {
@@ -344,7 +352,75 @@ extension GameStatVC {
 
     }
     
-    func updateButton(_ button: (UIButton?, UIButton?)) {
+    private func clearHighlight(for stat: Stat) {
+        switch stat {
+        case .TwoPT:
+            clearStackViewHighlight(for: twoPointButton)
+        case .ThreePT:
+            clearStackViewHighlight(for: threePointButton)
+        case .FreeThrow:
+            clearStackViewHighlight(for: freeThrowButton)
+        case .AST:
+            clearButtonHighlight(for: astButton)
+        case .REB:
+            clearButtonHighlight(for: rebButton)
+        case .BLK:
+            clearButtonHighlight(for: blkButton)
+        case .STL:
+            clearButtonHighlight(for: stlButton)
+        case .FOUL:
+            clearButtonHighlight(for: foulButton)
+        case .TO:
+            clearButtonHighlight(for: toButton)
+        }
+    }
+    
+    private func highlight(for stat: Stat) {
+        switch stat {
+        case .TwoPT:
+            highlightStackView(for: twoPointButton)
+        case .ThreePT:
+            highlightStackView(for: threePointButton)
+        case .FreeThrow:
+            highlightStackView(for: freeThrowButton)
+        case .AST:
+            highlightButton(astButton)
+        case .REB:
+            highlightButton(rebButton)
+        case .BLK:
+            highlightButton(blkButton)
+        case .STL:
+            highlightButton(stlButton)
+        case .FOUL:
+            highlightButton(foulButton)
+        case .TO:
+            highlightButton(toButton)
+        }
+    }
+    
+    private func highlightStackView(for button: UIButton?) {
+        guard let button = button, let stackView = button.superview as? UIStackView else { return }
+        stackView.layer.borderColor = UIColor.orange.cgColor
+        stackView.layer.borderWidth = 4
+    }
+    
+    private func clearStackViewHighlight(for button: UIButton) {
+        guard let stackView = button.superview as? UIStackView else { return }
+        stackView.layer.borderColor = UIColor.clear.cgColor
+        stackView.layer.borderWidth = 0
+    }
+    
+    private func highlightButton(_ button: UIButton?) {
+        button?.layer.borderWidth = 4
+        button?.layer.borderColor = UIColor.orange.cgColor
+    }
+    
+    private func clearButtonHighlight(for button: UIButton) {
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+    }
+
+    private func updateButton(_ button: (UIButton?, UIButton?)) {
         button.0?.layer.borderWidth = 1
         button.0?.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
         button.1?.layer.borderWidth = 4
@@ -408,35 +484,70 @@ extension GameStatVC {
     
     func bind(reactor: GameStatReactor) {
         // MARK: Action
-        twoPointButton.rx.tap // 2점 클릭했을 때의 메서드
-            .map { Reactor.Action.selectedPoint(point: .TwoPT, button: self.twoPointButton) }
+        twoPointButton.rx.tap
+            .map { Reactor.Action.selectedStat(stat: .TwoPT)}
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         threePointButton.rx.tap
-            .map { Reactor.Action.selectedPoint(point: .ThreePT, button: self.threePointButton)}
+            .map { Reactor.Action.selectedStat(stat: .ThreePT) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         freeThrowButton.rx.tap
-            .map { Reactor.Action.selectedPoint(point: .FreeThrow, button: self.freeThrowButton) }
+            .map { Reactor.Action.selectedStat(stat: .FreeThrow)}
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        astButton.rx.tap
+            .map { Reactor.Action.selectedStat(stat: .AST)}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        rebButton.rx.tap
+            .map {Reactor.Action.selectedStat(stat: .REB)}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        blkButton.rx.tap
+            .map {Reactor.Action.selectedStat(stat: .BLK)}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        stlButton.rx.tap
+            .map {Reactor.Action.selectedStat(stat: .STL)}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        foulButton.rx.tap
+            .map { Reactor.Action.selectedStat(stat: .FOUL)}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        toButton.rx.tap
+            .map { Reactor.Action.selectedStat(stat: .TO) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    
+        
         cancleButton.rx.tap
-            .do(onNext: {print("dsfa")})
             .map{Reactor.Action.selectedCancleButton}
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         // MARK: State
-//        reactor.state.map {Array($0.players)}
-//            .distinctUntilChanged()
-//            .subscribe(with: self) { owner, number in
-//                owner.firstTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
-//                owner.secondTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
-//            }
-//            .disposed(by: disposeBag)
+        reactor.state.map { $0.currentStat }
+            .distinctUntilChanged()
+            .subscribe(with: self) { owner, currentStat in
+                if let previousStat = reactor.currentState.previousStat {
+                    owner.clearHighlight(for: previousStat)
+                }
+                
+                if let currentStat = currentStat {
+                    owner.highlight(for: currentStat)
+                }
+            }
+            .disposed(by: disposeBag)
         
         Observable.combineLatest(
             reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
@@ -446,24 +557,24 @@ extension GameStatVC {
             vc.updateButton((preButton, newButton))
         })
         .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
+//        
+//        Observable.combineLatest(
+//            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
+//            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
+//        ) .subscribe(onNext: { [weak self] preButton, newButton in
+//            guard let vc = self else { return }
+//            vc.updateButton((preButton, newButton))
+//        })
+//        .disposed(by: disposeBag)
+//        
+//        Observable.combineLatest(
+//            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
+//            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
+//        ) .subscribe(onNext: { [weak self] preButton, newButton in
+//            guard let vc = self else { return }
+//            vc.updateButton((preButton, newButton))
+//        })
+//        .disposed(by: disposeBag)
     }
 }
 
