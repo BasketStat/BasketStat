@@ -45,6 +45,7 @@
 		BD0D63F42C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */; };
 		BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */; };
 		BD1223942C6E427600DF155C /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223932C6E427600DF155C /* PlayerManager.swift */; };
+		BD1223E42C70DB7F00DF155C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E32C70DB7F00DF155C /* UIButton+Extension.swift */; };
 		BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD35729B2C461002004CB49F /* GameStatReactor.swift */; };
 		BD3572AA2C463A3A004CB49F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572A92C463A3A004CB49F /* KakaoSDK */; };
 		BD3572AC2C463A3A004CB49F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572AB2C463A3A004CB49F /* KakaoSDKAuth */; };
@@ -171,6 +172,7 @@
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		BD1223932C6E427600DF155C /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
+		BD1223E32C70DB7F00DF155C /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		BD3C338C2C6C990700526EF8 /* StatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatButton.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 			children = (
 				BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */,
 				BD3572D42C46A591004CB49F /* UIFont+Extension.swift */,
+				BD1223E32C70DB7F00DF155C /* UIButton+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
 				600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */,
 				600941AC2C58CB9100BA9123 /* BaseService.swift in Sources */,
+				BD1223E42C70DB7F00DF155C /* UIButton+Extension.swift in Sources */,
 				BD3572D52C46A592004CB49F /* UIFont+Extension.swift in Sources */,
 				60550D9B2C5CA28C0027CF4E /* MainVC.swift in Sources */,
 				600941662C4A546700BA9123 /* FirebaseService.swift in Sources */,
