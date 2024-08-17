@@ -24,7 +24,6 @@ extension UIButton {
             $0.layer.masksToBounds = true
             
             $0.snp.makeConstraints { make in
-                make.width.equalTo(50)
                 make.height.equalTo(40)
             }
         }
@@ -45,5 +44,15 @@ extension UIButton {
             }
         }
         return button
+    }
+    
+    static func highlightButton(_ button: UIButton?) {
+        button?.layer.borderWidth = 2
+        button?.layer.borderColor = UIColor.orange.cgColor
+    }
+    
+    static func clearButtonHighlight(for button: UIButton) {
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
     }
 }
