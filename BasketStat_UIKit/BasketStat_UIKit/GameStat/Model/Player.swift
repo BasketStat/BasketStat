@@ -16,12 +16,15 @@ import UIKit
 //    
 //}
 
-struct Player {
+struct Player: Equatable {
     let id: UUID
     let number: Int
-    let team : TeamType
+    let team: TeamType
     var stats: [PlayerStat]
 
+    static func == (lhs: Player, rhs: Player) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 //struct StatButton {
 //    var newSelectedPlayerButton: UIButton?
