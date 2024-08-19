@@ -37,7 +37,7 @@ class GameStatVC: UIViewController, View {
         $0.textColor = .systemRed
     }
     
-    private let firstTeamScoreLabel = UILabel().then {
+    private lazy var firstTeamScoreLabel = UILabel().then {
         $0.text = "24"
         $0.font = UIFont.regular1
         $0.textColor = .white
@@ -74,7 +74,7 @@ class GameStatVC: UIViewController, View {
         $0.spacing = 15
     }
     
-    private let secondTeamLabel = UILabel().then {
+    private lazy var secondTeamLabel = UILabel().then {
         $0.text = "Blue"
         $0.frame = CGRect(x: 0, y: 0,width: 39, height: 24)
         $0.font = UIFont.h1b
@@ -138,7 +138,7 @@ class GameStatVC: UIViewController, View {
     private lazy var blkButton = UIButton.createStatButton(stat: .BLK)
     private lazy var stlButton = UIButton.createStatButton(stat: .STL)
     private lazy var foulButton = UIButton.createStatButton(stat: .FOUL)
-    private lazy var toButton = UIButton.createStatButton(stat: .TO)
+    private lazy var toButton = UIButton.createStatButton(stat: .Turnover)
     private lazy var twoPointSegmentControl = UISegmentedControl.createSegmentControls()
     private lazy var threePointSegmentControl = UISegmentedControl.createSegmentControls()
     private lazy var freeThrowPointSegmentControl = UISegmentedControl.createSegmentControls()
@@ -278,7 +278,7 @@ extension GameStatVC {
             return stlButton
         case .FOUL:
             return foulButton
-        case .TO:
+        case .Turnover:
             return toButton
         }
     }
@@ -403,7 +403,7 @@ extension GameStatVC {
             blkButton: Stat.BLK,
             stlButton: Stat.STL,
             foulButton: Stat.FOUL,
-            toButton: Stat.TO
+            toButton: Stat.Turnover
         ]
         
         statButtons.forEach { button, stat in
@@ -418,7 +418,14 @@ extension GameStatVC {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        saveButton.rx.tap
+            .map { Reactor.Action.selecedSaveButton }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         // MARK: State
+        
+        
         reactor.state.map { $0.currentStat }
             .distinctUntilChanged()
             .subscribe(with: self) { owner, currentStat in

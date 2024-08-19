@@ -15,12 +15,14 @@ class GameStatReactor: Reactor {
         case selectedPlayer(player: Player)
         case selectedStat(stat: Stat)
         case selectedCancleButton
+        case selecedSaveButton
     }
 
     enum Mutation {
         case setSelectedPlayer(player: Player?)
         case setSelectedStat(stat: Stat?)
         case setSelectedCancle
+        case updatePlayerStats
     }
 
     struct State {
@@ -28,7 +30,7 @@ class GameStatReactor: Reactor {
         var previousPlayer: Player?
         var currentStat: Stat?  // 현재 선택된 Stat 상태
         var previousStat: Stat? // 이전에 선택된 Stat 상태
-        var isCancle: Bool = false
+        
     }
 
     let initialState = State()
@@ -41,8 +43,11 @@ class GameStatReactor: Reactor {
             return .just(.setSelectedStat(stat: stat))
         case .selectedCancleButton:
             return .just(.setSelectedCancle)
+        case .selecedSaveButton:
+            return .just(.updatePlayerStats)
         }
     }
+
 
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
@@ -54,6 +59,17 @@ class GameStatReactor: Reactor {
             newState.previousStat = state.currentStat // 이전 상태 저장
             newState.currentStat = stat
         case .setSelectedCancle:
+            newState.previousPlayer = nil
+            newState.previousStat = nil
+            newState.currentStat = nil
+            newState.currentPlayer = nil
+        case .updatePlayerStats:
+            if let currentPlayer = newState.currentPlayer, let currentStat = newState.currentStat {
+                GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: currentStat)
+                for player in GamePlayerManager.shared.gamePlayers {
+                    print(player.description())
+                }
+            }
             newState.previousPlayer = nil
             newState.previousStat = nil
             newState.currentStat = nil
