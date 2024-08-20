@@ -20,12 +20,12 @@ struct Player: Equatable {
     
     mutating func incrementStat(_ stat: Stat) {
         switch stat {
-        case .TwoPT:
-            stats.point += 2
-        case .ThreePT:
-            stats.point += 3
-        case .FreeThrow:
-            stats.point += 1
+        case .TwoPM:
+            stats.two_pm += 1
+        case .ThreePM:
+            stats.three_pm += 1
+        case .FreeThrowPM:
+            stats.ft_pm += 1
         case .AST:
             stats.ast += 1
         case .REB:
@@ -38,23 +38,39 @@ struct Player: Equatable {
             stats.foul += 1
         case .Turnover:
             stats.turnover += 1
+        case .TwoPA:
+            stats.two_pa += 1
+        case .ThreePA:
+            stats.three_pa += 1
+        case .FreeThrowPA:
+            stats.ft_pa += 1
         }
     }
+    
     func description() -> String {
             return """
-            Player \(number) (Team \(team)):
-            Points: \(stats.point)
-            Assists: \(stats.ast)
-            Rebounds: \(stats.reb)
-            Blocks: \(stats.blk)
-            Steals: \(stats.stl)
-            Fouls: \(stats.foul)
-            Turnovers: \(stats.turnover)
+            Player \(number)        | (Team \(team)):
+            ------------------------------------------------------------------------------
+            2pa : \(stats.two_pa)   | 2pm : \(stats.two_pm)
+            3pa : \(stats.three_pa) | 3pm : \(stats.three_pm)
+            fta : \(stats.ft_pa)    | ftm : \(stats.ft_pm)
+            ------------------------------------------------------------------------------
+            Points: \(stats.point)  |
+            Assists: \(stats.ast)   | Rebounds: \(stats.reb) | Blocks: \(stats.blk)
+            Steals: \(stats.stl)    | Fouls: \(stats.foul)   |Turnovers: \(stats.turnover)
             """
         }
 }
 struct PlayerStat {
-    var point: Int = 0
+    var two_pa = 0
+    var two_pm = 0
+    var three_pa = 0
+    var three_pm = 0
+    var ft_pa = 0
+    var ft_pm = 0
+    var point: Int {
+        return (two_pm * 2 + three_pm * 3 + ft_pm)
+    }
     var ast: Int = 0
     var reb: Int = 0
     var blk: Int = 0

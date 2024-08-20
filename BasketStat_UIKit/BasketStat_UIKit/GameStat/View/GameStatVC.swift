@@ -130,9 +130,9 @@ class GameStatVC: UIViewController, View {
     private lazy var aTeamButtons: [UIButton] = createTeamPlayerButtons(for: .A)
     private lazy var bTeamButtons: [UIButton] = createTeamPlayerButtons(for: .B)
 
-    private lazy var twoPointButton = UIButton.createStatButton(stat: .TwoPT)
-    private lazy var threePointButton = UIButton.createStatButton(stat: .ThreePT)
-    private lazy var freeThrowButton = UIButton.createStatButton(stat: .FreeThrow)
+    private lazy var twoPointButton = UIButton.createStatButton(stat: .TwoPA)
+    private lazy var threePointButton = UIButton.createStatButton(stat: .ThreePA)
+    private lazy var freeThrowButton = UIButton.createStatButton(stat: .FreeThrowPA)
     private lazy var astButton = UIButton.createStatButton(stat: .AST)
     private lazy var rebButton = UIButton.createStatButton(stat: .REB)
     private lazy var blkButton = UIButton.createStatButton(stat: .BLK)
@@ -262,11 +262,11 @@ extension GameStatVC {
     
     private func button(for stat: Stat) -> UIButton? {
         switch stat {
-        case .TwoPT:
+        case .TwoPM, .TwoPA:
             return twoPointButton
-        case .ThreePT:
+        case .ThreePM, .ThreePA:
             return threePointButton
-        case .FreeThrow:
+        case .FreeThrowPM, .FreeThrowPA:
             return freeThrowButton
         case .AST:
             return astButton
@@ -304,7 +304,7 @@ extension GameStatVC {
     
     private func highlightButton(for stat: Stat) {
         if let button = button(for: stat) {
-            if stat == .TwoPT || stat == .ThreePT || stat == .FreeThrow {
+            if stat == .TwoPA || stat == .ThreePA || stat == .FreeThrowPA {
                 UIStackView.highlightStackView(for: button)
             } else {
                 UIButton.highlightButton(button)
@@ -314,7 +314,7 @@ extension GameStatVC {
     
     private func clearHighlightButton(for stat: Stat) {
         if let button = button(for: stat) {
-            if stat == .TwoPT || stat == .ThreePT || stat == .FreeThrow {
+            if stat == .TwoPA || stat == .ThreePA || stat == .FreeThrowPA {
                 UIStackView.clearStackViewHighlight(for: button)
             } else {
                 UIButton.clearButtonHighlight(for: button)
@@ -329,6 +329,27 @@ extension GameStatVC {
         
         for button in aTeamButtons + bTeamButtons {
             UIButton.clearButtonHighlight(for: button)
+        }
+    }
+    
+    // 세그먼트 컨트롤 활성화 메소드
+    private func activateSegmentControl(for stat: Stat) {
+        
+        for segment in [twoPointSegmentControl,threePointSegmentControl,freeThrowPointSegmentControl] {
+            segment.isEnabled = false
+            segment.selectedSegmentIndex = UISegmentedControl.noSegment
+        }
+        
+        // 해당 세그먼트 컨트롤만 활성화
+        switch stat {
+        case .TwoPA:
+            twoPointSegmentControl.isEnabled = true
+        case .ThreePA:
+            threePointSegmentControl.isEnabled = true
+        case .FreeThrowPA:
+            freeThrowPointSegmentControl.isEnabled = true
+        default:
+            break
         }
     }
 }
@@ -393,11 +414,11 @@ extension GameStatVC {
                 .bind(to: reactor.action)
                 .disposed(by: disposeBag)
         }
-
+        
         let statButtons = [
-            twoPointButton: Stat.TwoPT,
-            threePointButton: Stat.ThreePT,
-            freeThrowButton: Stat.FreeThrow,
+            twoPointButton: Stat.TwoPA,
+            threePointButton: Stat.ThreePA,
+            freeThrowButton: Stat.FreeThrowPA,
             astButton: Stat.AST,
             rebButton: Stat.REB,
             blkButton: Stat.BLK,
@@ -412,6 +433,21 @@ extension GameStatVC {
                 .bind(to: reactor.action)
                 .disposed(by: disposeBag)
         }
+        
+        twoPointSegmentControl.rx.selectedSegmentIndex
+            .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) } // 0번 인덱스가 성공, 1번 인덱스가 실패라고 가정
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        threePointSegmentControl.rx.selectedSegmentIndex
+            .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        freeThrowPointSegmentControl.rx.selectedSegmentIndex
+            .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         cancleButton.rx.tap
             .map { Reactor.Action.selectedCancleButton }
@@ -434,7 +470,9 @@ extension GameStatVC {
                 }
                 if let currentStat = currentStat {
                     owner.highlightButton(for: currentStat)
+                    owner.activateSegmentControl(for: currentStat)
                 }
+                
             }
             .disposed(by: disposeBag)
                                                      
@@ -447,6 +485,7 @@ extension GameStatVC {
                 if let currentPlayer = currentPlayer {
                     owner.highlightPlayerButton(for: currentPlayer)
                 }
+                
             }
             .disposed(by: disposeBag)
         

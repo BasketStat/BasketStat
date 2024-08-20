@@ -8,9 +8,10 @@
 import Foundation
 
 enum Stat: String,CaseIterable {
-    case TwoPT = "2점슛"
-    case ThreePT = "3점슛"
-    case FreeThrow = "자유투"
+    case TwoPA = "2점슛"
+    case ThreePA = "3점슛"
+    case FreeThrowPA = "자유투"
+    case TwoPM, ThreePM, FreeThrowPM = ""
     case AST = "AST"
     case REB = "REB"
     case BLK = "BLK"

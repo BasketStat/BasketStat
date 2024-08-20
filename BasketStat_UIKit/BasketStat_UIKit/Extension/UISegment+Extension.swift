@@ -13,10 +13,10 @@ extension UISegmentedControl {
     
     static func createSegmentControls() -> UISegmentedControl {
         return UISegmentedControl(items: ["성공", "실패"]).then {
-            $0.selectedSegmentIndex = 0
+           // $0.selectedSegmentIndex = 0
             let normalTextAttributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor.lightGray,
-                .font: UIFont.regularButton
+                .font: UIFont.boldButton
             ]
             $0.setTitleTextAttributes(normalTextAttributes, for: .normal)
             let selectedTextAttributes: [NSAttributedString.Key: Any] = [
@@ -28,9 +28,12 @@ extension UISegmentedControl {
             $0.backgroundColor = .clear
             $0.layer.cornerRadius = 5
             $0.layer.masksToBounds = true
+            $0.selectedSegmentIndex = UISegmentedControl.noSegment
+            $0.isEnabled = false
             $0.snp.makeConstraints { make in
                 make.height.equalTo(25)
             }
         }
     }
 }
+
