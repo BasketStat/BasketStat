@@ -70,21 +70,27 @@ class GameStatReactor: Reactor {
             newState.currentPlayer = nil
         case .updatePlayerStats:
             if let currentPlayer = newState.currentPlayer, let currentStat = newState.currentStat {
+                GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: currentStat)
                 switch currentStat {
-                case .TwoPA, .ThreePA, .FreeThrowPA:
+                case .TwoPA:
                     if newState.isSuccess {
-                        GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: currentStat)
-                    } else {
-                        GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: currentStat)
+                        GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: .TwoPM)
                     }
-                case .AST, .REB, .BLK, .STL, .FOUL, .Turnover:
-                    GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: currentStat)
+                case .ThreePA:
+                    if newState.isSuccess {
+                        GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: .ThreePM)
+                    }
+                case .FreeThrowPA:
+                    if newState.isSuccess {
+                        GamePlayerManager.shared.incrementStat(for: currentPlayer, stat: .FreeThrowPM)
+                    }
                 default:
                     break
                 }
                 for player in GamePlayerManager.shared.gamePlayers {
                     print(player.description())  // 여기에서 모든 플레이어의 현재 상태를 출력
                 }
+                //print(GamePlayerManager.shared.gamePlayers.filter{$0.number == 32})
             }
             newState.previousPlayer = nil
             newState.previousStat = nil

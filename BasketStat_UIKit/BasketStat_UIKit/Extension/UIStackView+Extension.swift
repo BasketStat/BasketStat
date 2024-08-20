@@ -12,7 +12,7 @@ extension UIStackView {
     static func highlightStackView(for button: UIButton?) {
         guard let button = button, let stackView = button.superview as? UIStackView else { return }
         stackView.layer.borderColor = UIColor.orange.cgColor
-        stackView.layer.borderWidth = 2
+        stackView.layer.borderWidth = 3
     }
     
     static func clearStackViewHighlight(for button: UIButton) {

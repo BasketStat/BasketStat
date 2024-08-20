@@ -330,6 +330,11 @@ extension GameStatVC {
         for button in aTeamButtons + bTeamButtons {
             UIButton.clearButtonHighlight(for: button)
         }
+        
+        for segment in [twoPointSegmentControl,threePointSegmentControl,freeThrowPointSegmentControl] {
+            segment.isEnabled = false
+            segment.selectedSegmentIndex = UISegmentedControl.noSegment
+        }
     }
     
     // 세그먼트 컨트롤 활성화 메소드
