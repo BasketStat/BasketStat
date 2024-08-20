@@ -24,7 +24,7 @@ extension UIFont {
     
     static var boldButton = UIFont(name: "Pretendard-Bold", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
     
-    
+    static var black1 = UIFont(name: "Pretendard-Black", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
     
     static var regularButton = UIFont(name: "Pretendard-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .regular)
     

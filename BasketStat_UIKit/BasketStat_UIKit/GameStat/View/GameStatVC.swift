@@ -17,104 +17,97 @@ class GameStatVC: UIViewController, View {
     var disposeBag = DisposeBag()
     let reactor = GameStatReactor()
     
-    let backgroundImage = UIImageView().then {
+    private let backgroundImage = UIImageView().then {
         $0.image = UIImage(named: "background")!
         $0.contentMode = .scaleAspectFill
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    let quarterLabel = UILabel().then {
+    private let quarterLabel = UILabel().then {
         $0.text = "1Q"
         $0.frame = CGRect(x: 0, y: 0,width: 84, height: 76)
         $0.textColor = .white
         $0.font = UIFont.customBoldFont(size: 64)
     }
     
-    let firstTeamSpaceView = UIView().then {
-        $0.backgroundColor = UIColor.fromRGB(0, 0, 0, 0.16)
-        $0.layer.cornerRadius = 5
-    }
-    
-    let firstTeamStackView = UIStackView().then {
-        $0.alignment = .center
-        $0.axis = .vertical
-        $0.distribution = .fill
-        $0.spacing = 10
-    }
-    
-    let firstTeamLabel = UILabel().then {
+    private let firstTeamLabel = UILabel().then {
         $0.text = "Red"
         $0.frame = CGRect(x: 0, y: 0,width: 39, height: 24)
         $0.font = UIFont.h1b
         $0.textColor = .systemRed
     }
     
-    let firstTeamScoreLabel = UILabel().then {
+    private lazy var firstTeamScoreLabel = UILabel().then {
         $0.text = "24"
         $0.font = UIFont.regular1
         $0.textColor = .white
         $0.textAlignment = .center
     }
     
-    var firstButtonStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.spacing = 15
-    }
-    
-    var secondButtonStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.spacing = 15
-    }
-    
-    let secondTeamSpaceView = UIView().then {
+    private lazy var firstTeamStackView = UIStackView(arrangedSubviews: [firstTeamLabel, firstTeamScoreLabel, firstTeamPlayerStackView]).then {
         $0.backgroundColor = UIColor.fromRGB(0, 0, 0, 0.16)
         $0.layer.cornerRadius = 5
-    }
-    
-    let secondTeamStackView = UIStackView().then {
         $0.alignment = .center
         $0.axis = .vertical
-        $0.distribution = .fill
         $0.spacing = 10
+        $0.isLayoutMarginsRelativeArrangement = true
+        $0.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
     
-    let secondTeamLabel = UILabel().then {
+    private lazy var secondTeamStackView = UIStackView(arrangedSubviews: [secondTeamLabel, secondTeamScoreLabel, secondTeamPlayerStackView]).then {
+        $0.backgroundColor = UIColor.fromRGB(0, 0, 0, 0.16)
+        $0.layer.cornerRadius = 5
+        $0.alignment = .center
+        $0.axis = .vertical
+        $0.spacing = 10
+        $0.isLayoutMarginsRelativeArrangement = true
+        $0.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+    }
+    
+    private lazy var firstTeamPlayerStackView = UIStackView(arrangedSubviews: aTeamButtons) .then {
+        $0.axis = .horizontal
+        $0.spacing = 15
+    }
+    
+    private lazy var secondTeamPlayerStackView = UIStackView(arrangedSubviews: bTeamButtons).then {
+        $0.axis = .horizontal
+        $0.spacing = 15
+    }
+    
+    private lazy var secondTeamLabel = UILabel().then {
         $0.text = "Blue"
         $0.frame = CGRect(x: 0, y: 0,width: 39, height: 24)
         $0.font = UIFont.h1b
         $0.textColor = .systemBlue
     }
     
-    let secondTeamScoreLabel = UILabel().then {
+    private let secondTeamScoreLabel = UILabel().then {
         $0.text = "20"
         $0.font = UIFont.regular1
         $0.textColor = .white
         $0.textAlignment = .center
     }
     
-    let recordLabel = UILabel().then {
+    private let recordLabel = UILabel().then {
         $0.text = "기록"
         $0.font = UIFont.regular4
         $0.textColor = .white
     }
     
-    let buttonGridStackView = UIStackView().then {
+    private let buttonGridStackView = UIStackView().then {
         $0.axis = .vertical
-        $0.distribution = .fill
         $0.spacing = 10
     }
     
-    let recordStackView = UIStackView().then {
+    private lazy var recordStackView = UIStackView(arrangedSubviews: [cancleButton, saveButton]).then {
         $0.axis = .horizontal
         $0.spacing = 15
         $0.distribution = .fillEqually
     }
     
-    let cancleButton = UIButton().then {
+    private let cancleButton = UIButton().then {
         $0.setTitle("X", for: .normal)
-        $0.titleLabel?.font = UIFont.customFont(fontName: "Pretendard-Black", size: 14)
+        $0.titleLabel?.font = UIFont.black1
         $0.backgroundColor = .clear
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 5
@@ -123,9 +116,9 @@ class GameStatVC: UIViewController, View {
         $0.layer.masksToBounds = true
     }
     
-    let saveButton = UIButton().then {
+    private let saveButton = UIButton().then {
         $0.setTitle("O", for: .normal)
-        $0.titleLabel?.font = UIFont.customFont(fontName: "Pretendard-Black", size: 14)
+        $0.titleLabel?.font = UIFont.black1
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 5
         $0.backgroundColor = UIColor.fromRGB(255, 107, 0, 0.9)
@@ -133,216 +126,231 @@ class GameStatVC: UIViewController, View {
         
     }
     var playersButton: [UIButton] = []
-    var twoPointButton: UIButton!
-    var threePointButton: UIButton!
-    var freeThrowButton: UIButton!
-    var astButton: UIButton!
-    var rebButton: UIButton!
-    var blkButton: UIButton!
-    var stlButton: UIButton!
-    var foulButton: UIButton!
-    var toButton: UIButton!
-    var twoPointSegmentControl: UISegmentedControl!
-    var threePointSegmentControl: UISegmentedControl!
-    var freeThrowPointSegmentControl: UISegmentedControl!
+    
+    private lazy var aTeamButtons: [UIButton] = createTeamPlayerButtons(for: .A)
+    private lazy var bTeamButtons: [UIButton] = createTeamPlayerButtons(for: .B)
+
+    private lazy var twoPointButton = UIButton.createStatButton(stat: .TwoPA)
+    private lazy var threePointButton = UIButton.createStatButton(stat: .ThreePA)
+    private lazy var freeThrowButton = UIButton.createStatButton(stat: .FreeThrowPA)
+    private lazy var astButton = UIButton.createStatButton(stat: .AST)
+    private lazy var rebButton = UIButton.createStatButton(stat: .REB)
+    private lazy var blkButton = UIButton.createStatButton(stat: .BLK)
+    private lazy var stlButton = UIButton.createStatButton(stat: .STL)
+    private lazy var foulButton = UIButton.createStatButton(stat: .FOUL)
+    private lazy var toButton = UIButton.createStatButton(stat: .Turnover)
+    private lazy var twoPointSegmentControl = UISegmentedControl.createSegmentControls()
+    private lazy var threePointSegmentControl = UISegmentedControl.createSegmentControls()
+    private lazy var freeThrowPointSegmentControl = UISegmentedControl.createSegmentControls()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         bind(reactor: reactor)
-        layout()
     }
 }
 // MARK: View Setup
 extension GameStatVC {
+    
     private func setupView() {
+        
         view.backgroundColor = UIColor.mainColor()
         view.addSubview(backgroundImage)
         view.addSubview(quarterLabel)
-        view.addSubview(firstTeamSpaceView)
+        view.addSubview(firstTeamStackView)
+        view.addSubview(secondTeamStackView)
         view.addSubview(recordLabel)
-        view.addSubview(secondTeamSpaceView)
         view.addSubview(buttonGridStackView)
         view.addSubview(recordStackView)
-        
-        firstTeamSpaceView.addSubview(firstTeamStackView)
-        firstTeamStackView.addArrangedSubview(firstTeamLabel)
-        firstTeamStackView.addArrangedSubview(firstTeamScoreLabel)
-        firstTeamStackView.addArrangedSubview(firstButtonStackView)
-        
-        secondTeamSpaceView.addSubview(secondTeamStackView)
-        secondTeamStackView.addArrangedSubview(secondTeamLabel)
-        secondTeamStackView.addArrangedSubview(secondTeamScoreLabel)
-        secondTeamStackView.addArrangedSubview(secondButtonStackView)
-                
         setupButtons()
-        
-        recordStackView.addArrangedSubview(cancleButton)
-        recordStackView.addArrangedSubview(saveButton)
-    }
-       
-}
+        layout()
 
-// MARK: Button Setup
-extension GameStatVC {
+    }
     
-    private func createPlayerButton(backNumber: [Int]) -> UIStackView {
-       
-        let stackView = UIStackView().then {
-            $0.axis = .horizontal
-            $0.distribution = .fillEqually
-            $0.spacing = 15
-        }
+    private func setupButtons() {
+        lazy var point2StackView: UIView = {
+            let backgroundView = UIView()
+            backgroundView.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+            backgroundView.layer.borderWidth = 1
+            backgroundView.layer.cornerRadius = 5
+            backgroundView.layer.masksToBounds = true
+            
+            let stackView = UIStackView(arrangedSubviews: [twoPointButton, twoPointSegmentControl])
+            stackView.axis = .vertical
+            stackView.distribution = .fill
+            
+            backgroundView.addSubview(stackView)
+            stackView.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(0)
+            }
+            
+            return backgroundView
+        }()
+
+        lazy var point3StackView: UIView = {
+            let backgroundView = UIView()
+            backgroundView.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+            backgroundView.layer.borderWidth = 1
+            backgroundView.layer.cornerRadius = 5
+            backgroundView.layer.masksToBounds = true
+            
+            let stackView = UIStackView(arrangedSubviews: [threePointButton, threePointSegmentControl])
+            stackView.axis = .vertical
+            stackView.distribution = .fill
+            
+            backgroundView.addSubview(stackView)
+            stackView.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(0)
+            }
+            
+            return backgroundView
+        }()
+
+        lazy var freeThrowStackView: UIView = {
+            let backgroundView = UIView()
+            backgroundView.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
+            backgroundView.layer.borderWidth = 1
+            backgroundView.layer.cornerRadius = 5
+            backgroundView.layer.masksToBounds = true
+            
+            let stackView = UIStackView(arrangedSubviews: [freeThrowButton, freeThrowPointSegmentControl])
+            stackView.axis = .vertical
+            stackView.distribution = .fill
+            
+            backgroundView.addSubview(stackView)
+            stackView.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(0)
+            }
+            
+            return backgroundView
+        }()
         
-        for number in backNumber {
-            let button = UIButton().then {
-                $0.setTitle("\(number)", for: .normal)
-                $0.titleLabel?.font = UIFont.regular3
-                $0.backgroundColor = .white
-                $0.setTitleColor(.black, for: .normal)
-                $0.layer.cornerRadius = 5
-                $0.layer.masksToBounds = true
-                $0.snp.makeConstraints { make in
-                    make.width.equalTo(50)
-                    make.height.equalTo(40)
-                }
-            }
-            button.rx.tap
-                .map { Reactor.Action.selectedPlayer(number: number, button: button) }
-                .bind(to: reactor.action)
-                .disposed(by: disposeBag)
-            stackView.addArrangedSubview(button)
-        }
-        return stackView
-    }
-    
-    private func updatePlayerStackView(backNumber: [Int]) {
-        for (index,number) in backNumber.enumerated() {
-            let button = UIButton().then {
-                $0.setTitle("\(number)", for: .normal)
-                $0.titleLabel?.font = UIFont.regular3
-                $0.backgroundColor = .white
-                $0.setTitleColor(.black, for: .normal)
-                $0.layer.cornerRadius = 5
-                $0.layer.masksToBounds = true
-                $0.snp.makeConstraints { make in
-                    make.width.equalTo(50)
-                    make.height.equalTo(40)
-                }
-            }
-            if index < 5 {
-                firstButtonStackView.addArrangedSubview(button)
-            }
-            playersButton.append(button)
-        }
-    }
-    
-    func createButton(title: String) -> UIButton {
-        return UIButton().then {
-            $0.setTitle(title, for: .normal)
-            $0.titleLabel?.font = UIFont.boldButton
-            $0.backgroundColor = .clear
-            $0.setTitleColor(.white, for: .normal)
-            $0.layer.cornerRadius = 5
-            $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
-            $0.layer.borderWidth = 1
-            $0.layer.masksToBounds = true
-            $0.snp.makeConstraints { make in
-                make.width.equalTo(50)
-                make.height.equalTo(40)
-            }
-        }
-    }
-    
-    func createFirstRowStack(button: UIButton, segment : UISegmentedControl) -> UIStackView {
-        return UIStackView().then {
-            $0.axis = .vertical
-            $0.distribution = .fill
-            $0.addArrangedSubview(button)
-            $0.addArrangedSubview(segment)
-            $0.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
-            $0.layer.borderWidth = 1
-            $0.layer.cornerRadius = 5
-        }
-    }
-    
-    func createSegmentControls() -> UISegmentedControl {
-        return UISegmentedControl(items: ["성공", "실패"]).then {
-            $0.selectedSegmentIndex = 0
-            let normalTextAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.lightGray,
-                .font: UIFont.regularButton
-            ]
-            $0.setTitleTextAttributes(normalTextAttributes, for: .normal)
-            let selectedTextAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.fromRGB(255, 107, 0, 0.9),
-                .font: UIFont.boldButton
-            ]
-            $0.setTitleTextAttributes(selectedTextAttributes, for: .selected)
-            $0.selectedSegmentTintColor = UIColor.mainColor()
-            $0.backgroundColor = .clear
-            $0.layer.cornerRadius = 5
-            $0.layer.masksToBounds = true
-            $0.snp.makeConstraints { make in
-                make.height.equalTo(25)
-            }
-        }
-    }
-    
-    func setupButtons() {
-        
-        let firstRowStackView = UIStackView().then {
+        lazy var firstRowStackView = UIStackView(arrangedSubviews: [point2StackView, point3StackView, freeThrowStackView]).then {
             $0.axis = .horizontal
             $0.distribution = .fillEqually
             $0.spacing = 10
         }
         
-        let secondRowStackView = UIStackView().then {
+        lazy var secondRowStackView = UIStackView(arrangedSubviews: [astButton, rebButton, blkButton]).then {
             $0.axis = .horizontal
             $0.distribution = .fillEqually
             $0.spacing = 10
         }
         
-        let thirdRowStackView = UIStackView().then {
+        lazy var thirdRowStackView = UIStackView(arrangedSubviews: [stlButton, foulButton, toButton]).then {
             $0.axis = .horizontal
             $0.distribution = .fillEqually
             $0.spacing = 10
         }
-
-        twoPointButton = createButton(title: "2점슛")
-        threePointButton = createButton(title: "3점슛")
-        freeThrowButton = createButton(title: "자유투")
-        astButton = createButton(title: "AST")
-        rebButton = createButton(title: "REB")
-        blkButton = createButton(title: "BLK")
-        stlButton = createButton(title: "STL")
-        foulButton = createButton(title: "FOUL")
-        toButton = createButton(title: "TO")
         
-        for (index, button) in [twoPointButton, threePointButton, freeThrowButton, astButton, rebButton, blkButton, stlButton, foulButton, toButton].enumerated() {
-            if index < 3 {
-               let stackView = createFirstRowStack(button: button!, segment: createSegmentControls())
-                firstRowStackView.addArrangedSubview(stackView)
-                continue
-            }
-            if index < 6 {
-                secondRowStackView.addArrangedSubview(button!)
-                continue
-            }
-            thirdRowStackView.addArrangedSubview(button!)
-        }
-
         buttonGridStackView.addArrangedSubview(firstRowStackView)
         buttonGridStackView.addArrangedSubview(secondRowStackView)
         buttonGridStackView.addArrangedSubview(thirdRowStackView)
 
     }
     
-    func updateButton(_ button: (UIButton?, UIButton?)) {
-        button.0?.layer.borderWidth = 1
-        button.0?.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
-        button.1?.layer.borderWidth = 4
-        button.1?.layer.borderColor = UIColor.orange.cgColor // RGB 변경
+    private func createTeamPlayerButtons(for team: TeamType) -> [UIButton] {
+        return GamePlayerManager.shared.gamePlayers
+            .filter { $0.team == team }
+            .map { GamePlayerManager.shared.createPlayerButton(for: $0) }
+    }
+}
+
+// MARK: Button Highlight
+extension GameStatVC {
+    
+    private func button(for stat: Stat) -> UIButton? {
+        switch stat {
+        case .TwoPM, .TwoPA:
+            return twoPointButton
+        case .ThreePM, .ThreePA:
+            return threePointButton
+        case .FreeThrowPM, .FreeThrowPA:
+            return freeThrowButton
+        case .AST:
+            return astButton
+        case .REB:
+            return rebButton
+        case .BLK:
+            return blkButton
+        case .STL:
+            return stlButton
+        case .FOUL:
+            return foulButton
+        case .Turnover:
+            return toButton
+        }
+    }
+    
+    private func playerButton(for player: Player) -> UIButton? {
+        if let index = GamePlayerManager.shared.getPlayerIndex(for: player.team, player: player) {
+            return player.team == .A ? aTeamButtons[index] : bTeamButtons[index]
+        }
+        return nil
+    }
+    
+    private func highlightPlayerButton(for player: Player) {
+        if let button = playerButton(for: player) {
+            UIButton.highlightButton(button)
+        }
+    }
+
+    private func clearHighlightPlayerButton(for player: Player) {
+        if let button = playerButton(for: player) {
+            UIButton.clearButtonHighlight(for: button)
+        }
+    }
+    
+    private func highlightButton(for stat: Stat) {
+        if let button = button(for: stat) {
+            if stat == .TwoPA || stat == .ThreePA || stat == .FreeThrowPA {
+                UIStackView.highlightStackView(for: button)
+            } else {
+                UIButton.highlightButton(button)
+            }
+        }
+    }
+    
+    private func clearHighlightButton(for stat: Stat) {
+        if let button = button(for: stat) {
+            if stat == .TwoPA || stat == .ThreePA || stat == .FreeThrowPA {
+                UIStackView.clearStackViewHighlight(for: button)
+            } else {
+                UIButton.clearButtonHighlight(for: button)
+            }
+        }
+    }
+    
+    private func clearAllHighlights() {
+        for stat in Stat.allCases {
+            clearHighlightButton(for: stat)
+        }
+        
+        for button in aTeamButtons + bTeamButtons {
+            UIButton.clearButtonHighlight(for: button)
+        }
+    }
+    
+    // 세그먼트 컨트롤 활성화 메소드
+    private func activateSegmentControl(for stat: Stat) {
+        
+        for segment in [twoPointSegmentControl,threePointSegmentControl,freeThrowPointSegmentControl] {
+            segment.isEnabled = false
+            segment.selectedSegmentIndex = UISegmentedControl.noSegment
+        }
+        
+        // 해당 세그먼트 컨트롤만 활성화
+        switch stat {
+        case .TwoPA:
+            twoPointSegmentControl.isEnabled = true
+        case .ThreePA:
+            threePointSegmentControl.isEnabled = true
+        case .FreeThrowPA:
+            freeThrowPointSegmentControl.isEnabled = true
+        default:
+            break
+        }
     }
 }
 //MARK: Layout
@@ -359,33 +367,23 @@ extension GameStatVC {
             make.bottom.equalTo(backgroundImage)
         }
         
-        firstTeamSpaceView.snp.makeConstraints { make in
+        firstTeamStackView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(22)
             make.top.equalTo(quarterLabel.snp.bottom).offset(60)
         }
         
-        firstTeamStackView.snp.makeConstraints { make in
-            make.left.right.equalTo(firstTeamSpaceView).inset(20)
-            make.top.bottom.equalTo(firstTeamSpaceView).inset(15)
-        }
-        
-        secondTeamSpaceView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(22)
-            make.top.equalTo(firstTeamSpaceView.snp.bottom).offset(15)
-        }
-        
         secondTeamStackView.snp.makeConstraints { make in
-            make.left.right.equalTo(secondTeamSpaceView).inset(20)
-            make.top.bottom.equalTo(secondTeamSpaceView).inset(15)
+            make.left.right.equalToSuperview().inset(22)
+            make.top.equalTo(firstTeamStackView.snp.bottom).offset(15)
         }
         
         recordLabel.snp.makeConstraints { make in
-            make.left.equalTo(secondTeamSpaceView.snp.left)
-            make.top.equalTo(secondTeamSpaceView.snp.bottom).offset(15)
+            make.left.equalTo(secondTeamStackView.snp.left)
+            make.top.equalTo(secondTeamStackView.snp.bottom).offset(15)
         }
         
         buttonGridStackView.snp.makeConstraints { make in
-            make.left.right.equalTo(secondTeamSpaceView)
+            make.left.right.equalTo(secondTeamStackView)
             make.top.equalTo(recordLabel.snp.bottom).offset(10)
         }
         
@@ -402,66 +400,106 @@ extension GameStatVC {
     
     func bind(reactor: GameStatReactor) {
         // MARK: Action
-        twoPointButton.rx.tap // 2점 클릭했을 때의 메서드
-            .map { Reactor.Action.selectedPoint(point: .TwoPT, button: self.twoPointButton) }
+        for (index, button) in aTeamButtons.enumerated() {
+            button.rx.tap
+                .map { Reactor.Action.selectedPlayer(player: GamePlayerManager.shared.getPlayer(for: .A, index: index)) }
+                .bind(to: reactor.action)
+                .disposed(by: disposeBag)
+        }
+        
+        // B팀 플레이어 버튼 탭 이벤트 처리
+        for (index, button) in bTeamButtons.enumerated() {
+            button.rx.tap
+                .map { Reactor.Action.selectedPlayer(player: GamePlayerManager.shared.getPlayer(for: .B, index: index)) }
+                .bind(to: reactor.action)
+                .disposed(by: disposeBag)
+        }
+        
+        let statButtons = [
+            twoPointButton: Stat.TwoPA,
+            threePointButton: Stat.ThreePA,
+            freeThrowButton: Stat.FreeThrowPA,
+            astButton: Stat.AST,
+            rebButton: Stat.REB,
+            blkButton: Stat.BLK,
+            stlButton: Stat.STL,
+            foulButton: Stat.FOUL,
+            toButton: Stat.Turnover
+        ]
+        
+        statButtons.forEach { button, stat in
+            button.rx.tap
+                .map { Reactor.Action.selectedStat(stat: stat) } // Stat 타입 전달
+                .bind(to: reactor.action)
+                .disposed(by: disposeBag)
+        }
+        
+        twoPointSegmentControl.rx.selectedSegmentIndex
+            .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) } // 0번 인덱스가 성공, 1번 인덱스가 실패라고 가정
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        threePointButton.rx.tap
-            .map { Reactor.Action.selectedPoint(point: .ThreePT, button: self.threePointButton)}
+
+        threePointSegmentControl.rx.selectedSegmentIndex
+            .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        freeThrowButton.rx.tap
-            .map { Reactor.Action.selectedPoint(point: .FreeThrow, button: self.freeThrowButton) }
+
+        freeThrowPointSegmentControl.rx.selectedSegmentIndex
+            .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         cancleButton.rx.tap
-            .do(onNext: {print("dsfa")})
-            .map{Reactor.Action.selectedCancleButton}
+            .map { Reactor.Action.selectedCancleButton }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .map { Reactor.Action.selecedSaveButton }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         // MARK: State
-        reactor.state.map {Array($0.players)}
+        
+        
+        reactor.state.map { $0.currentStat }
             .distinctUntilChanged()
-            .subscribe(with: self) { owner, number in
-                owner.firstTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
-                owner.secondTeamStackView.addArrangedSubview(owner.createPlayerButton(backNumber: number))
+            .subscribe(with: self) { owner, currentStat in
+                if let previousStat = reactor.currentState.previousStat {
+                    owner.clearHighlightButton(for: previousStat)
+                }
+                if let currentStat = currentStat {
+                    owner.highlightButton(for: currentStat)
+                    owner.activateSegmentControl(for: currentStat)
+                }
+                
+            }
+            .disposed(by: disposeBag)
+                                                     
+        reactor.state.map { $0.currentPlayer }
+            .distinctUntilChanged()
+            .subscribe(with: self) { owner, currentPlayer in
+                if let previousPlayer = reactor.currentState.previousPlayer {
+                    owner.clearHighlightPlayerButton(for: previousPlayer)
+                }
+                if let currentPlayer = currentPlayer {
+                    owner.highlightPlayerButton(for: currentPlayer)
+                }
+                
             }
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(
-            reactor.state.map {$0.playerButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.playerButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.pointButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.pointButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            reactor.state.map {$0.statButton.0}.distinctUntilChanged(),
-            reactor.state.map {$0.statButton.1}.distinctUntilChanged()
-        ) .subscribe(onNext: { [weak self] preButton, newButton in
-            guard let vc = self else { return }
-            vc.updateButton((preButton, newButton))
-        })
-        .disposed(by: disposeBag)
+        reactor.state.map { $0.currentPlayer == nil && $0.currentStat == nil }
+            .distinctUntilChanged()
+            .filter { $0 }
+            .subscribe(with: self) { owner, _ in
+                owner.clearAllHighlights()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
-//#Preview {
-//    GameStatVC()
-//}
+#Preview {
+    GameStatVC()
+}
 
