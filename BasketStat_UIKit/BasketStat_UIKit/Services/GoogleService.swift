@@ -20,6 +20,8 @@ protocol GoogleServiceProtocol {
 
 final class GoogleService: BaseService, GoogleServiceProtocol {
     
+    let disposeBag = DisposeBag()
+    let firebaseService = FirebaseService(provider: ServiceProvider())
     
     func signIn(vc: UIViewController) -> Completable {
         
@@ -42,8 +44,6 @@ final class GoogleService: BaseService, GoogleServiceProtocol {
                 
                 // 로그인 성공 시 result에서 user와 ID Token 추출
                 guard let user = result?.user, let idToken = user.idToken?.tokenString else {
-                    com(.error(CustomError.CustomNil))
-
                     return
                 }
                 
@@ -52,20 +52,10 @@ final class GoogleService: BaseService, GoogleServiceProtocol {
                 
                 // Token을 토대로 Credential(사용자 인증 정보) 생성
                 let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-                Auth.auth().signIn(with: credential) {result, error in
-                    if let error {
-                        // Error. If error.code == .MissingOrInvalidNonce, make sure
-                        // you're sending the SHA256-hashed nonce as a hex string with
-                        // your request to Apple.
-                        com(.error(error))
-
-                        return
-                    } else {
-                        com(.completed)
-
-
-                    }
-                }
+                                
+                self.firebaseService.signInCredential(credential: credential).subscribe({ comp in
+                    com(comp)
+                }).disposed(by: self.disposeBag)
             }
             
             return Disposables.create()

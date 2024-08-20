@@ -10,12 +10,16 @@ protocol ServiceProviderProtocol: AnyObject {
     var kakaoService: KakaoServiceProtocol { get }
     var firebaseService: FirebaseServiceProtocol  { get }
     var googleService: GoogleServiceProtocol  { get }
+    var algoliaService: AlgoliaServiceProtocol  { get }
+    var dataService: DataServiceProtocol { get }
 }
 
 final class ServiceProvider: ServiceProviderProtocol {
     lazy var kakaoService: KakaoServiceProtocol = KakaoService(provider: self)
     lazy var firebaseService: FirebaseServiceProtocol = FirebaseService(provider: self)
     lazy var googleService: GoogleServiceProtocol = GoogleService(provider: self)
+    lazy var algoliaService: AlgoliaServiceProtocol = AlgoliaService(provider: self)
+    lazy var dataService: DataServiceProtocol = DataService(provider: self)
 
     
     

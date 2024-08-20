@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import Kingfisher
 let positionDic = [0:"PG", 1:"SG", 2:"SF", 3:"PF", 4:"C"]
 
 struct PlayerDto: Codable, Equatable {
@@ -21,8 +21,12 @@ struct PlayerDto: Codable, Equatable {
     
     
      func getModel() -> PlayerModel {
-
-         return PlayerModel(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight)
+         
+        
+        
+         
+         
+         return PlayerModel(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl)
      }
     
     
@@ -39,12 +43,14 @@ enum PositionType: String, Codable {
     case C = "C"
   }
 
-struct PlayerModel {
+struct PlayerModel: Equatable {
     var nickname: String
     var tall: String
     var position: PositionType
     var weight: String
+    var profileImageUrl: String?
     var profileImage: UIImage?
+    var number: String?
 
     
    

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1530"
-   version = "1.7">
+   version = "2.2">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
@@ -20,6 +20,15 @@
                BlueprintName = "BasketStat_UIKit"
                ReferencedContainer = "container:BasketStat_UIKit.xcodeproj">
             </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <AutocreatedTestPlanReference>
+            </AutocreatedTestPlanReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
@@ -49,6 +58,17 @@
                BlueprintIdentifier = "BD0D63EC2C3CB6E5004D3EE6"
                BuildableName = "BasketStat_UIKitUITests.xctest"
                BlueprintName = "BasketStat_UIKitUITests"
+               ReferencedContainer = "container:BasketStat_UIKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "60550DCF2C61C6BA0027CF4E"
+               BuildableName = "BasketStat_AlgoliaTests.xctest"
+               BlueprintName = "BasketStat_AlgoliaTests"
                ReferencedContainer = "container:BasketStat_UIKit.xcodeproj">
             </BuildableReference>
          </TestableReference>

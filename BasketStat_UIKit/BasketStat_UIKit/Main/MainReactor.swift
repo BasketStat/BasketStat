@@ -78,11 +78,11 @@ class MainReactor: Reactor {
         var newState = state
         switch mutation {
         case .buildingPush:
-            newState.buildingPush.toggle()
+            newState.buildingPush = true
         case .recordPush:
-            newState.recordPush.toggle()
+            newState.recordPush = true
         case .settingPush:
-            newState.settingPush.toggle()
+            newState.settingPush = true
         case .failedSignOut:
             break
         }

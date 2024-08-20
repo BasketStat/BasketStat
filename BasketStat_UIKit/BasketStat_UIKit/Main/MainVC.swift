@@ -74,13 +74,11 @@ class MainVC: UIViewController, View {
     
     var settingBtnView = UIView().then { view in
         
-        view.backgroundColor = .clear
-        view.layer.borderWidth = 2
-        view.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
-        view.layer.cornerRadius = 4
+        let gearShape = UIImageView(image: UIImage(systemName: "gearshape")).then {
+            $0.tintColor = .white
+        }
+        
 
-        
-        
         let label = UILabel().then {
             $0.text = "설정"
             $0.textColor = .white
@@ -88,10 +86,27 @@ class MainVC: UIViewController, View {
             $0.font = .boldSystemFont(ofSize: 18 )
         }
         
+        view.backgroundColor = .clear
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
+        view.layer.cornerRadius = 4
+        
         view.addSubview(label)
+        view.addSubview(gearShape)
+        
+        let centerSpacing = 14
         
         label.snp.makeConstraints {
-            $0.center.equalTo(view)
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(centerSpacing)
+            
+        }
+        
+        gearShape.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(-centerSpacing)
+            
+            
         }
         
     }
@@ -121,25 +136,24 @@ class MainVC: UIViewController, View {
         
         self.buildingBtnView.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.buildingPush }.bind(to: reactor.action).disposed(by: disposeBag)
 
-        self.reactor.state.map { $0.settingPush }.distinctUntilChanged().bind { val in
+        self.reactor.state.map { $0.settingPush }.bind { val in
             if val {
                 self.navigationController?.viewControllers = [LoginVC()]
             }
             
-            
         }.disposed(by: disposeBag)
         
-        self.reactor.state.map { $0.buildingPush }.distinctUntilChanged().bind {val in
+        self.reactor.state.map { $0.buildingPush }.bind { val in
             if val {
-                
-                self.navigationController?.pushViewController(GameStatVC(), animated: false)
+                let vc = BuilderVC()
+                vc.reactor = BuilderReactor(provider: ServiceProvider())
+                self.navigationController?.pushViewController( vc, animated: false)
             }
             
         }.disposed(by: disposeBag)
         
-        self.reactor.state.map { $0.recordPush }.distinctUntilChanged().bind {val in
+        self.reactor.state.map { $0.recordPush }.bind { val in
             if val {
-                print("recordPush")
 //                self.navigationController?.viewControllers = [GameStatVC()]
             }
             
