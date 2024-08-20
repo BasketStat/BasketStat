@@ -16,12 +16,14 @@ class GameStatReactor: Reactor {
         case selectedPlayer(number: Int, button: UIButton)
         case selectedPoint(point: Point, button: UIButton)
         case selectedStat(stat: Stat, button: UIButton)
+        case selectedCancleButton
     }
     
     enum Mutation {
         case setSelectedPlayer(number: Int, button: UIButton)
         case setSelectedPoint(point: Point, button: UIButton)
         case setSelectedStat(stat: Stat, button: UIButton)
+        case setSelectedCancle
     }
     
     struct State {
@@ -30,11 +32,11 @@ class GameStatReactor: Reactor {
         var pointButton: (UIButton?, UIButton?)
         var statButton: (UIButton?, UIButton?)
         var button = StatButton()
-        var players = [Int :Player]() // 번호로 플레이어 구분
+        var players:[Int] = [1,2,3,4,5] // 번호로 플레이어 구분
         
     }
     
-    let initialState: State = .init()
+    let initialState = State()
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
@@ -45,6 +47,8 @@ class GameStatReactor: Reactor {
                 .just(.setSelectedPoint(point: point, button: button))
         case let .selectedStat(stat, button):
                 .just(.setSelectedStat(stat: stat, button: button))
+        case .selectedCancleButton:
+                .just(.setSelectedCancle)
         }
     }
     
@@ -55,15 +59,17 @@ class GameStatReactor: Reactor {
             newState.playerButton.0 = newState.playerButton.1
             newState.playerButton.1 = newState.playerButton.0 == button ? nil : button
             newState.currentPlayerNumber = number
-            return newState
         case let .setSelectedPoint(point, button):
             newState.pointButton.0 = newState.pointButton.1
             newState.pointButton.1 = newState.pointButton.0 == button ? nil : button
-            return newState
         case let .setSelectedStat(stat, button):
             newState.statButton.0 = newState.statButton.1
             newState.statButton.1 = newState.statButton.0 == button ? nil : button
-            return newState
+        case .setSelectedCancle:
+            newState.statButton = (nil, nil)
+            newState.playerButton = (nil, nil)
+            newState.pointButton = (nil, nil)
         }
+        return newState
     }
 }
