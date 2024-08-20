@@ -71,7 +71,7 @@ class LoginReactor: Reactor {
                             }
                             
                         }).disposed(by: self.disposeBag)
-                    case .error(let err):
+                    case .error(_):
                         observable.onNext(Mutation.loginFailed)
                     }
                     
@@ -129,7 +129,7 @@ class LoginReactor: Reactor {
                             }
                             
                         }).disposed(by: self.disposeBag)
-                    case .error(let err):
+                    case .error(_):
                         observable.onNext(.loginFailed)
 
                        

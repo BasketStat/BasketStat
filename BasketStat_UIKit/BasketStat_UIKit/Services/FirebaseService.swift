@@ -14,7 +14,7 @@ import RxSwift
 protocol FirebaseServiceProtocol {
     func getPlayer() -> Single<PlayerModel>
     func uploadImage(imageData: Data?, pathRoot: String) -> Single<String>
-    func signInCredential(credential: OAuthCredential) -> Completable
+    func signInCredential(credential: AuthCredential) -> Completable
     func signIn(email: String, password: String) -> Completable
     func setPlayer(playerModel: PlayerModel) -> Completable
     func signOut() -> Completable
@@ -50,7 +50,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
                     } else {
                         print("else")
                         single(.failure(CustomError.CustomNil))
-
+                        
                     }
                     
                     
@@ -84,14 +84,18 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
             
             
             firebaseReference.putData(imageData, metadata: metaData) { _, err in
-                if err != nil {
-                    print("putData \(err)")
+                if let err {
+                    single(.success(""))
+                    return
                 } else {
-
+                    
                     firebaseReference.downloadURL { url, err in
                         if err != nil {
-                            print(err)
+                            single(.success(""))
+                            return
+                            
                         } else {
+                            print("성공")
                             print("\(url?.absoluteString ?? "") url")
                             single(.success(url?.absoluteString ?? ""))
                             
@@ -104,7 +108,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         }
     }
     
-    func signInCredential(credential: OAuthCredential) -> Completable {
+    func signInCredential(credential: AuthCredential) -> Completable {
         return Completable.create { com in
             Auth.auth().signIn(with: credential){ (authResult, error) in
                 if let error {
@@ -158,14 +162,16 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         }
     }
     
-    func setStore(playerDto: PlayerDto, uid: String) -> Completable{
+    func setStore(playerDto: PlayerDto, uid: String) -> Completable {
         
         Completable.create { com in
+            
+            print(playerDto.profileImageUrl)
             guard let playerDto = playerDto.toDictionary else {return Disposables.create()}
             do {
                 self.db.collection("BasketStat_Player").document("\(uid)").setData(playerDto)
                 com(.completed)
-
+                
             } catch let error {
                 print("Error writing city to Firestore: \(error)")
                 com(.error(error))
@@ -173,65 +179,37 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
             return Disposables.create()
         }
         
-
+        
         
     }
     
     
     func setPlayer(playerModel: PlayerModel) -> Completable {
-        
-      
-        
-        
-        
-        return Completable.create { [weak self] com in
-            
-            guard let self, let uid = UserDefaults.standard.string(forKey: "uid") else {
-                com(.error(CustomError.CustomNil))
-                return Disposables.create() }
-            
-            var playerDto = playerModel.getDto(profileImageUrl: "")
-            
-            if let profileImage = playerModel.profileImage {
-                let data = profileImage.jpegData(compressionQuality: 0.9)
-                self.uploadImage(imageData: data , pathRoot: uid).subscribe({ single in
-
-                    print("single")
-                    switch single {
-                    case .success(let url):
-                        playerDto.profileImageUrl = url
-                        self.setStore(playerDto: playerDto, uid: uid).subscribe({ comp in
-                            com(comp)
-                            
-                        }).disposed(by: self.disposeBag)
-                        print("success")
-                    case .failure(let err):
-                        self.setStore(playerDto: playerDto, uid: uid).subscribe({ comp in
-                            com(comp)
-                            
-                        }).disposed(by: self.disposeBag)
-                        break
-                    }
-                    
-                }).disposed(by: self.disposeBag)
-            } else {
-                self.setStore(playerDto: playerDto, uid: uid).subscribe({ comp in
-                    com(comp)
-                    
-                }).disposed(by: self.disposeBag)
-            }
-            
-            
-            
-            return Disposables.create()
-            
+        guard let uid = UserDefaults.standard.string(forKey: "uid") else {
+            return Completable.error(CustomError.CustomNil)
         }
+        
+        var playerDto = playerModel.getDto(profileImageUrl: "")
+        
+        // 이미지 데이터를 준비합니다.
+        let data = playerModel.profileImage?.jpegData(compressionQuality: 0.9)
+        
+        // 이미지를 업로드하고 URL을 받아 설정합니다.
+        
+        
+        return self.uploadImage(imageData: data, pathRoot: uid)
+            .flatMapCompletable { url in
+                playerDto.profileImageUrl = url
+                print("playerDto \(playerDto)")
+                return self.setStore(playerDto: playerDto, uid: uid)
+            }
     }
     
+    
     func signOut() -> Completable {
-       
+        
         return Completable.create { com in
-            if let user = Auth.auth().currentUser {
+            if Auth.auth().currentUser != nil {
                 
                 // <- Firebase Auth
                 let firebaseAuth = Auth.auth()
@@ -246,7 +224,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
             
             return Disposables.create()
         }
-      
+        
     }
     
     

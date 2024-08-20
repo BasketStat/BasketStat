@@ -19,6 +19,8 @@ extension UIFont {
     
     /// size 14
     static var regular4 = UIFont(name: "Pretendard-Regular", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .regular)
+    /// size 16
+    static var bold_16 = UIFont(name: "Pretendard-Bold", size: 16) 
     
     static var boldButton = UIFont(name: "Pretendard-Bold", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
     

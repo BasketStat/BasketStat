@@ -1,5 +1,5 @@
 {
-  "originHash" : "a05f64c5871557b2ca9c2187ecabb98b4f2a610563c2e433fc63f2833ba6c9ce",
+  "originHash" : "9f0f58634a521d661befec9d85d0845277189d763d51f7a079243ce88a99b3f6",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "f455c2975872ccd2d9c81594c658af65716e9b9a",
         "version" : "5.9.1"
+      }
+    },
+    {
+      "identity" : "algoliasearch-client-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/algolia/algoliasearch-client-swift.git",
+      "state" : {
+        "revision" : "996d9e171fdf4692ba279ea2f8a29acfe077ab37",
+        "version" : "8.20.1"
       }
     },
     {
@@ -125,6 +134,15 @@
       "state" : {
         "revision" : "08089eeffc9b442da1c7343a70bf66c6de1a72c9",
         "version" : "2.22.4"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "2ef543ee21d63734e1c004ad6c870255e8716c50",
+        "version" : "7.12.0"
       }
     },
     {

@@ -168,7 +168,7 @@ class SignUpVC: UIViewController, View {
         
         $0.titleLabel?.textColor = .white
         $0.titleLabel?.font = .systemFont(ofSize: 14)
-        $0.backgroundColor = .btnColor()
+        $0.backgroundColor = .customOrange()
         $0.layer.cornerRadius = 4
     }
     
@@ -271,7 +271,7 @@ class SignUpVC: UIViewController, View {
         reactor.state.map { $0.isLoginButtonEnabled }.subscribe(onNext: { val in
             
             if val {
-                self.checkBtn.backgroundColor = .btnColor()
+                self.checkBtn.backgroundColor = .customOrange()
             } else {
                 self.checkBtn.backgroundColor = .lightGray
                 

@@ -1,0 +1,10 @@
+{
+  "projects": {
+    "default": "basketstat-7149c",
+    ":wq": "basketstat-7149c",
+    "baseketStat": "basketstat-7149c"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
