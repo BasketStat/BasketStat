@@ -24,6 +24,7 @@
 		600941AA2C58CAEC00BA9123 /* ServiceProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */; };
 		600941AC2C58CB9100BA9123 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600941AB2C58CB9100BA9123 /* BaseService.swift */; };
 		6023EBEE2C6C5A8F009755A0 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023EBED2C6C5A8F009755A0 /* DataService.swift */; };
+		6023EBF02C6F3B53009755A0 /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023EBEF2C6F3B52009755A0 /* TeamModel.swift */; };
 		603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257A2C3DAB7900DA49D5 /* KakaoService.swift */; };
 		603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */; };
 		603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */; };
@@ -166,6 +167,7 @@
 		600941A92C58CAEC00BA9123 /* ServiceProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderProtocol.swift; sourceTree = "<group>"; };
 		600941AB2C58CB9100BA9123 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		6023EBED2C6C5A8F009755A0 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		6023EBEF2C6F3B52009755A0 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				60E334C72C59815000B110D2 /* PlayerModel.swift */,
+				6023EBEF2C6F3B52009755A0 /* TeamModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 			files = (
 				600941682C4D7F0400BA9123 /* SignUpVC.swift in Sources */,
 				603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */,
+				6023EBF02C6F3B53009755A0 /* TeamModel.swift in Sources */,
 				60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */,
 				60550DC52C613CD70027CF4E /* SearchVC.swift in Sources */,
 				60550D912C59F1A50027CF4E /* KeyBoard.swift in Sources */,

@@ -55,6 +55,10 @@ class BuilderReactor: Reactor {
         
         var pickedPlayModel: PlayerModel?
         
+        var pickIdx: Int?
+        
+        var isHomeArr: Bool?
+        
 
     }
     
@@ -77,22 +81,24 @@ class BuilderReactor: Reactor {
             
         case .viewDidLoad:
             
-            print("viewWillAppear")
             return Observable.create {  ob in
                 
                
-                self.searchReactorSubject.subscribe(onNext: { [weak self] val in
-                    guard let self, let val = val else { return }
-                    ob.onNext(.getPickData(val))
+                self.searchReactorSubject.subscribe(onNext: { [weak self] model in
+                    guard let self, let model = model else { return }
+                    ob.onNext(.getPickData(model))
                     
-                    searchReactorSubject.dispose()
                 }).disposed(by: self.disposeBag)
                 
                 return Disposables.create()
 
             }
+            
+            
+            
+            
+            
         case .homeArrRemove(let index):
-
             return Observable.just(.homeArrRemove(index))
         case .awayArrRemove(let index):
             return Observable.just(.awayArrRemove(index))
@@ -121,16 +127,32 @@ class BuilderReactor: Reactor {
         case .awayArrRemove(let index):
             newState.awayArr.remove(at: index)
         case .homeArrUpdate(let index):
-            print("toggle")
             newState.pushSearchView.toggle()
+            newState.isHomeArr = true
+            newState.pickIdx = index
         case .awayArrUpdate(let index):
-            print("toggle")
             newState.pushSearchView.toggle()
+            newState.isHomeArr = false
+            newState.pickIdx = index
         case .getPickData(let model):
             newState.pushSearchView = false
-            print("model \(model)")
-            //newState.pickedPlayModel = model
-            break
+            guard let isHome = currentState.isHomeArr, let idx = currentState.pickIdx else {break}
+            
+            
+            if isHome {
+                print("\(newState.homeArr)")
+
+                newState.homeArr[idx] = model
+
+            } else {
+                print("no break away")
+
+                newState.awayArr[idx] = model
+
+            }
+            
+            
+            
         }
         
         

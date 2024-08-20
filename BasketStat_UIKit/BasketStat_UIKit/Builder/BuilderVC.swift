@@ -47,6 +47,23 @@ class BuilderVC: UIViewController, View {
         
     }
   
+    let awayAddIcon = UIView().then { view in
+        view.backgroundColor = .customOrange()
+        view.layer.cornerRadius = 15
+        let plusImg = UIImageView(image: UIImage(named: "plus.png"))
+        plusImg.contentMode = .scaleAspectFit
+        
+        view.addSubview(plusImg)
+
+        
+        plusImg.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.width.height.equalTo(15)
+        }
+
+        
+    }
+    
     private let homeArr: [PlayerModel] = []
     private let awayArr: [PlayerModel] = []
     
@@ -168,6 +185,7 @@ class BuilderVC: UIViewController, View {
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                cell.numberLabel.text = item.number
 
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
@@ -179,7 +197,7 @@ class BuilderVC: UIViewController, View {
                     ) { index, item, cell in
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
                 
-
+                cell.numberLabel.text = item.number
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
         
@@ -225,6 +243,7 @@ class BuilderVC: UIViewController, View {
         self.teamPlayerStackView.addSubview(bottomLine)
         
         self.homeLogo.addSubview(self.homeAddIcon)
+        self.awayLogo.addSubview(self.awayAddIcon)
         
         
      
@@ -283,6 +302,10 @@ class BuilderVC: UIViewController, View {
         
         
         self.homeAddIcon.snp.makeConstraints {
+            $0.bottom.trailing.equalToSuperview().inset(6)
+            $0.width.height.equalTo(30)
+        }  
+        self.awayAddIcon.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview().inset(6)
             $0.width.height.equalTo(30)
         }

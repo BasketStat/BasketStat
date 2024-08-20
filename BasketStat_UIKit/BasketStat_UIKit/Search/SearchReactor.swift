@@ -86,6 +86,7 @@ class SearchReactor: Reactor {
             print("alertTapped")
             var playerModel = model
             playerModel.number = currentState.alertText
+            
             builderReactor.searchReactorSubject.onNext(playerModel)
             
             
