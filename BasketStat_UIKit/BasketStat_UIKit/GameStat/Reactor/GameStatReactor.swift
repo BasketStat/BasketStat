@@ -88,12 +88,12 @@ class GameStatReactor: Reactor {
                 default:
                     break
                 }
-                
+                print("Player : \(currentPlayer)")
                 // Core Data에서 모든 플레이어를 가져와 출력 (디버그용)
-                let allPlayers = GamePlayerManager.shared.fetchPlayers()
-                for player in allPlayers {
-                    print("Player \(2), Team: \(player.team), Stats: \(player)")
-                }
+//                let allPlayers = GamePlayerManager.shared.fetchPlayers()
+//                for player in allPlayers {
+//                    print("Player \(2), Team: \(player.team), Stats: \(player)")
+//                }
             }
             newState.previousPlayer = nil
             newState.previousStat = nil

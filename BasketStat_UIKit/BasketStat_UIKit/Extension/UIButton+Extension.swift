@@ -47,7 +47,7 @@ extension UIButton {
     }
     
     static func highlightButton(_ button: UIButton?) {
-        button?.layer.borderWidth = 3
+        button?.layer.borderWidth = 4
         button?.layer.borderColor = UIColor.orange.cgColor
     }
     

@@ -146,13 +146,13 @@ class GameStatVC: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GamePlayerManager.shared.deleteAllPlayers()
-
-        GamePlayerManager.shared.setupInitialPlayers()
-        let players = GamePlayerManager.shared.fetchPlayers()
-            for player in players {
-                print("Player ID: \(player.player?.uuidString ?? "N/A"), Number: \(player.number), Team: \(player.team), 2PA: \(player.two_pa), 2PM: \(player.two_pm), 3PA: \(player.three_pa), 3PM: \(player.three_pm), FreeThrowPA: \(player.ft_pa), FreeThrowPM: \(player.ft_pm), AST: \(player.ast), REB: \(player.reb), STL: \(player.stl), BLK: \(player.blk), FOUL: \(player.foul), Turnovers: \(player.turnover)")
-            }
+//        GamePlayerManager.shared.deleteAllPlayers()
+//
+//        GamePlayerManager.shared.setupInitialPlayers()
+//        let players = GamePlayerManager.shared.fetchPlayers()
+//            for player in players {
+//                print("Player ID: \(player.player?.uuidString ?? "N/A"), Number: \(player.number), Team: \(player.team), 2PA: \(player.two_pa), 2PM: \(player.two_pm), 3PA: \(player.three_pa), 3PM: \(player.three_pm), FreeThrowPA: \(player.ft_pa), FreeThrowPM: \(player.ft_pm), AST: \(player.ast), REB: \(player.reb), STL: \(player.stl), BLK: \(player.blk), FOUL: \(player.foul), Turnovers: \(player.turnover)")
+//            }
         setupView()
         bind(reactor: reactor)
     }
@@ -264,6 +264,7 @@ extension GameStatVC {
         // 각 플레이어에 대해 버튼을 생성합니다.
         return players.map { player in
             let button = UIButton.createPlayerButton(backNumber: Int(player.number))
+            button.tag = Int(player.number)
             // 버튼에 필요한 추가 설정이 있다면 여기에서 추가
             return button
         }
@@ -448,7 +449,6 @@ extension GameStatVC {
     
     func bind(reactor: GameStatReactor) {
         // A팀 플레이어 버튼 설정
-        let aTeamButtons = createTeamPlayerButtons(for: .A)
         for (index, button) in aTeamButtons.enumerated() {
             button.rx.tap
                 .map {
@@ -460,7 +460,6 @@ extension GameStatVC {
         }
         
         // B팀 플레이어 버튼 설정
-        let bTeamButtons = createTeamPlayerButtons(for: .B)
         for (index, button) in bTeamButtons.enumerated() {
             button.rx.tap
                 .map {
@@ -531,7 +530,7 @@ extension GameStatVC {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.currentPlayer }
-            .distinctUntilChanged { $0?.objectID == $1?.objectID }
+            .distinctUntilChanged { $0?.player == $1?.player }
             .subscribe(with: self) { owner, currentPlayer in
                 if let previousPlayer = reactor.currentState.previousPlayer {
                     owner.clearHighlightPlayerButton(for: previousPlayer)
