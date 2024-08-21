@@ -53,12 +53,27 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
     
     func bind(reactor: SearchReactor) {
         
+        
+        
         self.alertTextField.map { text in Reactor.Action.alertText(text) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
         
         self.searchController.searchBar.rx.text.orEmpty.throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged().map { Reactor.Action.searchText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
         
         self.alertTapped.map { model in Reactor.Action.alertTapped(model) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+        
+        tableView.rx.modelSelected(PlayerModel.self)
+            .subscribe { item in
+                print("\(item) item")
+                
+                self.showRevoke(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
+                    print("alertTapped \(item)")
+                    self.alertTapped.onNext(item)
+                    
+                }, over: self)
+                
+            }
+            .disposed(by: self.disposeBag)
         
         reactor.state.map { $0.playerArr }
             .bind(to: self.tableView.rx.items(
@@ -71,15 +86,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
                 cell.nameLabel.text = item.nickname
                 cell.positionLabel.text = item.position.rawValue
                 cell.isUserInteractionEnabled = true
-                cell.rx.tapGesture().when(.recognized).subscribe({ [unowned self] _ in
-                    
-                    self.showRevoke(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
-                        
-                        self.alertTapped.onNext(item)
-                        
-                    }, over: self)
-                    
-                }).disposed(by: self.disposeBag)
+         
                 
                 
                 let url = URL(string: item.profileImageUrl ?? "")
@@ -154,25 +161,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
     }
     
-    @objc
-    func cellTapped() {
-        let alert = UIAlertController(title: "입력하라우", message: "당신의 계정!", preferredStyle: .alert)
-                  
-                  //alert창 속 텍스트 필드 추가하기 1 (아이디 필드)
-                  alert.addTextField { idField in
-                      idField.placeholder = "ID를 입력"
-                  }
-                  
-                  //alert창 속 텍스트 필드 추가하기 2 (비밀번호 필드)
-                  alert.addTextField { passwordField in
-                      passwordField.placeholder = "비밀번호 입력"
-                      passwordField.isSecureTextEntry = true
-                  }
-                  
-                  
-        present(alert, animated: true, completion: nil)
-          
-    }
+  
     typealias Action = () -> Void
     
     

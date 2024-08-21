@@ -83,7 +83,6 @@ class SearchReactor: Reactor {
             
         case .alertTapped(let model):
             
-            print("alertTapped")
             var playerModel = model
             playerModel.number = currentState.alertText
             
@@ -107,6 +106,7 @@ class SearchReactor: Reactor {
         case .popView:
             newState.popView.toggle()
         case .alertText(let text):
+            print("text \(text)")
             newState.alertText = text
             
         }
