@@ -66,6 +66,8 @@
 		BD1223E82C70EF6D00DF155C /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E72C70EF6D00DF155C /* UIStackView+Extension.swift */; };
 		BD1223EA2C710E4100DF155C /* GamePlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E92C710E4100DF155C /* GamePlayerManager.swift */; };
 		BD1223F02C72D61400DF155C /* GameStat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD1223EE2C72D61400DF155C /* GameStat.xcdatamodeld */; };
+		BD12245B2C74EE5300DF155C /* PlayerEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1224592C74EE4C00DF155C /* PlayerEntity+CoreDataClass.swift */; };
+		BD12245C2C74EE5300DF155C /* PlayerEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12245A2C74EE4C00DF155C /* PlayerEntity+CoreDataProperties.swift */; };
 		BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD35729B2C461002004CB49F /* GameStatReactor.swift */; };
 		BD3572AA2C463A3A004CB49F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572A92C463A3A004CB49F /* KakaoSDK */; };
 		BD3572AC2C463A3A004CB49F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572AB2C463A3A004CB49F /* KakaoSDKAuth */; };
@@ -215,6 +217,8 @@
 		BD1223E72C70EF6D00DF155C /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		BD1223E92C710E4100DF155C /* GamePlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayerManager.swift; sourceTree = "<group>"; };
 		BD1223EF2C72D61400DF155C /* PlayerStat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlayerStat.xcdatamodel; sourceTree = "<group>"; };
+		BD1224592C74EE4C00DF155C /* PlayerEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BD12245A2C74EE4C00DF155C /* PlayerEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		BD8B9D8A2C55529C000AB1B0 /* StatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatStore.swift; sourceTree = "<group>"; };
@@ -516,6 +520,8 @@
 		BD8B9D862C55085F000AB1B0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BD1224592C74EE4C00DF155C /* PlayerEntity+CoreDataClass.swift */,
+				BD12245A2C74EE4C00DF155C /* PlayerEntity+CoreDataProperties.swift */,
 				BD8B9D8A2C55529C000AB1B0 /* StatStore.swift */,
 				BD1223932C6E427600DF155C /* PlayerManager.swift */,
 				BD1223E92C710E4100DF155C /* GamePlayerManager.swift */,
@@ -803,6 +809,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD12245B2C74EE5300DF155C /* PlayerEntity+CoreDataClass.swift in Sources */,
 				600941682C4D7F0400BA9123 /* SignUpVC.swift in Sources */,
 				BD1223EA2C710E4100DF155C /* GamePlayerManager.swift in Sources */,
 				603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */,
@@ -815,6 +822,7 @@
 				6009419C2C5770D300BA9123 /* Enums.swift in Sources */,
 				600941A12C5777EA00BA9123 /* Errors.swift in Sources */,
 				60550D932C5A0A5B0027CF4E /* Encodable+.swift in Sources */,
+				BD12245C2C74EE5300DF155C /* PlayerEntity+CoreDataProperties.swift in Sources */,
 				BD1223E62C70E94E00DF155C /* UISegment+Extension.swift in Sources */,
 				60FA94612C62194A00F2A7ED /* PlayerCells.swift in Sources */,
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
