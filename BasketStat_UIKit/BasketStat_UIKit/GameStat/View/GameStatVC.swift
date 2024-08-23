@@ -129,7 +129,7 @@ class GameStatVC: UIViewController, View {
     
     private lazy var aTeamButtons: [UIButton] = createTeamPlayerButtons(for: .A)
     private lazy var bTeamButtons: [UIButton] = createTeamPlayerButtons(for: .B)
-
+    
     private lazy var twoPointButton = UIButton.createStatButton(stat: .TwoPA)
     private lazy var threePointButton = UIButton.createStatButton(stat: .ThreePA)
     private lazy var freeThrowButton = UIButton.createStatButton(stat: .FreeThrowPA)
@@ -146,6 +146,13 @@ class GameStatVC: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        GamePlayerManager.shared.deleteAllPlayers()
+//
+//        GamePlayerManager.shared.setupInitialPlayers()
+//        let players = GamePlayerManager.shared.fetchPlayers()
+//            for player in players {
+//                print("Player ID: \(player.player?.uuidString ?? "N/A"), Number: \(player.number), Team: \(player.team), 2PA: \(player.two_pa), 2PM: \(player.two_pm), 3PA: \(player.three_pa), 3PM: \(player.three_pm), FreeThrowPA: \(player.ft_pa), FreeThrowPM: \(player.ft_pm), AST: \(player.ast), REB: \(player.reb), STL: \(player.stl), BLK: \(player.blk), FOUL: \(player.foul), Turnovers: \(player.turnover)")
+//            }
         setupView()
         bind(reactor: reactor)
     }
@@ -165,7 +172,7 @@ extension GameStatVC {
         view.addSubview(recordStackView)
         setupButtons()
         layout()
-
+        
     }
     
     private func setupButtons() {
@@ -187,7 +194,7 @@ extension GameStatVC {
             
             return backgroundView
         }()
-
+        
         lazy var point3StackView: UIView = {
             let backgroundView = UIView()
             backgroundView.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
@@ -206,7 +213,7 @@ extension GameStatVC {
             
             return backgroundView
         }()
-
+        
         lazy var freeThrowStackView: UIView = {
             let backgroundView = UIView()
             backgroundView.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).cgColor
@@ -247,13 +254,36 @@ extension GameStatVC {
         buttonGridStackView.addArrangedSubview(firstRowStackView)
         buttonGridStackView.addArrangedSubview(secondRowStackView)
         buttonGridStackView.addArrangedSubview(thirdRowStackView)
-
+        
     }
     
     private func createTeamPlayerButtons(for team: TeamType) -> [UIButton] {
-        return GamePlayerManager.shared.gamePlayers
-            .filter { $0.team == team }
-            .map { GamePlayerManager.shared.createPlayerButton(for: $0) }
+        // Core Data에서 플레이어들을 가져옵니다.
+        let players = GamePlayerManager.shared.fetchPlayers().filter { $0.team == team.rawValue }
+        
+        // 각 플레이어에 대해 버튼을 생성합니다.
+        return players.map { player in
+            let button = UIButton.createPlayerButton(backNumber: Int(player.number))
+            button.tag = Int(player.number)
+            // 버튼에 필요한 추가 설정이 있다면 여기에서 추가
+            return button
+        }
+    }
+    
+    private func createPlayerButton(for team: TeamType) -> [UIButton] {
+        // Core Data에서 팀별 플레이어를 가져옵니다.
+        let players = GamePlayerManager.shared.fetchPlayers().filter { $0.team == team.rawValue }
+        
+        // 각 플레이어에 대한 버튼을 생성합니다.
+        return players.map { player in
+            let button = UIButton(type: .system)
+            button.setTitle("\(player.number)", for: .normal) // 번호를 버튼 제목으로 설정
+            button.backgroundColor = .lightGray // 예시로 버튼 배경색을 설정
+            button.layer.cornerRadius = 5
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.white.cgColor
+            return button
+        }
     }
 }
 
@@ -283,20 +313,33 @@ extension GameStatVC {
         }
     }
     
-    private func playerButton(for player: Player) -> UIButton? {
-        if let index = GamePlayerManager.shared.getPlayerIndex(for: player.team, player: player) {
-            return player.team == .A ? aTeamButtons[index] : bTeamButtons[index]
+    // 플레이어 버튼 반환 메소드
+    private func playerButton(for player: PlayerEntity) -> UIButton? {
+        let teamType = TeamType(rawValue: player.team)
+        let playerNumber = Int(player.number)
+        
+        switch teamType {
+        case .A:
+            if let index = aTeamButtons.firstIndex(where: { $0.tag == playerNumber }) {
+                return aTeamButtons[index]
+            }
+        case .B:
+            if let index = bTeamButtons.firstIndex(where: { $0.tag == playerNumber }) {
+                return bTeamButtons[index]
+            }
+        default:
+            return nil
         }
         return nil
     }
     
-    private func highlightPlayerButton(for player: Player) {
+    private func highlightPlayerButton(for player: PlayerEntity) {
         if let button = playerButton(for: player) {
             UIButton.highlightButton(button)
         }
     }
-
-    private func clearHighlightPlayerButton(for player: Player) {
+    
+    private func clearHighlightPlayerButton(for player: PlayerEntity) {
         if let button = playerButton(for: player) {
             UIButton.clearButtonHighlight(for: button)
         }
@@ -322,6 +365,7 @@ extension GameStatVC {
         }
     }
     
+    
     private func clearAllHighlights() {
         for stat in Stat.allCases {
             clearHighlightButton(for: stat)
@@ -329,6 +373,11 @@ extension GameStatVC {
         
         for button in aTeamButtons + bTeamButtons {
             UIButton.clearButtonHighlight(for: button)
+        }
+        
+        for segment in [twoPointSegmentControl,threePointSegmentControl,freeThrowPointSegmentControl] {
+            segment.isEnabled = false
+            segment.selectedSegmentIndex = UISegmentedControl.noSegment
         }
     }
     
@@ -399,22 +448,29 @@ extension GameStatVC {
 extension GameStatVC {
     
     func bind(reactor: GameStatReactor) {
-        // MARK: Action
+        // A팀 플레이어 버튼 설정
         for (index, button) in aTeamButtons.enumerated() {
             button.rx.tap
-                .map { Reactor.Action.selectedPlayer(player: GamePlayerManager.shared.getPlayer(for: .A, index: index)) }
+                .map {
+                    let player = GamePlayerManager.shared.fetchPlayers().filter { $0.team == TeamType.A.rawValue }[index]
+                    return Reactor.Action.selectedPlayer(player: player)
+                }
                 .bind(to: reactor.action)
                 .disposed(by: disposeBag)
         }
         
-        // B팀 플레이어 버튼 탭 이벤트 처리
+        // B팀 플레이어 버튼 설정
         for (index, button) in bTeamButtons.enumerated() {
             button.rx.tap
-                .map { Reactor.Action.selectedPlayer(player: GamePlayerManager.shared.getPlayer(for: .B, index: index)) }
+                .map {
+                    let player = GamePlayerManager.shared.fetchPlayers().filter { $0.team == TeamType.B.rawValue }[index]
+                    return Reactor.Action.selectedPlayer(player: player)
+                }
                 .bind(to: reactor.action)
                 .disposed(by: disposeBag)
         }
         
+        // 나머지 `Stat` 관련 버튼 및 세그먼트 컨트롤과 `Reactor`의 연동 부분은 기존 코드대로 유지합니다.
         let statButtons = [
             twoPointButton: Stat.TwoPA,
             threePointButton: Stat.ThreePA,
@@ -438,12 +494,12 @@ extension GameStatVC {
             .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) } // 0번 인덱스가 성공, 1번 인덱스가 실패라고 가정
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-
+        
         threePointSegmentControl.rx.selectedSegmentIndex
             .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-
+        
         freeThrowPointSegmentControl.rx.selectedSegmentIndex
             .map { Reactor.Action.setSuccess(isSuccess: $0 == 0) }
             .bind(to: reactor.action)
@@ -459,9 +515,7 @@ extension GameStatVC {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        // MARK: State
-        
-        
+        // State 관련 코드도 그대로 유지합니다.
         reactor.state.map { $0.currentStat }
             .distinctUntilChanged()
             .subscribe(with: self) { owner, currentStat in
@@ -472,12 +526,11 @@ extension GameStatVC {
                     owner.highlightButton(for: currentStat)
                     owner.activateSegmentControl(for: currentStat)
                 }
-                
             }
             .disposed(by: disposeBag)
-                                                     
+        
         reactor.state.map { $0.currentPlayer }
-            .distinctUntilChanged()
+            .distinctUntilChanged { $0?.player == $1?.player }
             .subscribe(with: self) { owner, currentPlayer in
                 if let previousPlayer = reactor.currentState.previousPlayer {
                     owner.clearHighlightPlayerButton(for: previousPlayer)
@@ -485,7 +538,6 @@ extension GameStatVC {
                 if let currentPlayer = currentPlayer {
                     owner.highlightPlayerButton(for: currentPlayer)
                 }
-                
             }
             .disposed(by: disposeBag)
         
@@ -496,8 +548,7 @@ extension GameStatVC {
                 owner.clearAllHighlights()
             }
             .disposed(by: disposeBag)
-    }
-}
+    }}
 
 #Preview {
     GameStatVC()
