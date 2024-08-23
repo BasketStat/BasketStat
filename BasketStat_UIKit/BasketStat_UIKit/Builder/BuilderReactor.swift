@@ -28,6 +28,11 @@ class BuilderReactor: Reactor {
         case homeArrUpdate(Int)
         case awayArrUpdate(Int)
         
+        case homeLogoTapped
+        case awayLogoTapped
+        
+        
+        
         
     }
     
@@ -41,25 +46,42 @@ class BuilderReactor: Reactor {
         
         case getPickData(PlayerModel)
 
+        case homeLogoTapped
+        case awayLogoTapped
         
+        case setHomeArr([PlayerModel])
+        case setAwayArr([PlayerModel])
+        
+        case setHomeValues(String,String)
+        case setAwayValues(String,String)
       
 
     }
     
     struct State {
         
-        var homeArr = [PlayerModel.init(nickname: "양승완", tall: "167", position: .C, weight: "67")]
+        var homeArr = [PlayerModel]()
         var awayArr = [PlayerModel]()
         
         var pushSearchView: Bool
+        
+        var searchViewMode: SearchViewMode?
         
         var pickedPlayModel: PlayerModel?
         
         var pickIdx: Int?
         
+        var teamPickIdx: Int?
+        
         var isHomeArr: Bool?
         
-
+        var homeImg: URL?
+        var awayImg: URL?
+        
+        var homeName: String
+        var awayName: String
+        
+        
     }
     
     
@@ -67,12 +89,13 @@ class BuilderReactor: Reactor {
     let initialState: State
     
     init(provider: ServiceProviderProtocol) {
-        self.initialState = State( pushSearchView: false)
+        self.initialState = State( pushSearchView: false, homeName: "", awayName: "")
         self.provider = provider
     }
     
     
-    let searchReactorSubject = BehaviorSubject<PlayerModel?>(value: nil)
+    let searchReactorPlayer = BehaviorSubject<PlayerModel?>(value: nil)
+    let searchReactorTeam = BehaviorSubject<TeamModel?>(value: nil)
 
     
     
@@ -83,13 +106,48 @@ class BuilderReactor: Reactor {
             
             return Observable.create {  ob in
                 
-               
-                self.searchReactorSubject.subscribe(onNext: { [weak self] model in
-                    guard let self, let model = model else { return }
-                    ob.onNext(.getPickData(model))
+                    self.searchReactorPlayer.subscribe(onNext: { [weak self] model in
+                        guard let self, let model = model else { return }
+                        ob.onNext(.getPickData(model))
+                        
+                    }).disposed(by: self.disposeBag)
                     
-                }).disposed(by: self.disposeBag)
-                
+                   print("temaSearch")
+                   self.searchReactorTeam.subscribe(onNext: { [weak self] model in
+                       
+                       guard let self, let model = model, let isHome = currentState.isHomeArr else { return }
+                       
+                       
+                       
+                       
+                       self.provider.algoliaService.getObjects(objectsIDs: model.teamMembers).subscribe({ single in
+                           
+                           switch single {
+                           case .success(let models):
+                               
+                               
+                               if isHome {
+                                   
+                                   ob.onNext(.setHomeValues(model.teamImageUrl, model.teamName))
+                                   ob.onNext(.setHomeArr(models))
+                               } else {
+                                   ob.onNext(.setAwayValues(model.teamImageUrl, model.teamName))
+                                   ob.onNext(.setAwayArr(models))
+
+                               }
+                           case .failure(let err):
+                               print("\(err) err")
+                           }
+                           
+                           
+                       }).disposed(by: self.disposeBag)
+                       
+                     
+                       
+                   }).disposed(by: self.disposeBag)
+               
+               
+            
                 return Disposables.create()
 
             }
@@ -108,6 +166,11 @@ class BuilderReactor: Reactor {
             return Observable.just(.awayArrUpdate(index))
         
       
+        case .homeLogoTapped:
+            return Observable.just(.homeLogoTapped)
+            
+        case .awayLogoTapped:
+            return Observable.just(.awayLogoTapped)
         }
         
         
@@ -127,11 +190,13 @@ class BuilderReactor: Reactor {
         case .awayArrRemove(let index):
             newState.awayArr.remove(at: index)
         case .homeArrUpdate(let index):
-            newState.pushSearchView.toggle()
+            newState.searchViewMode = .playerSearch
+            newState.pushSearchView = true
             newState.isHomeArr = true
             newState.pickIdx = index
         case .awayArrUpdate(let index):
-            newState.pushSearchView.toggle()
+            newState.searchViewMode = .playerSearch
+            newState.pushSearchView = true
             newState.isHomeArr = false
             newState.pickIdx = index
         case .getPickData(let model):
@@ -140,12 +205,10 @@ class BuilderReactor: Reactor {
             
             
             if isHome {
-                print("\(newState.homeArr)")
 
                 newState.homeArr[idx] = model
 
             } else {
-                print("no break away")
 
                 newState.awayArr[idx] = model
 
@@ -153,6 +216,41 @@ class BuilderReactor: Reactor {
             
             
             
+        case .homeLogoTapped:
+            
+            newState.isHomeArr = true
+            newState.teamPickIdx = 0
+            newState.searchViewMode = .teamSearch
+            newState.pushSearchView = true
+
+        case .awayLogoTapped:
+            newState.isHomeArr = false
+            newState.teamPickIdx = 1
+            newState.searchViewMode = .teamSearch
+            newState.pushSearchView = true
+
+        case .setHomeArr(let arr):
+            newState.pushSearchView = false
+
+            newState.homeArr = arr
+            
+        case .setAwayArr(let arr):
+            newState.pushSearchView = false
+
+            newState.awayArr = arr
+        case .setHomeValues(let url, let name):
+            
+            newState.pushSearchView = false
+            newState.homeName = name
+            newState.homeImg = URL(string: url)
+            
+            
+            
+
+        case .setAwayValues(let url, let name):
+            newState.pushSearchView = false
+            newState.awayName = name
+            newState.awayImg = URL(string: url)
         }
         
         

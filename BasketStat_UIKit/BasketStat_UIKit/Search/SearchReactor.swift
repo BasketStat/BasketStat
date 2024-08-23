@@ -11,6 +11,12 @@ import RxSwift
 import UIKit
 import FirebaseAuth
 
+// ViewControllerMode enum 정의
+enum SearchViewMode {
+    case teamSearch
+    case playerSearch
+}
+
 class SearchReactor: Reactor {
     
     
@@ -21,41 +27,46 @@ class SearchReactor: Reactor {
     let builderReactor: BuilderReactor
     
  
+    
 
     enum Action {
-        case searchText(String)
+        case searchPlayerText(String)
+        case searchTeamText(String)
         case alertText(String)
-        case alertTapped(PlayerModel)
+        
+        
+        case playerAlertTapped(PlayerModel)
+        case teamAlertTapped(TeamModel)
+    
     }
     
     enum Mutation {
-        case resultArr([PlayerModel])
+        case resultPlayerArr([PlayerModel])
+        case resultTeamArr([TeamModel])
         case alertText(String)
         case popView
     }
     
     struct State: Equatable {
-        static func == (lhs: SearchReactor.State, rhs: SearchReactor.State) -> Bool {
-            return lhs.playerArr == rhs.playerArr
-        }
-        
-
-        
+  
         var playerArr: [PlayerModel] = []
         
         var alertText = ""
-        
-        var pickedModel: PlayerModel?
-        
+                
         var popView = false
+        
+        var teamArr: [TeamModel] = []
+        
+        var mode: SearchViewMode
+
         
 
     }
     
     let initialState: State
     
-    init(provider: ServiceProviderProtocol, builderReactor: BuilderReactor) {
-        self.initialState = State()
+    init(provider: ServiceProviderProtocol, builderReactor: BuilderReactor, mode: SearchViewMode) {
+        self.initialState = State( mode: mode)
         self.provider = provider
         self.builderReactor = builderReactor
     }
@@ -67,12 +78,12 @@ class SearchReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
             
-        case .searchText(let searchText):
+        case .searchPlayerText(let searchText):
             return Observable.create { [weak self] ob in
                 guard let self else {return Disposables.create()}
                 self.provider.algoliaService.searchPlayers(searchText: searchText).subscribe(onSuccess: { [weak self] models in
                     
-                    ob.onNext(.resultArr(models))
+                    ob.onNext(.resultPlayerArr(models))
                     
                 }).disposed(by: self.disposeBag)
                 return Disposables.create()
@@ -81,12 +92,31 @@ class SearchReactor: Reactor {
         case .alertText(let alertText):
             return Observable.just(.alertText(alertText))
             
-        case .alertTapped(let model):
+        case .playerAlertTapped(let model):
             
             var playerModel = model
             playerModel.number = currentState.alertText
             
-            builderReactor.searchReactorSubject.onNext(playerModel)
+            builderReactor.searchReactorPlayer.onNext(playerModel)
+            
+            
+            return Observable.just(.popView)
+            
+        case .searchTeamText(let searchText):
+            print("searchText \(searchText)")
+
+            return Observable.create { [weak self] ob in
+                guard let self else {return Disposables.create()}
+                self.provider.algoliaService.searchTeams(searchText: searchText).subscribe(onSuccess: { [weak self] models in
+                    
+                    ob.onNext(.resultTeamArr(models))
+                    
+                }).disposed(by: self.disposeBag)
+                return Disposables.create()
+
+            }
+        case .teamAlertTapped(let model):
+            self.builderReactor.searchReactorTeam.onNext(model)
             
             
             return Observable.just(.popView)
@@ -101,12 +131,15 @@ class SearchReactor: Reactor {
         
         switch mutation {
       
-        case .resultArr(let models):
+        case .resultPlayerArr(let models):
             newState.playerArr = models
+            
+        case .resultTeamArr(let models):
+            newState.teamArr = models
+        
         case .popView:
             newState.popView.toggle()
         case .alertText(let text):
-            print("text \(text)")
             newState.alertText = text
             
         }

@@ -21,9 +21,13 @@ protocol FirebaseServiceProtocol {
 }
 
 final class FirebaseService: BaseService, FirebaseServiceProtocol {
+  
     
     let db = Firestore.firestore()
     var disposeBag = DisposeBag()
+    
+  
+    
     
     func getPlayer() -> Single<PlayerModel> {
         

@@ -11,7 +11,7 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 import Then
-
+import Kingfisher
 
 class BuilderVC: UIViewController, View {
    
@@ -107,7 +107,7 @@ class BuilderVC: UIViewController, View {
         $0.tag = 1
     }
     
-    let homeLogo = UIImageView(image: UIImage(named: "image1.png")).then {
+    let homeLogo = UIImageView(image: UIImage(named: "AppleLogo.png")).then {
         $0.layer.cornerRadius = 6
     }
     let awayLogo = UIImageView(image: UIImage(named: "image2.png")).then {
@@ -173,6 +173,57 @@ class BuilderVC: UIViewController, View {
     
     func bind(reactor: BuilderReactor) {
         
+        reactor.state.map { _ in reactor.currentState.homeName }.bind(to: self.homeName.rx.text).disposed(by: disposeBag)
+        
+        reactor.state.map { _ in reactor.currentState.awayName }.bind(to: self.awayName.rx.text).disposed(by: disposeBag)
+        
+        reactor.state.map { _ in reactor.currentState.homeImg }.subscribe(onNext: { [weak self] url in
+            
+            
+            guard let self else {return}
+            DispatchQueue.main.async {
+                
+                let processor = DownsamplingImageProcessor(size: self.homeLogo.bounds.size)
+                |> RoundCornerImageProcessor(cornerRadius: 0)
+                self.homeLogo.kf.setImage(
+                    with: url,
+                    placeholder: UIImage(),
+                    options: [
+                        .processor(processor),
+                        .scaleFactor(UIScreen.main.scale),
+                        .transition(.fade(1)),
+                        .cacheOriginalImage
+                    ])
+            }
+           
+            
+        }).disposed(by: self.disposeBag)
+        
+        reactor.state.map { _ in reactor.currentState.awayImg }.subscribe(onNext: { [weak self] url in
+            guard let self else {return}
+            DispatchQueue.main.async {
+                
+                let processor = DownsamplingImageProcessor(size: self.awayLogo.bounds.size)
+                |> RoundCornerImageProcessor(cornerRadius: 0)
+                self.awayLogo.kf.setImage(
+                    with: url,
+                    placeholder: UIImage(),
+                    options: [
+                        .processor(processor),
+                        .scaleFactor(UIScreen.main.scale),
+                        .transition(.fade(1)),
+                        .cacheOriginalImage
+                    ])
+            }
+        }).disposed(by: self.disposeBag)
+        
+        
+        self.homeLogo.rx.tapGesture().when(.recognized).map{ _ in Reactor.Action.homeLogoTapped }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        self.awayLogo.rx.tapGesture().when(.recognized).map {_ in 
+            Reactor.Action.awayLogoTapped
+        }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
         
         self.rx.methodInvoked(#selector(self.viewDidLoad))
                     .map { _ in Reactor.Action.viewDidLoad }
@@ -202,14 +253,22 @@ class BuilderVC: UIViewController, View {
                     }.disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.pushSearchView }.subscribe(onNext: { [weak self] val in
-            guard let self else {return}
+            guard let self, let mode = reactor.currentState.searchViewMode else {return}
             if val {
-                let vc = SearchVC()
-                let reactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!)
-                vc.reactor = reactor
                 
-                
-                self.navigationController?.pushViewController(vc, animated: true)
+                DispatchQueue.main.async {
+                    
+                    let vc = SearchVC()
+                    
+                    let searchReactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!, mode: mode)
+                    vc.reactor = searchReactor
+                    
+                    
+                    
+                    
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }).disposed(by: disposeBag)
         

@@ -10,6 +10,7 @@ import UIKit
 import Then
 import SnapKit
 import RxSwift
+
 class PlayerBuilderCell: UITableViewCell {
     
     var nameLabel = UILabel().then {

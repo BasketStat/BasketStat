@@ -14,4 +14,29 @@ struct TeamDto: Codable, Equatable {
     var teamMembers: [String]
     
     
+    
+    
+     func getModel() -> TeamModel {
+ 
+         return TeamModel(teamId: self.teamId, teamName: self.teamName, teamImageUrl: self.teamImageUrl, teamMembers: self.teamMembers)
+     }
+    
+    
+    
+}
+
+struct TeamModel: Equatable {
+    var teamId: String
+    var teamName: String
+    var teamImageUrl: String
+    var teamMembers: [String]
+
+    
+   
+    func getDto(profileImageUrl: String) -> TeamDto {
+
+        return TeamDto(teamId: self.teamId, teamName: self.teamName, teamImageUrl: self.teamImageUrl, teamMembers: self.teamMembers)
+    }
+    
+    
 }

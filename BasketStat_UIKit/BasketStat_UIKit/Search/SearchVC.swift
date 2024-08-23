@@ -17,103 +17,162 @@ import Kingfisher
 class SearchVC: UIViewController, View, UIScrollViewDelegate {
     
     
+    
+    
+    var titleText = ""
+    
+    var placeHoldText = ""
+    
     var disposeBag = DisposeBag()
     
     let alertTextField = PublishSubject<String>()
     
-    let alertTapped = PublishSubject<PlayerModel>()
+    let playerAlertTapped = PublishSubject<PlayerModel>()
+    
+    let teamAlertTapped = PublishSubject<TeamModel>()
     
     let searchController = UISearchController(searchResultsController: nil)
     
     lazy var tableView = UITableView().then {
         $0.backgroundColor = .clear
-        $0.register(PlayerSearchCell.self , forCellReuseIdentifier: "PlayerSearchCell")
         $0.rowHeight = 60
         $0.backgroundColor = .mainColor()
- 
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-      
+        
         if #available(iOS 13.0, *) {
             searchController.searchBar.searchTextField.textColor =  .mainWhite()
-          
+            
         }
     }
     
     override func viewDidLoad() {
+        
+        
         self.setNavigationBar()
         self.setUI()
         self.setSearchController()
+        
         self.navigationItem.titleView?.backgroundColor = .mainColor()
         
     }
+    
+  
     
     func bind(reactor: SearchReactor) {
         
         
         
-        self.alertTextField.map { text in Reactor.Action.alertText(text) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
-        
-        self.searchController.searchBar.rx.text.orEmpty.throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .distinctUntilChanged().map { Reactor.Action.searchText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
-        
-        self.alertTapped.map { model in Reactor.Action.alertTapped(model) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
-        
-        tableView.rx.modelSelected(PlayerModel.self)
-            .subscribe { item in
-                print("\(item) item")
-                
-                self.showRevoke(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
-                    print("alertTapped \(item)")
-                    self.alertTapped.onNext(item)
-                    
-                }, over: self)
-                
-            }
-            .disposed(by: self.disposeBag)
-        
-        reactor.state.map { $0.playerArr }
-            .bind(to: self.tableView.rx.items(
-                cellIdentifier: "PlayerSearchCell",
-                cellType: PlayerSearchCell.self)
-            ) { index, item, cell in
+        reactor.state.map{ $0.mode } .distinctUntilChanged().subscribe(onNext:{ [weak self] mode in
+            guard let self else {return}
+            if mode == .playerSearch {
                 
                 
+                reactor.state.map { $0.playerArr }
+                    .bind(to: self.tableView.rx.items(
+                        cellIdentifier: "PlayerSearchCell",
+                        cellType: PlayerSearchCell.self)
+                    ) { index, item, cell in
+                        
+                        
+                        cell.nameLabel.text = item.nickname
+                        cell.positionLabel.text = item.position.rawValue
+                        cell.isUserInteractionEnabled = true
+                        
+                        
+                        let url = URL(string: item.profileImageUrl ?? "")
+                        let processor = DownsamplingImageProcessor(size: cell.profileImage.bounds.size)
+                        |> RoundCornerImageProcessor(cornerRadius: 25)
+                        cell.profileImage.kf.indicatorType = .activity
+                        cell.profileImage.kf.setImage(
+                            with: url,
+                            placeholder: UIImage(),
+                            options: [
+                                .processor(processor),
+                                .scaleFactor(UIScreen.main.scale),
+                                .transition(.fade(1)),
+                                .cacheOriginalImage
+                            ])
+                        
+                        
+                        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                        
+                    }.disposed(by: self.disposeBag)
                 
-                cell.nameLabel.text = item.nickname
-                cell.positionLabel.text = item.position.rawValue
-                cell.isUserInteractionEnabled = true
-         
+                
+                self.searchController.searchBar.rx.text.orEmpty.skip(1).throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                    .distinctUntilChanged().map { Reactor.Action.searchPlayerText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+                
+                self.alertTextField.map { text in Reactor.Action.alertText(text) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
                 
                 
-                let url = URL(string: item.profileImageUrl ?? "")
-                let processor = DownsamplingImageProcessor(size: cell.profileImage.bounds.size)
-                             |> RoundCornerImageProcessor(cornerRadius: 25)
-                cell.profileImage.kf.indicatorType = .activity
-                cell.profileImage.kf.setImage(
-                    with: url,
-                    placeholder: UIImage(),
-                    options: [
-                        .processor(processor),
-                        .scaleFactor(UIScreen.main.scale),
-                        .transition(.fade(1)),
-                        .cacheOriginalImage
-                    ])
+                self.playerAlertTapped.map { model in Reactor.Action.playerAlertTapped(model) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+                
+                    self.setPlayerTableView()
                 
                 
-                cell.selectionStyle = UITableViewCell.SelectionStyle.none
 
-            }.disposed(by: disposeBag)
-        
-        reactor.state.map { $0.popView }.subscribe(onNext: {
-            if $0 {
+            // team
+            } else if mode == .teamSearch {
                 
-                self.navigationController?.popViewController(animated: true)
+                
+                
+                self.teamAlertTapped.map { model in Reactor.Action.teamAlertTapped(model) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+                
+                reactor.state.map { $0.teamArr }
+                    .bind(to: self.tableView.rx.items(
+                        cellIdentifier: "TeamSearchCell",
+                        cellType: TeamSearchCell.self)
+                    ) { index, item, cell in
+                        
+                        cell.nameLabel.text = item.teamName
+                        cell.isUserInteractionEnabled = true
+                        
+                        
+                        let url = URL(string: item.teamImageUrl)
+                        let processor = DownsamplingImageProcessor(size: cell.profileImage.bounds.size)
+                        |> RoundCornerImageProcessor(cornerRadius: 25)
+                        cell.profileImage.kf.indicatorType = .activity
+                        cell.profileImage.kf.setImage(
+                            with: url,
+                            placeholder: UIImage(),
+                            options: [
+                                .processor(processor),
+                                .scaleFactor(UIScreen.main.scale),
+                                .transition(.fade(1)),
+                                .cacheOriginalImage
+                            ])
+                        
+                        
+                        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                        
+                    }.disposed(by: self.disposeBag)
+                
+                
+                self.searchController.searchBar.rx.text.orEmpty.skip(1).throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                    .distinctUntilChanged().map { Reactor.Action.searchTeamText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+                
+                
+                self.setTeamTableView()
+
             }
             
+            
+            
+            
+        }).disposed(by: disposeBag)
+        
+        
+        
+        
+        reactor.state.map { $0.popView }.subscribe(onNext: {
+            
+            if $0 {
+                self.navigationController?.popViewController(animated: true)
+            }
             
         }).disposed(by: disposeBag)
         
@@ -121,18 +180,66 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
     }
     
-    func setSearchController() {
+    func setPlayerTableView() {
+        
+        
+            
+            self.placeHoldText = "선수 닉네임"
+            self.titleText = "선수 검색"
+            
         
 
+     
+        
+        self.tableView.register(PlayerSearchCell.self , forCellReuseIdentifier: "PlayerSearchCell")
+        tableView.rx.modelSelected(PlayerModel.self)
+            .subscribe { item in
+                
+                self.numberWrite(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
+                    print("alertTapped \(item)")
+                    self.playerAlertTapped.onNext(item)
+                    
+                }, over: self)
+                
+            }.disposed(by: self.disposeBag)
+        
+        
+        
+        
+        
+    }
+    
+    func setTeamTableView() {
+        
+        self.placeHoldText = "팀 이름"
+        self.titleText = "팀 검색"
+        
+        self.tableView.register(TeamSearchCell.self , forCellReuseIdentifier: "TeamSearchCell")
+        tableView.rx.modelSelected(TeamModel.self)
+            .subscribe (onNext:{ [weak self] item in
+                guard let self else {return}
+                
+               
+                self.confirm(title: "팀 선택", message: "\(item.teamName) 을/를 선택하시겠습니까?" , onConfirm: {
+                    self.teamAlertTapped.onNext(item)
+                    
+                }, over: self)
+                
+            }).disposed(by: self.disposeBag)
+    }
+    
+    func setSearchController() {
+        
+        
         self.searchController.searchBar
             .searchTextField
-            .attributedPlaceholder = NSAttributedString(string: "선수 닉네임을 입력하여 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.mainWhite()])
+            .attributedPlaceholder = NSAttributedString(string: "\(self.placeHoldText)을 입력하여 주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.mainWhite()])
         self.searchController.searchBar.tintColor = .mainWhite()
         self.searchController.searchBar.searchTextField.leftView?.tintColor = .mainWhite()
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.searchBar.tintColor = .mainWhite()
         self.navigationItem.searchController = self.searchController
-        self.navigationItem.title = "선수 검색"
+        self.navigationItem.title = self.titleText
         self.navigationItem.hidesSearchBarWhenScrolling = false
         
         
@@ -151,8 +258,6 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
     
     func setUI() {
         
-        
-
         self.view.addSubview(self.tableView)
         
         self.tableView.snp.makeConstraints {
@@ -161,14 +266,32 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
     }
     
-  
+    
     typealias Action = () -> Void
     
-    
-    func showRevoke(title: String, message: String?, onConfirm: @escaping Action, over viewController: UIViewController) {
+    func confirm(title: String, message: String?, onConfirm: @escaping Action, over viewController: UIViewController) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-
+        
+        let confirm =  UIAlertAction(title: "확인", style: .default, handler: { (_) in
+            onConfirm()
+        })
+        confirm.setValue( UIColor.black, forKey: "titleTextColor")
+        
+       
+        
+        ac.addAction(confirm)
+        
+        ac.addAction(self.cancel)
+        
+        viewController.present(ac, animated: true)
+    }
+    
+    
+    func numberWrite(title: String, message: String?, onConfirm: @escaping Action, over viewController: UIViewController) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        
         let gotIn =  UIAlertAction(title: "확인", style: .default, handler: { (_) in
             onConfirm()
         })
@@ -181,11 +304,11 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
             
             
         })
-
+        
         ac.addAction(gotIn)
         
         ac.addAction(self.cancel)
-
+        
         viewController.present(ac, animated: true)
     }
     var cancel: UIAlertAction {
