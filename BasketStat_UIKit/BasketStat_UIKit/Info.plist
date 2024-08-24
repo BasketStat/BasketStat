@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>KakaoAppKey</key>
+	<string>${KAKAO_APP_KEY}</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -17,12 +19,12 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao61bd93bb18af831c8f6a58018fe4c998</string>
+				<string>${KAKAO_URL_SCHEMS}</string>
 			</array>
 		</dict>
 	</array>
 	<key>GIDClientID</key>
-	<string>1033806194176-1ee1uchhtosmi9ttcv0ap756hfrsv04h.apps.googleusercontent.com</string>
+	<string>${GID_CLIENT_ID}</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaotalk</string>

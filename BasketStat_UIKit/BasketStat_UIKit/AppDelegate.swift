@@ -42,7 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Firebase 초기화
         FirebaseApp.configure()
         // Kakao 초기화
-        KakaoSDK.initSDK(appKey: "61bd93bb18af831c8f6a58018fe4c998")
+        if let kakaoAppKey = Bundle.main.infoDictionary?["KakaoAppKey"] as? String {
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
         // DropDown 라이브러리 초기화
         DropDown.startListeningToKeyboard()
 
