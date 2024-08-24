@@ -20,9 +20,9 @@ enum Stat: String,CaseIterable {
     case Turnover = "TO"
 }
 
-enum TeamType {
-    case A
-    case B
+enum TeamType :String {
+    case A = "Red"
+    case B = "Blue"
 }
 
 

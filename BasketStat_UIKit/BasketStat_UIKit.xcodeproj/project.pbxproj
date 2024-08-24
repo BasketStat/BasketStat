@@ -61,12 +61,13 @@
 		BD0D63F22C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */; };
 		BD0D63F42C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */; };
 		BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */; };
-		BD1223942C6E427600DF155C /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223932C6E427600DF155C /* PlayerManager.swift */; };
 		BD1223E42C70DB7F00DF155C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E32C70DB7F00DF155C /* UIButton+Extension.swift */; };
 		BD1223E62C70E94E00DF155C /* UISegment+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E52C70E94E00DF155C /* UISegment+Extension.swift */; };
 		BD1223E82C70EF6D00DF155C /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E72C70EF6D00DF155C /* UIStackView+Extension.swift */; };
 		BD1223EA2C710E4100DF155C /* GamePlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1223E92C710E4100DF155C /* GamePlayerManager.swift */; };
 		BD1223F02C72D61400DF155C /* GameStat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD1223EE2C72D61400DF155C /* GameStat.xcdatamodeld */; };
+		BD12245B2C74EE5300DF155C /* PlayerEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1224592C74EE4C00DF155C /* PlayerEntity+CoreDataClass.swift */; };
+		BD12245C2C74EE5300DF155C /* PlayerEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12245A2C74EE4C00DF155C /* PlayerEntity+CoreDataProperties.swift */; };
 		BD35729C2C461002004CB49F /* GameStatReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD35729B2C461002004CB49F /* GameStatReactor.swift */; };
 		BD3572AA2C463A3A004CB49F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572A92C463A3A004CB49F /* KakaoSDK */; };
 		BD3572AC2C463A3A004CB49F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BD3572AB2C463A3A004CB49F /* KakaoSDKAuth */; };
@@ -176,6 +177,7 @@
 		6023EBEF2C6F3B52009755A0 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		6023EC6B2C75DA6E009755A0 /* TeamCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCells.swift; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
+		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -211,12 +213,13 @@
 		BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITests.swift; sourceTree = "<group>"; };
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		BD1223932C6E427600DF155C /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		BD1223E32C70DB7F00DF155C /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		BD1223E52C70E94E00DF155C /* UISegment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegment+Extension.swift"; sourceTree = "<group>"; };
 		BD1223E72C70EF6D00DF155C /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		BD1223E92C710E4100DF155C /* GamePlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayerManager.swift; sourceTree = "<group>"; };
 		BD1223EF2C72D61400DF155C /* PlayerStat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlayerStat.xcdatamodel; sourceTree = "<group>"; };
+		BD1224592C74EE4C00DF155C /* PlayerEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BD12245A2C74EE4C00DF155C /* PlayerEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BD35729B2C461002004CB49F /* GameStatReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatReactor.swift; sourceTree = "<group>"; };
 		BD3572D42C46A591004CB49F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		BD8B9D8A2C55529C000AB1B0 /* StatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatStore.swift; sourceTree = "<group>"; };
@@ -519,8 +522,9 @@
 		BD8B9D862C55085F000AB1B0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BD1224592C74EE4C00DF155C /* PlayerEntity+CoreDataClass.swift */,
+				BD12245A2C74EE4C00DF155C /* PlayerEntity+CoreDataProperties.swift */,
 				BD8B9D8A2C55529C000AB1B0 /* StatStore.swift */,
-				BD1223932C6E427600DF155C /* PlayerManager.swift */,
 				BD1223E92C710E4100DF155C /* GamePlayerManager.swift */,
 				BD1223EE2C72D61400DF155C /* GameStat.xcdatamodeld */,
 			);
@@ -806,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD12245B2C74EE5300DF155C /* PlayerEntity+CoreDataClass.swift in Sources */,
 				600941682C4D7F0400BA9123 /* SignUpVC.swift in Sources */,
 				6023EC6C2C75DA6E009755A0 /* TeamCells.swift in Sources */,
 				BD1223EA2C710E4100DF155C /* GamePlayerManager.swift in Sources */,
@@ -815,10 +820,10 @@
 				60550DC52C613CD70027CF4E /* SearchVC.swift in Sources */,
 				60550D912C59F1A50027CF4E /* KeyBoard.swift in Sources */,
 				60550DAE2C609F3A0027CF4E /* GameStatVC.swift in Sources */,
-				BD1223942C6E427600DF155C /* PlayerManager.swift in Sources */,
 				6009419C2C5770D300BA9123 /* Enums.swift in Sources */,
 				600941A12C5777EA00BA9123 /* Errors.swift in Sources */,
 				60550D932C5A0A5B0027CF4E /* Encodable+.swift in Sources */,
+				BD12245C2C74EE5300DF155C /* PlayerEntity+CoreDataProperties.swift in Sources */,
 				BD1223E62C70E94E00DF155C /* UISegment+Extension.swift in Sources */,
 				60FA94612C62194A00F2A7ED /* PlayerCells.swift in Sources */,
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
