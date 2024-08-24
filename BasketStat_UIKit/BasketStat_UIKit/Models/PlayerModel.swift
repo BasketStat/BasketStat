@@ -21,11 +21,7 @@ struct PlayerDto: Codable, Equatable {
     
     
      func getModel() -> PlayerModel {
-         
-        
-        
-         
-         
+ 
          return PlayerModel(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl)
      }
     

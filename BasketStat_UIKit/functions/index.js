@@ -109,30 +109,34 @@ exports.ticcleOnUpdate = functions
     .region("asia-northeast2")
     .firestore.document("BasketStat_Player/{documentId}")
     .onUpdate(async (change, context) => {
-      await updateDocumentInAlgolia(context.params.recordId, change);
+      await updateDocumentInAlgolia(context.params.documentId, change);
     });
 
 
 const updateDocumentInAlgolia = async (objectID, change) => {
-  const before = change.before.data();
   const after = change.after.data();
-  if (before && after) {
-    const record = {objectID: objectID};
-    let flag = false;
-    if (before.title != after.title) {
-      record.title = after.title;
-      flag = true;
-    }
-    if (before.content != after.content) {
-      record.content = after.content;
-      flag = true;
-    }
+  const before = change.before.data();
 
-    if (flag) {
-      // update
-      collectionIndex.partialUpdateObject(record)
-          .catch((res) => console.log("Error with: ", res));
-    }
+
+  const record = {objectID: objectID,
+    nickname: after.nickname,
+    tall: after.tall,
+    position: after.position,
+    weight: after.weight,
+    profileImageUrl: after.profileImageUrl,
+  };
+  let flag = false;
+  if (before.nickname != after.nickname || before.tall != after.tall ||
+    before.position != after.position ||
+    before.weight != after.weight ||
+    before.profileImageUrl != after.profileImageUrl) {
+    flag = true;
+  }
+
+  if (flag) {
+    // update
+    collectionIndex.partialUpdateObject(record)
+        .catch((res) => console.log("Error with: ", res));
   }
 };
 
@@ -236,7 +240,10 @@ const saveDocumentInAlgoliaTeam = async (snapshot) => {
     if (data) {
       const record = {
         objectID: snapshot.id,
-        test: data.test,
+        teamId: data.teamId,
+        teamName: data.teamName,
+        teamImageUrl: data.teamImageUrl,
+        teamMembers: data.teamMembers,
       };
       collectionIndex1.saveObject(record)
           .catch((res) => console.log("Error with: ", res));
@@ -244,35 +251,35 @@ const saveDocumentInAlgoliaTeam = async (snapshot) => {
   }
 };
 
-
 exports.teamTiccleOnUpdate = functions
     .region("asia-northeast2")
     .firestore.document("BasketStat_Team/{documentId}")
     .onUpdate(async (change, context) => {
-      await updateDocumentInAlgoliaTeam(context.params.recordId, change);
+      await updateDocumentInAlgoliaTeam(context.params.documentId, change);
     });
 
 
 const updateDocumentInAlgoliaTeam = async (objectID, change) => {
   const before = change.before.data();
   const after = change.after.data();
-  if (before && after) {
-    const record = {objectID: objectID};
-    let flag = false;
-    if (before.title != after.title) {
-      record.title = after.title;
-      flag = true;
-    }
-    if (before.content != after.content) {
-      record.content = after.content;
-      flag = true;
-    }
+  const record = {
+    objectID: objectID,
+    teamId: after.teamId,
+    teamName: after.teamName,
+    teamImageUrl: after.teamImageUrl,
+    teamMembers: after.teamMembers,
+  };
+  let flag = false;
+  if ( before.teamName != after.teamName || before.teamId != after.teamId ||
+    before.teamMembers != after.teamMembers ||
+    before.teamImageUrl != after.teamImageUrl ) {
+    flag = true;
+  }
 
-    if (flag) {
-      // update
-      collectionIndex1.partialUpdateObject(record)
-          .catch((res) => console.log("Error with: ", res));
-    }
+  if (flag) {
+    // update
+    collectionIndex1.partialUpdateObject(record)
+        .catch((res) => console.log("Error with: ", res));
   }
 };
 
