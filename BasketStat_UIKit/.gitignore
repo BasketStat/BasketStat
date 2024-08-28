@@ -9,7 +9,11 @@ firebase-debug.*.log*
 
 # Firebase cache
 .firebase/
+.DS_Store
+.Info.plist
+Info.plist
 
+GoogleService-Info.plist
 # Firebase config
 
 # Uncomment this if you'd like others to create their own Firebase project.
