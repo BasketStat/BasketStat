@@ -14,8 +14,6 @@
 		600941702C4E5CB800BA9123 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6009416F2C4E5CB800BA9123 /* FirebaseFirestore */; };
 		600941722C4E5CB800BA9123 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 600941712C4E5CB800BA9123 /* FirebaseStorage */; };
 		600941792C4EBA4200BA9123 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 600941782C4EBA4200BA9123 /* RxGesture */; };
-		600941892C4FE6F400BA9123 /* DropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 600941852C4FE54100BA9123 /* DropDown.framework */; };
-		6009418A2C4FE6F400BA9123 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 600941852C4FE54100BA9123 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600941982C575E6A00BA9123 /* LoginReactor.swift */; };
 		6009419C2C5770D300BA9123 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6009419B2C5770D300BA9123 /* Enums.swift */; };
 		6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6009419E2C5776C700BA9123 /* GoogleService.swift */; };
@@ -26,6 +24,7 @@
 		6023EBEE2C6C5A8F009755A0 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023EBED2C6C5A8F009755A0 /* DataService.swift */; };
 		6023EBF02C6F3B53009755A0 /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023EBEF2C6F3B52009755A0 /* TeamModel.swift */; };
 		6023EC6C2C75DA6E009755A0 /* TeamCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023EC6B2C75DA6E009755A0 /* TeamCells.swift */; };
+		6030755A2C7EA43E009D9AD0 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 603075592C7EA429009D9AD0 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		603425902C3DAB7900DA49D5 /* KakaoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257A2C3DAB7900DA49D5 /* KakaoService.swift */; };
 		603425912C3DAB7900DA49D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */; };
 		603425932C3DAB7900DA49D5 /* BuilderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */; };
@@ -95,30 +94,30 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		600941802C4FE54100BA9123 /* PBXContainerItemProxy */ = {
+		603075542C7EA429009D9AD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */;
+			containerPortal = 6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0A76440F1B676C2300BF1A2D;
 			remoteInfo = Demo;
 		};
-		600941822C4FE54100BA9123 /* PBXContainerItemProxy */ = {
+		603075562C7EA429009D9AD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */;
+			containerPortal = 6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0A7644241B676C2300BF1A2D;
 			remoteInfo = DropDownTests;
 		};
-		600941842C4FE54100BA9123 /* PBXContainerItemProxy */ = {
+		603075582C7EA429009D9AD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */;
+			containerPortal = 6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0AB5D8711D0EEECD002D3A17;
 			remoteInfo = DropDown;
 		};
-		600941862C4FE6D700BA9123 /* PBXContainerItemProxy */ = {
+		6030755B2C7EA442009D9AD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */;
+			containerPortal = 6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 0AB5D8701D0EEECD002D3A17;
 			remoteInfo = DropDown;
@@ -153,7 +152,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6009418A2C4FE6F400BA9123 /* DropDown.framework in Embed Frameworks */,
+				6030755A2C7EA43E009D9AD0 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +164,6 @@
 		600941652C4A546600BA9123 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		600941672C4D7F0400BA9123 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		6009416A2C4E4D0A00BA9123 /* Polygon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Polygon.png; sourceTree = "<group>"; };
-		6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		600941982C575E6A00BA9123 /* LoginReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginReactor.swift; sourceTree = "<group>"; };
 		6009419B2C5770D300BA9123 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6009419E2C5776C700BA9123 /* GoogleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleService.swift; sourceTree = "<group>"; };
@@ -176,8 +174,8 @@
 		6023EBED2C6C5A8F009755A0 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		6023EBEF2C6F3B52009755A0 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		6023EC6B2C75DA6E009755A0 /* TeamCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCells.swift; sourceTree = "<group>"; };
+		6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
-		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				BD3572AC2C463A3A004CB49F /* KakaoSDKAuth in Frameworks */,
 				BD3572C72C463B32004CB49F /* FirebaseAuth in Frameworks */,
 				BD3572B22C463A67004CB49F /* SnapKit in Frameworks */,
-				600941892C4FE6F400BA9123 /* DropDown.framework in Frameworks */,
 				BD3572AA2C463A3A004CB49F /* KakaoSDK in Frameworks */,
 				600941722C4E5CB800BA9123 /* FirebaseStorage in Frameworks */,
 				BD3572AF2C463A5B004CB49F /* GoogleSignIn in Frameworks */,
@@ -319,16 +316,6 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
-		6009417B2C4FE54100BA9123 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				600941812C4FE54100BA9123 /* Demo.app */,
-				600941832C4FE54100BA9123 /* DropDownTests.xctest */,
-				600941852C4FE54100BA9123 /* DropDown.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		600941882C4FE6F400BA9123 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +330,16 @@
 				6009419B2C5770D300BA9123 /* Enums.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		6030754F2C7EA429009D9AD0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				603075552C7EA429009D9AD0 /* Demo.app */,
+				603075572C7EA429009D9AD0 /* DropDownTests.xctest */,
+				603075592C7EA429009D9AD0 /* DropDown.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		60550D8F2C59F1900027CF4E /* Custom */ = {
@@ -426,7 +423,7 @@
 		BD0D63C42C3CB6E4004D3EE6 = {
 			isa = PBXGroup;
 			children = (
-				6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */,
+				6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */,
 				BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */,
 				BD0D63E62C3CB6E5004D3EE6 /* BasketStat_UIKitTests */,
 				BD0D63F02C3CB6E5004D3EE6 /* BasketStat_UIKitUITests */,
@@ -590,7 +587,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				600941872C4FE6D700BA9123 /* PBXTargetDependency */,
+				6030755C2C7EA442009D9AD0 /* PBXTargetDependency */,
 			);
 			name = BasketStat_UIKit;
 			packageProductDependencies = (
@@ -709,8 +706,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6009417B2C4FE54100BA9123 /* Products */;
-					ProjectRef = 6009417A2C4FE54100BA9123 /* DropDown.xcodeproj */;
+					ProductGroup = 6030754F2C7EA429009D9AD0 /* Products */;
+					ProjectRef = 6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -724,25 +721,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		600941812C4FE54100BA9123 /* Demo.app */ = {
+		603075552C7EA429009D9AD0 /* Demo.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = Demo.app;
-			remoteRef = 600941802C4FE54100BA9123 /* PBXContainerItemProxy */;
+			remoteRef = 603075542C7EA429009D9AD0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		600941832C4FE54100BA9123 /* DropDownTests.xctest */ = {
+		603075572C7EA429009D9AD0 /* DropDownTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = DropDownTests.xctest;
-			remoteRef = 600941822C4FE54100BA9123 /* PBXContainerItemProxy */;
+			remoteRef = 603075562C7EA429009D9AD0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		600941852C4FE54100BA9123 /* DropDown.framework */ = {
+		603075592C7EA429009D9AD0 /* DropDown.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = DropDown.framework;
-			remoteRef = 600941842C4FE54100BA9123 /* PBXContainerItemProxy */;
+			remoteRef = 603075582C7EA429009D9AD0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -874,10 +871,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		600941872C4FE6D700BA9123 /* PBXTargetDependency */ = {
+		6030755C2C7EA442009D9AD0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = DropDown;
-			targetProxy = 600941862C4FE6D700BA9123 /* PBXContainerItemProxy */;
+			targetProxy = 6030755B2C7EA442009D9AD0 /* PBXContainerItemProxy */;
 		};
 		60550DD52C61C6BA0027CF4E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
