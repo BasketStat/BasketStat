@@ -176,6 +176,7 @@
 		6023EC6B2C75DA6E009755A0 /* TeamCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCells.swift; sourceTree = "<group>"; };
 		6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
+		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -211,6 +212,7 @@
 		BD0D63F12C3CB6E5004D3EE6 /* BasketStat_UIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITests.swift; sourceTree = "<group>"; };
 		BD0D63F32C3CB6E5004D3EE6 /* BasketStat_UIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketStat_UIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD0D64112C3CDC13004D3EE6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		BD0EE6682C79ABD8000D503C /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD1223E32C70DB7F00DF155C /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		BD1223E52C70E94E00DF155C /* UISegment+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegment+Extension.swift"; sourceTree = "<group>"; };
 		BD1223E72C70EF6D00DF155C /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				BD0D63DB2C3CB6E5004D3EE6 /* LaunchScreen.storyboard */,
 				6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */,
 				BD0D63DE2C3CB6E5004D3EE6 /* Info.plist */,
+				BD0EE6682C79ABD8000D503C /* Config.xcconfig */,
 			);
 			path = BasketStat_UIKit;
 			sourceTree = "<group>";
@@ -943,6 +946,7 @@
 		};
 		BD0D63F52C3CB6E5004D3EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD0EE6682C79ABD8000D503C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1006,6 +1010,7 @@
 		};
 		BD0D63F62C3CB6E5004D3EE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD0EE6682C79ABD8000D503C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1062,6 +1067,7 @@
 		};
 		BD0D63F82C3CB6E5004D3EE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD0EE6682C79ABD8000D503C /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1096,6 +1102,7 @@
 		};
 		BD0D63F92C3CB6E5004D3EE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD0EE6682C79ABD8000D503C /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
