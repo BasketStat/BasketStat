@@ -146,13 +146,13 @@ class GameStatVC: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        GamePlayerManager.shared.deleteAllPlayers()
-//
-//        GamePlayerManager.shared.setupInitialPlayers()
-//        let players = GamePlayerManager.shared.fetchPlayers()
-//            for player in players {
-//                print("Player ID: \(player.player?.uuidString ?? "N/A"), Number: \(player.number), Team: \(player.team), 2PA: \(player.two_pa), 2PM: \(player.two_pm), 3PA: \(player.three_pa), 3PM: \(player.three_pm), FreeThrowPA: \(player.ft_pa), FreeThrowPM: \(player.ft_pm), AST: \(player.ast), REB: \(player.reb), STL: \(player.stl), BLK: \(player.blk), FOUL: \(player.foul), Turnovers: \(player.turnover)")
-//            }
+        GamePlayerManager.shared.deleteAllPlayers()
+
+        GamePlayerManager.shared.setupInitialPlayers()
+        let players = GamePlayerManager.shared.fetchPlayers()
+            for player in players {
+                print("Player ID: \(player.player?.uuidString ?? "N/A"), Number: \(player.number), Team: \(player.team), 2PA: \(player.two_pa), 2PM: \(player.two_pm), 3PA: \(player.three_pa), 3PM: \(player.three_pm), FreeThrowPA: \(player.ft_pa), FreeThrowPM: \(player.ft_pm), AST: \(player.ast), REB: \(player.reb), STL: \(player.stl), BLK: \(player.blk), FOUL: \(player.foul), Turnovers: \(player.turnover)")
+            }
         setupView()
         bind(reactor: reactor)
     }
