@@ -44,6 +44,7 @@
 		60550DC52C613CD70027CF4E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC42C613CD20027CF4E /* SearchVC.swift */; };
 		60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC72C613D1B0027CF4E /* SearchReactor.swift */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
+		60A0A27D2C80C3D7003AE6AF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BD0EE6682C79ABD8000D503C /* Config.xcconfig */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
 		60E334D12C59D65D00B110D2 /* DefaultProfileImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */; };
@@ -176,7 +177,6 @@
 		6023EC6B2C75DA6E009755A0 /* TeamCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCells.swift; sourceTree = "<group>"; };
 		6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
-		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -778,6 +778,7 @@
 				BDA48F382C46A9EA002F75D9 /* Pretendard-ExtraBold.ttf in Resources */,
 				BDA48F3C2C46A9EA002F75D9 /* Pretendard-Bold.ttf in Resources */,
 				BDA48F3A2C46A9EA002F75D9 /* Pretendard-Black.ttf in Resources */,
+				60A0A27D2C80C3D7003AE6AF /* Config.xcconfig in Resources */,
 				BDA48F3D2C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
