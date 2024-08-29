@@ -31,12 +31,15 @@ class BuilderReactor: Reactor {
         case homeLogoTapped
         case awayLogoTapped
         
+        case checkBtnTapped
+        
         
         
         
     }
     
     enum Mutation {
+        
         case none
         case homeArrRemove(Int)
         case awayArrRemove(Int)
@@ -54,6 +57,8 @@ class BuilderReactor: Reactor {
         
         case setHomeValues(String,String)
         case setAwayValues(String,String)
+        
+        case checkBtnTapped
       
 
     }
@@ -81,6 +86,10 @@ class BuilderReactor: Reactor {
         var homeName: String
         var awayName: String
         
+        var canNext: Bool
+        
+        var pushGameStatView: Bool
+        
         
     }
     
@@ -89,7 +98,7 @@ class BuilderReactor: Reactor {
     let initialState: State
     
     init(provider: ServiceProviderProtocol) {
-        self.initialState = State( pushSearchView: false, homeName: "", awayName: "")
+        self.initialState = State( pushSearchView: false, homeName: "", awayName: "", canNext: false, pushGameStatView: false)
         self.provider = provider
     }
     
@@ -171,6 +180,16 @@ class BuilderReactor: Reactor {
             
         case .awayLogoTapped:
             return Observable.just(.awayLogoTapped)
+            
+        case .checkBtnTapped:
+            
+            if currentState.canNext {
+                return Observable.just(.checkBtnTapped)
+
+            } else {
+                return Observable.just(.none)
+            }
+            
         }
         
         
@@ -213,8 +232,7 @@ class BuilderReactor: Reactor {
                 newState.awayArr[idx] = model
 
             }
-            
-            
+           
             
         case .homeLogoTapped:
             
@@ -234,10 +252,22 @@ class BuilderReactor: Reactor {
 
             newState.homeArr = arr
             
+
+            if newState.homeArr.count > 3 && newState.awayArr.count > 3 {
+                newState.canNext = true
+            }
+            
+            
         case .setAwayArr(let arr):
             newState.pushSearchView = false
 
             newState.awayArr = arr
+            
+
+            if newState.homeArr.count > 3 && newState.awayArr.count > 3 {
+                newState.canNext = true
+            }
+            
         case .setHomeValues(let url, let name):
             
             newState.pushSearchView = false
@@ -251,6 +281,8 @@ class BuilderReactor: Reactor {
             newState.pushSearchView = false
             newState.awayName = name
             newState.awayImg = URL(string: url)
+        case .checkBtnTapped:
+            newState.pushGameStatView = true
         }
         
         

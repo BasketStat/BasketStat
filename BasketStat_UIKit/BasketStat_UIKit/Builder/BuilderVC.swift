@@ -173,6 +173,29 @@ class BuilderVC: UIViewController, View {
     
     func bind(reactor: BuilderReactor) {
         
+        reactor.state.map { _ in reactor.currentState.pushGameStatView }.subscribe(onNext: { [weak self] val in
+            guard let self else {return}
+            if val && reactor.currentState.canNext {
+                
+                DispatchQueue.main.async {
+                    
+                    let vc = GameStatVC()
+                    
+                    let gameStatReactor = GameStatReactor()
+                    vc.reactor = gameStatReactor
+                    
+                    
+                    
+                    
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }).disposed(by: disposeBag)
+        
+        self.checkBtn.rx.tapGesture().when(.recognized).map{ _ in Reactor.Action.checkBtnTapped }.bind(to: reactor.action).disposed(by: self.disposeBag)
+        
+        
         reactor.state.map { _ in reactor.currentState.homeName }.bind(to: self.homeName.rx.text).disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.awayName }.bind(to: self.awayName.rx.text).disposed(by: disposeBag)
