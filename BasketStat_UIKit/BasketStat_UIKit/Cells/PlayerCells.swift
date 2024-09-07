@@ -63,6 +63,19 @@ class PlayerSearchCell: UITableViewCell {
     
     var disposeBag = DisposeBag()
     
+    let checkBoxButton = UIButton().then {
+        $0.tintColor = .mainColor()
+        $0.isHidden = true
+    }
+    
+    var isCheck: Bool = false {
+           didSet {
+               let imageName = isCheck ? "checkmark.circle.fill" : "checkmark.circle"
+               checkBoxButton.setImage(UIImage(systemName: imageName), for: .normal)
+           }
+       }
+
+    
     var nameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.textColor = .mainWhite()
@@ -93,6 +106,7 @@ class PlayerSearchCell: UITableViewCell {
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(profileImage)
         self.contentView.addSubview(positionLabel)
+        self.contentView.addSubview(checkBoxButton)
         
         self.profileImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -111,6 +125,12 @@ class PlayerSearchCell: UITableViewCell {
         
         
         
+        
+        self.checkBoxButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
+        }
         
         
     }

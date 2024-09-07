@@ -282,7 +282,6 @@ class BuilderVC: UIViewController, View {
                 DispatchQueue.main.async {
                     
                     let vc = SearchVC()
-                    
                     let searchReactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!, mode: mode)
                     vc.reactor = searchReactor
                     

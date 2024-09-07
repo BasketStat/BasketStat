@@ -45,6 +45,8 @@
 		60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC72C613D1B0027CF4E /* SearchReactor.swift */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
 		60A0A27D2C80C3D7003AE6AF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BD0EE6682C79ABD8000D503C /* Config.xcconfig */; };
+		60A0A2912C85F294003AE6AF /* PickPlayersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */; };
+		60A0A2932C85F2A2003AE6AF /* PickPlayersReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
 		60E334D12C59D65D00B110D2 /* DefaultProfileImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */; };
@@ -193,6 +195,8 @@
 		60550DC72C613D1B0027CF4E /* SearchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReactor.swift; sourceTree = "<group>"; };
 		60550DD02C61C6BA0027CF4E /* BasketStat_AlgoliaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasketStat_AlgoliaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
+		60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlayersVC.swift; sourceTree = "<group>"; };
+		60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlayersReactor.swift; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultProfileImage.png; sourceTree = "<group>"; };
@@ -404,6 +408,15 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		60A0A28F2C85F283003AE6AF /* PickPlayers */ = {
+			isa = PBXGroup;
+			children = (
+				60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */,
+				60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */,
+			);
+			path = PickPlayers;
+			sourceTree = "<group>";
+		};
 		60E334C82C59815000B110D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +461,7 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				60A0A28F2C85F283003AE6AF /* PickPlayers */,
 				60FA945F2C62194100F2A7ED /* Cells */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
@@ -828,6 +842,7 @@
 				BD1223E62C70E94E00DF155C /* UISegment+Extension.swift in Sources */,
 				60FA94612C62194A00F2A7ED /* PlayerCells.swift in Sources */,
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
+				60A0A2912C85F294003AE6AF /* PickPlayersVC.swift in Sources */,
 				BD1223F02C72D61400DF155C /* GameStat.xcdatamodeld in Sources */,
 				600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */,
 				60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */,
@@ -844,6 +859,7 @@
 				BD1223E82C70EF6D00DF155C /* UIStackView+Extension.swift in Sources */,
 				BD8B9D8B2C55529C000AB1B0 /* StatStore.swift in Sources */,
 				60550DB12C60CB380027CF4E /* BuilderReactor.swift in Sources */,
+				60A0A2932C85F2A2003AE6AF /* PickPlayersReactor.swift in Sources */,
 				BD8B9D8B2C55529C000AB1B0 /* StatStore.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				60FA945C2C6202EF00F2A7ED /* AlgoliaService.swift in Sources */,

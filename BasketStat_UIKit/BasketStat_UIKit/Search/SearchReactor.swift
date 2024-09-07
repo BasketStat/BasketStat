@@ -26,6 +26,7 @@ class SearchReactor: Reactor {
     
     let builderReactor: BuilderReactor
     
+    
  
     
 
@@ -45,19 +46,24 @@ class SearchReactor: Reactor {
         case resultTeamArr([TeamModel])
         case alertText(String)
         case popView
+        case pushPickPlayersVC(TeamModel)
     }
     
     struct State: Equatable {
-  
+        
         var playerArr: [PlayerModel] = []
         
         var alertText = ""
-                
+        
         var popView = false
         
         var teamArr: [TeamModel] = []
         
         var mode: SearchViewMode
+        
+        var pushPickPlayersVC = false
+        
+        var pickedTeamModel: TeamModel?
 
         
 
@@ -119,7 +125,9 @@ class SearchReactor: Reactor {
             self.builderReactor.searchReactorTeam.onNext(model)
             
             
-            return Observable.just(.popView)
+            
+            return Observable.just(.pushPickPlayersVC(model))
+     
         }
         
         
@@ -142,12 +150,22 @@ class SearchReactor: Reactor {
         case .alertText(let text):
             newState.alertText = text
             
+        case .pushPickPlayersVC(let teamModel):
+            newState.pickedTeamModel = teamModel
+            newState.pushPickPlayersVC = true
+        
+       
         }
         
         
         return newState
     }
+    func getPushPickPlayersReactor() -> PickPlayersReactor {
+        
     
+        
+        return PickPlayersReactor(provider: self.provider, teamModel: currentState.pickedTeamModel! )
+    }
     
     
 }

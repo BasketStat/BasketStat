@@ -171,14 +171,38 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         reactor.state.map { $0.popView }.subscribe(onNext: {
             
             if $0 {
-                self.navigationController?.popViewController(animated: true)
+                
+                guard let viewStacks = self.navigationController?.viewControllers else {return}
+                
+                for viewController in viewStacks {
+                    
+                    if let builderVC = viewController as? BuilderVC {
+                                       // 출력해보자
+                        self.navigationController?.popToViewController(builderVC, animated: true)
+                                   }
+
+                }
+                
             }
             
         }).disposed(by: disposeBag)
         
+        reactor.state.map { $0.pushPickPlayersVC }.distinctUntilChanged().filter { $0 }.map {
+            
+            _ in reactor.getPushPickPlayersReactor()
+        }.bind(onNext: self.pushPickPlayersVC ).disposed(by: disposeBag)
+        
         
         
     }
+    
+    private func pushPickPlayersVC(reactor: PickPlayersReactor) {
+        let vc = PickPlayersVC()
+        vc.reactor = reactor
+        self.navigationController?.pushViewController(vc, animated: false)
+
+    }
+    
     
     func setPlayerTableView() {
         
