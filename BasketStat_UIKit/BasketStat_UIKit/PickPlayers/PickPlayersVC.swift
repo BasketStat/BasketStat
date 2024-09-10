@@ -20,10 +20,16 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    let teamProfile = UIImageView().then {
+        
+        $0.backgroundColor = .fromRGB(217, 217, 217, 1)
+        $0.layer.cornerRadius = 6
+    }
+    
     lazy var tableView = UITableView().then {
         $0.backgroundColor = .clear
         $0.rowHeight = 60
-        $0.backgroundColor = .mainColor()
+        $0.backgroundColor = .mainColor().withAlphaComponent(0.8)
         
     }
     
@@ -58,9 +64,27 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                     .disposed(by: disposeBag)
         
         
-        reactor.state.map { 
-            print("\($0.playerArr) playerArrs")
-            return $0.playerArr }
+        reactor.state.map { $0.teamModel }.subscribe(onNext: { [weak self] teamModel in
+            guard let self else {return}
+            let url = URL(string: teamModel.teamImageUrl)
+            DispatchQueue.main.async {
+                let processor = DownsamplingImageProcessor(size: self.teamProfile.bounds.size)
+                |> RoundCornerImageProcessor(cornerRadius: 25)
+                self.teamProfile.kf.indicatorType = .activity
+                self.teamProfile.kf.setImage(
+                    with: url,
+                    placeholder: UIImage(),
+                    options: [
+                        .processor(processor),
+                        .scaleFactor(UIScreen.main.scale),
+                        .transition(.fade(1)),
+                        .cacheOriginalImage
+                    ])
+            }
+ 
+        }).disposed(by: disposeBag)
+        
+        reactor.state.map { $0.playerArr }
             .bind(to: self.tableView.rx.items(
                 cellIdentifier: "PlayerSearchCheckboxCell",
                 cellType: PlayerSearchCell.self)
@@ -148,11 +172,21 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
     func setUI() {
         
         self.view.addSubview(self.tableView)
+        self.view.addSubview(self.teamProfile)
         
         self.tableView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
+            $0.bottom.leading.trailing.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(400)
+            
         }
         
+        self.teamProfile.snp.makeConstraints {
+            $0.width.height.equalTo(200)
+            $0.top.equalToSuperview().inset(150)
+            $0.centerX.equalToSuperview()
+            
+                
+        }
     }
     
     

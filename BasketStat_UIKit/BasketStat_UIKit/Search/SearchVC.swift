@@ -69,8 +69,6 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         reactor.state.map{ $0.mode } .distinctUntilChanged().subscribe(onNext:{ [weak self] mode in
             guard let self else {return}
             if mode == .playerSearch {
-                
-                
                 reactor.state.map { $0.playerArr }
                     .bind(to: self.tableView.rx.items(
                         cellIdentifier: "PlayerSearchCell",

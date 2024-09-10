@@ -59,6 +59,7 @@ class BuilderReactor: Reactor {
         case setAwayValues(String,String)
         
         case checkBtnTapped
+        case btnFalse
       
 
     }
@@ -184,7 +185,10 @@ class BuilderReactor: Reactor {
         case .checkBtnTapped:
             
             if currentState.canNext {
-                return Observable.just(.checkBtnTapped)
+                return Observable.concat ([
+                    Observable.just(.checkBtnTapped),
+                    Observable.just(.btnFalse)
+                ])
 
             } else {
                 return Observable.just(.none)
@@ -283,6 +287,11 @@ class BuilderReactor: Reactor {
             newState.awayImg = URL(string: url)
         case .checkBtnTapped:
             newState.pushGameStatView = true
+
+        case .btnFalse:
+            newState.pushGameStatView = false
+            newState.pushSearchView = false
+
         }
         
         

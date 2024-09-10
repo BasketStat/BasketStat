@@ -173,7 +173,7 @@ class BuilderVC: UIViewController, View {
     
     func bind(reactor: BuilderReactor) {
         
-        reactor.state.map { _ in reactor.currentState.pushGameStatView }.subscribe(onNext: { [weak self] val in
+        reactor.state.map { _ in reactor.currentState.pushGameStatView }.distinctUntilChanged().subscribe(onNext: { [weak self] val in
             guard let self else {return}
             if val && reactor.currentState.canNext {
                 
@@ -275,7 +275,7 @@ class BuilderVC: UIViewController, View {
                 cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
         
-        reactor.state.map { _ in reactor.currentState.pushSearchView }.subscribe(onNext: { [weak self] val in
+        reactor.state.map { _ in reactor.currentState.pushSearchView }.distinctUntilChanged().subscribe(onNext: { [weak self] val in
             guard let self, let mode = reactor.currentState.searchViewMode else {return}
             if val {
                 

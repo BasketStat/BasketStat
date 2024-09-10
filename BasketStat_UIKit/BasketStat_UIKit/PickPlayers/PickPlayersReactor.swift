@@ -27,11 +27,11 @@ class PickPlayersReactor: Reactor {
     
     enum Mutation {
         
-        case setPlayerArr
+        case setPlayerArr([PlayerModel])
         
     }
     
-    struct State: Equatable {
+    struct State {
         
         let teamModel: TeamModel
         
@@ -56,41 +56,50 @@ class PickPlayersReactor: Reactor {
         switch action {
             
         case .viewWillAppear:
-            return Observable.just(.setPlayerArr)
-        }
-        
-        
-    }
-    
-    
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        
-        switch mutation {
-            
-            
-            
-        case .setPlayerArr:
-            
-            self.provider.algoliaService.getObjects(objectsIDs: currentState.teamModel.teamMembers).subscribe{ res in
+            return Observable.create { [weak self] ob in
                 
-                switch res {
-                case.success(let models):
+                guard let self else { return Disposables.create() }
+                
+                
+                self.provider.algoliaService.getObjects(objectsIDs: currentState.teamModel.teamMembers).subscribe{ res in
                     
-                    newState.playerArr = models
-                    print("models \(models)")
-                case.failure(let err):
-                    print(err)
-                }
+                    switch res {
+                    case.success(let models):
+                        ob.onNext(.setPlayerArr(models))
+                        
+                        
+                    case.failure(let err):
+                        print(err)
+                    }
+                    
+                    
+                    
+                }.disposed(by: disposeBag)
                 
+                return Disposables.create()
+            }
+            
+            
+        }
+    }
+        
+        func reduce(state: State, mutation: Mutation) -> State {
+            var newState = state
+            
+            switch mutation {
                 
-            }.disposed(by: disposeBag)
+            case .setPlayerArr(let models):
+                newState.playerArr = models
+                
+            }
+            
+            
+            
+            return newState
         }
         
         
-        return newState
-    }
-    
+        
     
     
 }
