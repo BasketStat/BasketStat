@@ -253,15 +253,24 @@ class BuilderVC: UIViewController, View {
                     .bind(to: reactor.action)
                     .disposed(by: disposeBag)
         
-        reactor.state.map { _ in reactor.currentState.homeArr }
+        reactor.state.map { _ in
+            print(reactor.currentState.homeArr)
+            return reactor.currentState.homeArr }
             .bind(to: self.homeTableView.rx.items(
                         cellIdentifier: "PlayerCell1",
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
-                cell.selectionStyle = UITableViewCell.SelectionStyle.none
-                cell.numberLabel.text = item.number
+                
+                    cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                    cell.numberLabel.text = item.number
+                    cell.nameLabel.text = item.nickname
+                    cell.plusImage.isHidden = true
 
-                cell.nameLabel.text = item.nickname
+                cell.plusImage.isHidden = !item.isNil
+
+                
+                
+               
                     }.disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.awayArr }
@@ -269,6 +278,7 @@ class BuilderVC: UIViewController, View {
                         cellIdentifier: "PlayerCell2",
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
+                
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
                 
                 cell.numberLabel.text = item.number
@@ -373,7 +383,7 @@ class BuilderVC: UIViewController, View {
         self.teamPlayerStackView.snp.makeConstraints {
             $0.top.equalTo(self.awayName.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(52)
-            $0.bottom.equalToSuperview().inset(260)
+            $0.height.equalTo(250)
         }
         
         self.mainLabel.snp.makeConstraints {

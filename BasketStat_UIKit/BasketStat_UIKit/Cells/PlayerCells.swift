@@ -27,6 +27,10 @@ class PlayerBuilderCell: UITableViewCell {
         
     }
     
+    var plusImage = UIImageView(image: UIImage(systemName: "plus")).then {
+        $0.isHidden = true
+        $0.tintColor = .mainWhite()
+    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
@@ -42,7 +46,8 @@ class PlayerBuilderCell: UITableViewCell {
     private func setUI() {
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(numberLabel)
-        
+        self.contentView.addSubview(plusImage)
+
         self.numberLabel.snp.makeConstraints {
             $0.centerY.equalTo(self.contentView)
             $0.leading.equalToSuperview().inset(10)
@@ -53,7 +58,9 @@ class PlayerBuilderCell: UITableViewCell {
             $0.centerY.equalTo(self.contentView)
             $0.trailing.equalToSuperview().inset(10)
         }
-        
+        self.plusImage.snp.makeConstraints {
+            $0.center.equalTo(self.contentView)
+        }
         
         
     }
@@ -67,6 +74,8 @@ class PlayerSearchCell: UITableViewCell {
         $0.tintColor = .mainColor()
         $0.isHidden = true
     }
+    
+  
     
     var isCheck: Bool = false {
            didSet {
@@ -107,7 +116,7 @@ class PlayerSearchCell: UITableViewCell {
         self.contentView.addSubview(profileImage)
         self.contentView.addSubview(positionLabel)
         self.contentView.addSubview(checkBoxButton)
-        
+  
         self.profileImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(10)
@@ -132,6 +141,7 @@ class PlayerSearchCell: UITableViewCell {
             $0.centerY.equalToSuperview()
         }
         
+       
         
     }
     

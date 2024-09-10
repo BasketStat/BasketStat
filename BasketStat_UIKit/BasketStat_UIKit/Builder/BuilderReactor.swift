@@ -134,15 +134,21 @@ class BuilderReactor: Reactor {
                            
                            switch single {
                            case .success(let models):
+                               var players:[PlayerModel] = models
+                               
+                                         
+                               for _ in models.count..<5{
+                                   players.append(PlayerModel.init(nickname: "", tall: "", position: .C, weight: "", isNil: true))
+                               }
                                
                                
                                if isHome {
                                    
                                    ob.onNext(.setHomeValues(model.teamImageUrl, model.teamName))
-                                   ob.onNext(.setHomeArr(models))
+                                   ob.onNext(.setHomeArr(players))
                                } else {
                                    ob.onNext(.setAwayValues(model.teamImageUrl, model.teamName))
-                                   ob.onNext(.setAwayArr(models))
+                                   ob.onNext(.setAwayArr(players))
 
                                }
                            case .failure(let err):
@@ -239,7 +245,6 @@ class BuilderReactor: Reactor {
            
             
         case .homeLogoTapped:
-            
             newState.isHomeArr = true
             newState.teamPickIdx = 0
             newState.searchViewMode = .teamSearch
@@ -253,7 +258,6 @@ class BuilderReactor: Reactor {
 
         case .setHomeArr(let arr):
             newState.pushSearchView = false
-
             newState.homeArr = arr
             
 
