@@ -187,16 +187,29 @@ class BuilderReactor: Reactor {
             }
             return Observable.just(.setAwayArr(newArr))
         case .homeArrUpdate(let index):
-            return Observable.just(.homeArrUpdate(index))
+            return Observable.concat([
+                Observable.just(.btnFalse),
+                Observable.just(.homeArrUpdate(index)),
+                                      ])
         case .awayArrUpdate(let index):
-            return Observable.just(.awayArrUpdate(index))
+            return Observable.concat([
+                Observable.just(.btnFalse),
+                Observable.just(.awayArrUpdate(index))
+                                       ])
         
       
         case .homeLogoTapped:
-            return Observable.just(.homeLogoTapped)
+            return Observable.concat ([
+                Observable.just(.btnFalse),
+
+                Observable.just(.homeLogoTapped),
+            ])
             
         case .awayLogoTapped:
-            return Observable.just(.awayLogoTapped)
+            return Observable.concat ([
+                Observable.just(.btnFalse),
+                Observable.just(.awayLogoTapped),
+            ])
             
         case .checkBtnTapped:
             
@@ -226,6 +239,7 @@ class BuilderReactor: Reactor {
             break
  
         case .homeArrUpdate(let index):
+            print("homeArrUpdate \(currentState.pushSearchView)")
             newState.searchViewMode = .playerSearch
             newState.pushSearchView = true
             newState.isHomeArr = true
@@ -302,6 +316,9 @@ class BuilderReactor: Reactor {
         case .btnFalse:
             newState.pushGameStatView = false
             newState.pushSearchView = false
+            
+            print("button False \(currentState.pushSearchView)  \(currentState.pushSearchView)")
+
 
         }
         

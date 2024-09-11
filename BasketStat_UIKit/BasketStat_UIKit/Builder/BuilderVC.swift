@@ -14,7 +14,7 @@ import Then
 import Kingfisher
 
 class BuilderVC: UIViewController, View {
-   
+    
     
     
     var disposeBag = DisposeBag()
@@ -37,16 +37,16 @@ class BuilderVC: UIViewController, View {
         plusImg.contentMode = .scaleAspectFit
         
         view.addSubview(plusImg)
-
+        
         
         plusImg.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.height.equalTo(15)
         }
-
+        
         
     }
-  
+    
     let awayAddIcon = UIView().then { view in
         view.backgroundColor = .customOrange()
         view.layer.cornerRadius = 15
@@ -54,13 +54,13 @@ class BuilderVC: UIViewController, View {
         plusImg.contentMode = .scaleAspectFit
         
         view.addSubview(plusImg)
-
+        
         
         plusImg.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.height.equalTo(15)
         }
-
+        
         
     }
     
@@ -86,8 +86,8 @@ class BuilderVC: UIViewController, View {
         $0.delegate = self
         $0.tag = 0
         
-
-   
+        
+        
     }
     let borderView = UIView().then {
         $0.backgroundColor = .mainWhite()
@@ -102,7 +102,7 @@ class BuilderVC: UIViewController, View {
         $0.separatorColor = .mainWhite()
         $0.separatorStyle = .singleLine
         $0.separatorInset = .init(top: 0, left: 2, bottom: 0, right: 0)
-
+        
         $0.delegate = self
         $0.tag = 1
     }
@@ -119,7 +119,7 @@ class BuilderVC: UIViewController, View {
         $0.textAlignment = .center
         $0.textColor = .mainWhite()
         $0.font = .bold_16
-
+        
     }
     
     let awayName = UILabel().then {
@@ -127,16 +127,16 @@ class BuilderVC: UIViewController, View {
         $0.textAlignment = .center
         $0.textColor = .mainWhite()
         $0.font = .bold_16
-
+        
     }
     
-  
-   
+    
+    
     lazy var teamPlayerStackView = UIStackView(arrangedSubviews: [self.homeTableView, self.borderView, self.awayTableView]).then {
         $0.alignment = .fill
         $0.distribution = .fillProportionally
         $0.axis = .horizontal
-
+        
     }
     
     let checkBtn = UIButton().then {
@@ -160,11 +160,11 @@ class BuilderVC: UIViewController, View {
         super.viewDidLoad()
         
         self.setUI()
-
-       
+        
+        
     }
     
-
+    
     let homeArrRemove = PublishSubject<Int>()
     let awayArrRemove = PublishSubject<Int>()
     
@@ -218,7 +218,7 @@ class BuilderVC: UIViewController, View {
                         .cacheOriginalImage
                     ])
             }
-           
+            
             
         }).disposed(by: self.disposeBag)
         
@@ -243,24 +243,24 @@ class BuilderVC: UIViewController, View {
         
         self.homeLogo.rx.tapGesture().when(.recognized).map{ _ in Reactor.Action.homeLogoTapped }.bind(to: reactor.action).disposed(by: self.disposeBag)
         
-        self.awayLogo.rx.tapGesture().when(.recognized).map {_ in 
+        self.awayLogo.rx.tapGesture().when(.recognized).map {_ in
             Reactor.Action.awayLogoTapped
         }.bind(to: reactor.action).disposed(by: self.disposeBag)
         
         
         self.rx.methodInvoked(#selector(self.viewDidLoad))
-                    .map { _ in Reactor.Action.viewDidLoad }
-                    .bind(to: reactor.action)
-                    .disposed(by: disposeBag)
+            .map { _ in Reactor.Action.viewDidLoad }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.homeArr }
             .bind(to: self.homeTableView.rx.items(
-                        cellIdentifier: "PlayerCell1",
-                        cellType: PlayerBuilderCell.self)
-                    ) { index, item, cell in
+                cellIdentifier: "PlayerCell1",
+                cellType: PlayerBuilderCell.self)
+            ) { index, item, cell in
                 
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
-
+                
                 if let item {
                     cell.numberLabel.text = item.number
                     cell.nameLabel.text = item.nickname
@@ -269,36 +269,57 @@ class BuilderVC: UIViewController, View {
                     cell.numberLabel.text = ""
                     cell.nameLabel.text = ""
                     cell.plusImage.isHidden = false
-
+                    
                 }
-             
-               
-                    }.disposed(by: disposeBag)
-        
-        
-        
-        homeTableView.rx.modelSelected(PlayerModel?.self)
-            .subscribe { item in
                 
-                if let lastIndex = reactor.currentState.homeArr.enumerated().reversed().first(where: { $0.element != nil })?.offset {
-                   
-                    reactor.action.onNext(.homeArrUpdate(lastIndex + 1))
-                   
+                
+            }.disposed(by: disposeBag)
+        
+        
+        
+        homeTableView.rx.itemSelected
+            .subscribe { idx in
+                
+                if reactor.currentState.homeArr[idx.element!.row] == nil {
+                    if let lastIndex = reactor.currentState.homeArr.enumerated().reversed().first(where: { $0.element != nil })?.offset {
+                        
+                        reactor.action.onNext(.homeArrUpdate(lastIndex + 1))
+                        
+                    } else {
+                        reactor.action.onNext(.homeArrUpdate(0))
+                        
+                    }
                 }
-                print("Touch item")
-               
                 
+                
+                
+            }.disposed(by: self.disposeBag)
+        
+        awayTableView.rx.itemSelected
+            .subscribe { idx in
+                if reactor.currentState.homeArr[idx.element!.row] == nil {
+                    
+                    if let lastIndex = reactor.currentState.homeArr.enumerated().reversed().first(where: { $0.element != nil })?.offset {
+                        
+                        reactor.action.onNext(.awayArrUpdate(lastIndex + 1))
+                        
+                    } else {
+                        reactor.action.onNext(.awayArrUpdate(0))
+                        
+                        
+                    }
+                }
             }.disposed(by: self.disposeBag)
         
         
         reactor.state.map { _ in reactor.currentState.awayArr }.distinctUntilChanged()
             .bind(to: self.awayTableView.rx.items(
-                        cellIdentifier: "PlayerCell2",
-                        cellType: PlayerBuilderCell.self)
-                    ) { index, item, cell in
+                cellIdentifier: "PlayerCell2",
+                cellType: PlayerBuilderCell.self)
+            ) { index, item, cell in
                 
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
-
+                
                 if let item {
                     cell.numberLabel.text = item.number
                     cell.nameLabel.text = item.nickname
@@ -307,10 +328,10 @@ class BuilderVC: UIViewController, View {
                     cell.numberLabel.text = ""
                     cell.nameLabel.text = ""
                     cell.plusImage.isHidden = false
-
+                    
                 }
                 
-                    }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.pushSearchView }.distinctUntilChanged().subscribe(onNext: { [weak self] val in
             guard let self, let mode = reactor.currentState.searchViewMode else {return}
@@ -342,8 +363,8 @@ class BuilderVC: UIViewController, View {
         
         
         
-    
-         
+        
+        
     }
     
     
@@ -364,13 +385,13 @@ class BuilderVC: UIViewController, View {
         self.awayLogo.addSubview(self.awayAddIcon)
         
         
-     
+        
         self.homeLogo.contentMode = .scaleAspectFit
         self.awayLogo.contentMode = .scaleAspectFit
         self.homeLogo.backgroundColor = .fromRGB(217, 217, 217, 1)
         self.awayLogo.backgroundColor = .fromRGB(217, 217, 217, 1)
-
-
+        
+        
         self.homeLogo.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(50)
             $0.height.equalTo(120)
@@ -388,7 +409,7 @@ class BuilderVC: UIViewController, View {
             $0.centerX.equalTo(self.homeLogo)
             $0.top.equalTo(self.homeLogo.snp.bottom)
             $0.height.equalTo(50)
-
+            
         }
         self.awayName.snp.makeConstraints {
             $0.centerX.equalTo(self.awayLogo)
@@ -404,7 +425,7 @@ class BuilderVC: UIViewController, View {
         }
         
         self.awayTableView.snp.makeConstraints {
-
+            
             $0.width.equalTo(VIEW_WIDTH / 2 - 0.5)
         }
         self.teamPlayerStackView.snp.makeConstraints {
@@ -422,7 +443,7 @@ class BuilderVC: UIViewController, View {
         self.homeAddIcon.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview().inset(6)
             $0.width.height.equalTo(30)
-        }  
+        }
         self.awayAddIcon.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview().inset(6)
             $0.width.height.equalTo(30)
@@ -432,7 +453,7 @@ class BuilderVC: UIViewController, View {
             $0.width.centerX.equalToSuperview()
             $0.top.equalTo(self.teamPlayerStackView.snp.bottom)
             $0.height.equalTo(1)
-
+            
         }
         
         self.topLine.snp.makeConstraints {
@@ -471,29 +492,29 @@ extension BuilderVC: UITableViewDelegate {
             success(true)
         })
         updateAction.backgroundColor = .customOrange()
-       
-
+        
+        
         return UISwipeActionsConfiguration(actions: [updateAction])
     }
     
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-     
+        
         let deleteAction = UIContextualAction(style: .normal, title:  "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
             if tableView.tag == 0 {
                 self.homeArrRemove.onNext(indexPath.row)
-
+                
             } else {
                 self.awayArrRemove.onNext(indexPath.row)
-
+                
             }
             
             success(true)
         })
         deleteAction.backgroundColor = .customOrange()
-       
-
+        
+        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
