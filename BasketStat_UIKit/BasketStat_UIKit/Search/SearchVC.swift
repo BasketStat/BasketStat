@@ -214,11 +214,13 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
      
         
         self.tableView.register(PlayerSearchCell.self , forCellReuseIdentifier: "PlayerSearchCell")
+        
         tableView.rx.modelSelected(PlayerModel.self)
             .subscribe { item in
                 
+                
+                
                 self.numberWrite(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
-                    print("alertTapped \(item)")
                     self.playerAlertTapped.onNext(item)
                     
                 }, over: self)

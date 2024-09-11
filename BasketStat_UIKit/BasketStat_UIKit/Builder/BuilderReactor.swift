@@ -51,8 +51,8 @@ class BuilderReactor: Reactor {
         case homeLogoTapped
         case awayLogoTapped
         
-        case setHomeArr([PlayerModel])
-        case setAwayArr([PlayerModel])
+        case setHomeArr([PlayerModel?])
+        case setAwayArr([PlayerModel?])
         
         case setHomeValues(String,String)
         case setAwayValues(String,String)
@@ -65,8 +65,8 @@ class BuilderReactor: Reactor {
     
     struct State {
         
-        var homeArr = [PlayerModel]()
-        var awayArr = [PlayerModel]()
+        var homeArr = [PlayerModel?]()
+        var awayArr = [PlayerModel?]()
         
         var pushSearchView: Bool
         
@@ -133,11 +133,11 @@ class BuilderReactor: Reactor {
                            
                            switch single {
                            case .success(let models):
-                               var players:[PlayerModel] = models
+                               var players:[PlayerModel?] = models
                                
                                          
                                for _ in models.count..<5{
-                                   players.append(PlayerModel.init(nickname: "", tall: "", position: .C, weight: "", isNil: true))
+                                   players.append(nil)
                                }
                                
                                
@@ -175,7 +175,7 @@ class BuilderReactor: Reactor {
             var newArr = currentState.homeArr
             newArr.remove(at: index)
             for _ in newArr.count..<5{
-                newArr.append(PlayerModel.init(nickname: "", tall: "", position: .C, weight: "", isNil: true))
+                newArr.append(nil)
             }
             
             return Observable.just(.setHomeArr(newArr))
@@ -183,7 +183,7 @@ class BuilderReactor: Reactor {
             var newArr = currentState.awayArr
             newArr.remove(at: index)
             for _ in newArr.count..<5{
-                newArr.append(PlayerModel.init(nickname: "", tall: "", position: .C, weight: "", isNil: true))
+                newArr.append(nil)
             }
             return Observable.just(.setAwayArr(newArr))
         case .homeArrUpdate(let index):

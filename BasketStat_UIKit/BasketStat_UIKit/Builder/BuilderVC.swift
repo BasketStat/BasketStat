@@ -253,36 +253,63 @@ class BuilderVC: UIViewController, View {
                     .bind(to: reactor.action)
                     .disposed(by: disposeBag)
         
-        reactor.state.map { _ in
-            print(reactor.currentState.homeArr)
-            return reactor.currentState.homeArr }
+        reactor.state.map { _ in reactor.currentState.homeArr }
             .bind(to: self.homeTableView.rx.items(
                         cellIdentifier: "PlayerCell1",
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
                 
-                    cell.selectionStyle = UITableViewCell.SelectionStyle.none
+                cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
+                if let item {
                     cell.numberLabel.text = item.number
                     cell.nameLabel.text = item.nickname
                     cell.plusImage.isHidden = true
+                } else {
+                    cell.numberLabel.text = ""
+                    cell.nameLabel.text = ""
+                    cell.plusImage.isHidden = false
 
-                cell.plusImage.isHidden = !item.isNil
-
-                
-                
+                }
+             
                
                     }.disposed(by: disposeBag)
         
-        reactor.state.map { _ in reactor.currentState.awayArr }
+        
+        
+        homeTableView.rx.modelSelected(PlayerModel?.self)
+            .subscribe { item in
+                
+                if let lastIndex = reactor.currentState.homeArr.enumerated().reversed().first(where: { $0.element != nil })?.offset {
+                   
+                    reactor.action.onNext(.homeArrUpdate(lastIndex + 1))
+                   
+                }
+                print("Touch item")
+               
+                
+            }.disposed(by: self.disposeBag)
+        
+        
+        reactor.state.map { _ in reactor.currentState.awayArr }.distinctUntilChanged()
             .bind(to: self.awayTableView.rx.items(
                         cellIdentifier: "PlayerCell2",
                         cellType: PlayerBuilderCell.self)
                     ) { index, item, cell in
                 
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
+                if let item {
+                    cell.numberLabel.text = item.number
+                    cell.nameLabel.text = item.nickname
+                    cell.plusImage.isHidden = true
+                } else {
+                    cell.numberLabel.text = ""
+                    cell.nameLabel.text = ""
+                    cell.plusImage.isHidden = false
+
+                }
                 
-                cell.numberLabel.text = item.number
-                cell.nameLabel.text = item.nickname
                     }.disposed(by: disposeBag)
         
         reactor.state.map { _ in reactor.currentState.pushSearchView }.distinctUntilChanged().subscribe(onNext: { [weak self] val in
@@ -433,6 +460,7 @@ class BuilderVC: UIViewController, View {
 
 
 extension BuilderVC: UITableViewDelegate {
+    
     public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let updateAction = UIContextualAction(style: .normal, title:  "수정", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             if tableView.tag == 0 {
