@@ -41,8 +41,7 @@ class BuilderReactor: Reactor {
     enum Mutation {
         
         case none
-        case homeArrRemove(Int)
-        case awayArrRemove(Int)
+     
         
         case homeArrUpdate(Int)
         case awayArrUpdate(Int)
@@ -173,9 +172,20 @@ class BuilderReactor: Reactor {
             
             
         case .homeArrRemove(let index):
-            return Observable.just(.homeArrRemove(index))
+            var newArr = currentState.homeArr
+            newArr.remove(at: index)
+            for _ in newArr.count..<5{
+                newArr.append(PlayerModel.init(nickname: "", tall: "", position: .C, weight: "", isNil: true))
+            }
+            
+            return Observable.just(.setHomeArr(newArr))
         case .awayArrRemove(let index):
-            return Observable.just(.awayArrRemove(index))
+            var newArr = currentState.awayArr
+            newArr.remove(at: index)
+            for _ in newArr.count..<5{
+                newArr.append(PlayerModel.init(nickname: "", tall: "", position: .C, weight: "", isNil: true))
+            }
+            return Observable.just(.setAwayArr(newArr))
         case .homeArrUpdate(let index):
             return Observable.just(.homeArrUpdate(index))
         case .awayArrUpdate(let index):
@@ -214,10 +224,7 @@ class BuilderReactor: Reactor {
        
         case .none:
             break
-        case .homeArrRemove(let index):
-            newState.homeArr.remove(at: index)
-        case .awayArrRemove(let index):
-            newState.awayArr.remove(at: index)
+ 
         case .homeArrUpdate(let index):
             newState.searchViewMode = .playerSearch
             newState.pushSearchView = true
