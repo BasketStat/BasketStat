@@ -22,7 +22,7 @@ struct PlayerDto: Codable, Equatable {
     
      func getModel() -> PlayerModel {
  
-         return PlayerModel(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl, isNil: false)
+         return PlayerModel(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl, isPicked: false)
      }
     
     
@@ -47,7 +47,7 @@ struct PlayerModel: Equatable {
     var profileImageUrl: String?
     var profileImage: UIImage?
     var number: String?
-    var isNil: Bool
+    var isPicked: Bool
 
     
    

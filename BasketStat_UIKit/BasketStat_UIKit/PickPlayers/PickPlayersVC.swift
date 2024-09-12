@@ -90,6 +90,12 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                 cellType: PlayerSearchCell.self)
             ) { index, item, cell in
                 
+                if item.isPicked {
+                    cell.backgroundColor = .white.withAlphaComponent(0.2)
+                } else {
+                    cell.backgroundColor = .clear
+                }
+                
                 cell.nameLabel.text = item.nickname
                 cell.positionLabel.text = item.position.rawValue
                 cell.isUserInteractionEnabled = true
@@ -108,6 +114,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                         .transition(.fade(1)),
                         .cacheOriginalImage
                     ])
+                cell.numberLabel.text = item.number
                 
                 
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -125,17 +132,32 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         
         
         self.tableView.register(PlayerSearchCell.self , forCellReuseIdentifier: "PlayerSearchCheckboxCell")
-        tableView.rx.modelSelected(PlayerModel.self)
-            .subscribe { item in
-                
+        
+        self.tableView.rx.itemSelected.subscribe { index in
+            guard let indexPath = index.element else {return}
+            
+            if self.reactor?.currentState.playerArr[indexPath.row].isPicked == true {
+                self.confirm(title: "제외", message: "선택 목록에서 제외 하시겠습니까?", onConfirm: {
+                    self.reactor?.action.onNext(.exception(indexPath.row))
+                }, over: self)
+                return
+            }
+            
+            if self.reactor?.currentState.playerArr.filter({ $0.isPicked == true }).count ?? 0 < 3 {
                 self.numberWrite(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
-                    print("alertTapped \(item)")
+                    self.reactor?.action.onNext(.pickFin(indexPath.row))
                     
                 }, over: self)
-                
-            }.disposed(by: self.disposeBag)
+            } else {
+                self.confirm(title: "초과", message: "선수 숫자가 5명이 넘었습니다", onConfirm: {
+                    
+                }, over: self)
+            }
+               
         
-        
+     
+            
+        }.disposed(by: self.disposeBag)
         
         
         
@@ -223,7 +245,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         ac.addTextField(configurationHandler: { [weak self] textField in
             guard let self else {return}
             textField.textAlignment = .center
-//            textField.rx.text.orEmpty.bind(to: self.alertTextField ).disposed(by: self.disposeBag)
+            textField.rx.text.orEmpty.map { index in Reactor.Action.pickPlayerNum(index) }.bind(to: self.reactor!.action ).disposed(by: self.disposeBag)
             
             
         })

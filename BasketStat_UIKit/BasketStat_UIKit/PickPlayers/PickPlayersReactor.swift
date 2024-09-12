@@ -22,12 +22,17 @@ class PickPlayersReactor: Reactor {
     enum Action {
         
         case viewWillAppear
+        case pickPlayerNum(String)
+        case pickFin(Int)
+        case exception(Int)
         
     }
     
     enum Mutation {
         
         case setPlayerArr([PlayerModel])
+        case pickPlayerNum(String)
+    
         
     }
     
@@ -37,6 +42,7 @@ class PickPlayersReactor: Reactor {
         
         var playerArr: [PlayerModel] = []
         
+        var playerNumber: String?
         
     }
     
@@ -80,6 +86,22 @@ class PickPlayersReactor: Reactor {
             }
             
             
+        case .pickPlayerNum(let number):
+            return Observable.just(.pickPlayerNum(number))
+        case .pickFin(let index):
+            var playerArr = currentState.playerArr
+            var player = currentState.playerArr[index]
+            player.number = currentState.playerNumber ?? ""
+            player.isPicked = true
+            playerArr[index] = player
+            return Observable.just(.setPlayerArr(playerArr))
+        case .exception(let index):
+            var playerArr = currentState.playerArr
+            var player = currentState.playerArr[index]
+            player.number = ""
+            player.isPicked = false
+            playerArr[index] = player
+            return Observable.just(.setPlayerArr(playerArr))
         }
     }
         
@@ -91,6 +113,9 @@ class PickPlayersReactor: Reactor {
             case .setPlayerArr(let models):
                 newState.playerArr = models
                 
+            case .pickPlayerNum(let number):
+                newState.playerNumber = number
+          
             }
             
             

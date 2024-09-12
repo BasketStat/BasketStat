@@ -23,6 +23,7 @@ class PlayerBuilderCell: UITableViewCell {
         $0.textColor = .mainWhite()
         $0.font = .regular4
 
+        
 
         
     }
@@ -70,6 +71,12 @@ class PlayerSearchCell: UITableViewCell {
     
     var disposeBag = DisposeBag()
     
+    
+    var numberLabel = UILabel().then {
+        $0.textAlignment = .center
+        $0.textColor = .mainColor()
+        $0.font = .boldSystemFont(ofSize: 22)
+    }
     let checkBoxButton = UIButton().then {
         $0.tintColor = .mainColor()
         $0.isHidden = true
@@ -116,6 +123,7 @@ class PlayerSearchCell: UITableViewCell {
         self.contentView.addSubview(profileImage)
         self.contentView.addSubview(positionLabel)
         self.contentView.addSubview(checkBoxButton)
+        self.contentView.addSubview(numberLabel)
   
         self.profileImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -139,6 +147,11 @@ class PlayerSearchCell: UITableViewCell {
             $0.width.height.equalTo(20)
             $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
+        }
+        self.numberLabel.snp.makeConstraints {
+            $0.width.height.equalTo(self.profileImage)
+            
+            $0.center.equalTo(self.profileImage)
         }
         
        

@@ -71,7 +71,7 @@ class SignUpReactor: Reactor {
             
             
         case .pushBtn:
-            var playerModel = PlayerModel.init(nickname: self.currentState.nickname, tall: self.currentState.tall, position: PositionType(rawValue: positionDic[self.currentState.position!]!)!  , weight: self.currentState.weight, isNil: false)
+            var playerModel = PlayerModel.init(nickname: self.currentState.nickname, tall: self.currentState.tall, position: PositionType(rawValue: positionDic[self.currentState.position!]!)!  , weight: self.currentState.weight, isPicked: false)
             
             playerModel.profileImage = self.currentState.profileImage
             
