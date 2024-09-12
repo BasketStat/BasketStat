@@ -129,14 +129,14 @@ class BuilderReactor: Reactor {
                        
                        
                        
-                       self.provider.algoliaService.getObjects(objectsIDs: model.teamMembers).subscribe({ single in
+//self.provider.algoliaService.getObjects(objectsIDs: model.pickedMemebers).subscribe({ single in
                            
-                           switch single {
-                           case .success(let models):
-                               var players:[PlayerModel?] = models
+//                           switch single {
+//                           case .success(let models):
+                       var players:[PlayerModel?] = model.pickedMemebers ?? []
                                
                                          
-                               for _ in models.count..<5{
+                               for _ in players.count..<5{
                                    players.append(nil)
                                }
                                
@@ -150,23 +150,23 @@ class BuilderReactor: Reactor {
                                    ob.onNext(.setAwayArr(players))
 
                                }
-                           case .failure(let err):
-                               print("\(err) err")
-                           }
+//                           case .failure(let err):
+//                               print("\(err) err")
+                        //   }
                            
                            
-                       }).disposed(by: self.disposeBag)
+                      // }).disposed(by: self.disposeBag)
                        
                      
                        
-                   }).disposed(by: self.disposeBag)
+                    }).disposed(by: self.disposeBag)
                
                
             
                 return Disposables.create()
 
             }
-            
+                                                    
             
             
             
@@ -239,7 +239,6 @@ class BuilderReactor: Reactor {
             break
  
         case .homeArrUpdate(let index):
-            print("homeArrUpdate \(currentState.pushSearchView)")
             newState.searchViewMode = .playerSearch
             newState.pushSearchView = true
             newState.isHomeArr = true

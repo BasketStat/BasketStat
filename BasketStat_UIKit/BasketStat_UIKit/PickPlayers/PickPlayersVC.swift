@@ -15,10 +15,21 @@ import SnapKit
 import Kingfisher
 
 class PickPlayersVC: UIViewController, UITableViewDelegate, View {
- 
+    
     var disposeBag = DisposeBag()
     
     let searchController = UISearchController(searchResultsController: nil)
+   
+    
+    let checkBtn = UIButton().then {
+        $0.setTitle("확인", for: .normal)
+        
+        $0.titleLabel?.textColor = .white
+        $0.titleLabel?.font = .systemFont(ofSize: 14)
+        $0.backgroundColor = .customOrange()
+        $0.layer.cornerRadius = 4
+    }
+    
     
     let teamProfile = UIImageView().then {
         
@@ -36,6 +47,8 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        
+        
         if #available(iOS 13.0, *) {
             searchController.searchBar.searchTextField.textColor =  .mainWhite()
             
@@ -47,21 +60,37 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         
         self.setNavigationBar()
         self.setUI()
-     //   self.setSearchController()
+        //   self.setSearchController()
         self.setPlayerTableView()
         
         self.navigationItem.titleView?.backgroundColor = .mainColor()
         
     }
     
-  
+    
     
     func bind(reactor: PickPlayersReactor) {
         
+        reactor.state.map { _ in reactor.currentState.popToBuilderVC  }.subscribe{ check in
+            if check {
+                if let builderVC = self.navigationController?.viewControllers.first(where: { $0 is BuilderVC }) as? BuilderVC,
+                   let builderReactor = builderVC.reactor {
+                    builderReactor.searchReactorTeam.onNext(reactor.currentState.teamModel)
+                }
+                
+                // ViewController2와 ViewController3 pop
+                if let vc = self.navigationController?.viewControllers.first(where: { $0 is BuilderVC }) {
+                    self.navigationController?.popToViewController(vc, animated: false)
+                }
+                
+                
+            }
+        }.disposed(by: disposeBag)
+        
         self.rx.methodInvoked(#selector(self.viewWillAppear(_:)))
-                    .map { _ in Reactor.Action.viewWillAppear }
-                    .bind(to: reactor.action)
-                    .disposed(by: disposeBag)
+            .map { _ in Reactor.Action.viewWillAppear }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         
         reactor.state.map { $0.teamModel }.subscribe(onNext: { [weak self] teamModel in
@@ -81,7 +110,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                         .cacheOriginalImage
                     ])
             }
- 
+            
         }).disposed(by: disposeBag)
         
         reactor.state.map { $0.playerArr }
@@ -99,7 +128,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                 cell.nameLabel.text = item.nickname
                 cell.positionLabel.text = item.position.rawValue
                 cell.isUserInteractionEnabled = true
-
+                
                 
                 let url = URL(string: item.profileImageUrl ?? "")
                 let processor = DownsamplingImageProcessor(size: cell.profileImage.bounds.size)
@@ -120,12 +149,15 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                 cell.selectionStyle = UITableViewCell.SelectionStyle.none
             }.disposed(by: self.disposeBag)
         
+        checkBtn.rx.tapGesture().when(.recognized).map { _ in Reactor.Action.popToBuilderVC }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
-//        self.searchController.searchBar.rx.text.orEmpty.skip(1).throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-//            .distinctUntilChanged().map { Reactor.Action.searchPlayerText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+        //        self.searchController.searchBar.rx.text.orEmpty.skip(1).throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+        //            .distinctUntilChanged().map { Reactor.Action.searchPlayerText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
         
- 
-
+        
+        
     }
     
     func setPlayerTableView() {
@@ -137,7 +169,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
             guard let indexPath = index.element else {return}
             
             if self.reactor?.currentState.playerArr[indexPath.row].isPicked == true {
-                self.confirm(title: "제외", message: "선택 목록에서 제외 하시겠습니까?", onConfirm: {
+                self.confirm(title: "선수제외", message: "이 선수를 선택 목록에서 제외 하시겠습니까?", onConfirm: {
                     self.reactor?.action.onNext(.exception(indexPath.row))
                 }, over: self)
                 return
@@ -153,16 +185,16 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                     
                 }, over: self)
             }
-               
-        
-     
+            
+            
+            
             
         }.disposed(by: self.disposeBag)
         
         
         
     }
-   
+    
     
     func setSearchController() {
         
@@ -174,7 +206,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         self.searchController.searchBar.searchTextField.leftView?.tintColor = .mainWhite()
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.searchBar.tintColor = .mainWhite()
-       // self.navigationItem.searchController = self.searchController
+        // self.navigationItem.searchController = self.searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
         
         
@@ -195,19 +227,24 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.teamProfile)
+        self.view.addSubview(self.checkBtn)
         
         self.tableView.snp.makeConstraints {
             $0.bottom.leading.trailing.equalToSuperview().inset(20)
             $0.top.equalToSuperview().inset(400)
-            
         }
         
         self.teamProfile.snp.makeConstraints {
             $0.width.height.equalTo(200)
             $0.top.equalToSuperview().inset(150)
             $0.centerX.equalToSuperview()
-            
-                
+        }
+        
+        self.checkBtn.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(50)
+            $0.height.equalTo(40)
+            $0.width.equalTo(170)
         }
     }
     
@@ -222,9 +259,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
             onConfirm()
         })
         confirm.setValue( UIColor.black, forKey: "titleTextColor")
-        
-       
-        
+                
         ac.addAction(confirm)
         
         ac.addAction(self.cancel)

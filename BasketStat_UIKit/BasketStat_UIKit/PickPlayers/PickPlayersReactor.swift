@@ -25,6 +25,7 @@ class PickPlayersReactor: Reactor {
         case pickPlayerNum(String)
         case pickFin(Int)
         case exception(Int)
+        case popToBuilderVC
         
     }
     
@@ -32,17 +33,22 @@ class PickPlayersReactor: Reactor {
         
         case setPlayerArr([PlayerModel])
         case pickPlayerNum(String)
+        case popToBuilderVC
     
         
     }
     
     struct State {
         
-        let teamModel: TeamModel
+        var teamModel: TeamModel
         
         var playerArr: [PlayerModel] = []
         
         var playerNumber: String?
+        
+        var popToBuilderVC = false
+        
+        var pickedModels: [PlayerModel] = []
         
     }
     
@@ -102,6 +108,8 @@ class PickPlayersReactor: Reactor {
             player.isPicked = false
             playerArr[index] = player
             return Observable.just(.setPlayerArr(playerArr))
+        case .popToBuilderVC:
+            return Observable.just(.popToBuilderVC)
         }
     }
         
@@ -112,10 +120,14 @@ class PickPlayersReactor: Reactor {
                 
             case .setPlayerArr(let models):
                 newState.playerArr = models
+                newState.teamModel.pickedMemebers =  models.filter { $0.isPicked }
                 
             case .pickPlayerNum(let number):
                 newState.playerNumber = number
           
+            case .popToBuilderVC:
+                newState.popToBuilderVC = true
+                
             }
             
             

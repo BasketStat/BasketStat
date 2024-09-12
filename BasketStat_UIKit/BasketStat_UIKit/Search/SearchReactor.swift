@@ -122,7 +122,6 @@ class SearchReactor: Reactor {
 
             }
         case .teamAlertTapped(let model):
-            self.builderReactor.searchReactorTeam.onNext(model)
             
             
             

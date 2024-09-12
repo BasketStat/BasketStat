@@ -197,6 +197,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
     private func pushPickPlayersVC(reactor: PickPlayersReactor) {
         let vc = PickPlayersVC()
         vc.reactor = reactor
+        
         self.navigationController?.pushViewController(vc, animated: false)
 
     }
