@@ -47,6 +47,7 @@ class SearchReactor: Reactor {
         case alertText(String)
         case popView
         case pushPickPlayersVC(TeamModel)
+        case btnFalse
     }
     
     struct State: Equatable {
@@ -87,9 +88,23 @@ class SearchReactor: Reactor {
         case .searchPlayerText(let searchText):
             return Observable.create { [weak self] ob in
                 guard let self else {return Disposables.create()}
-                self.provider.algoliaService.searchPlayers(searchText: searchText).subscribe(onSuccess: { [weak self] models in
+                self.provider.algoliaService.searchPlayers(searchText: searchText).subscribe(onSuccess: { [weak self] players in
+                    var players = players
                     
-                    ob.onNext(.resultPlayerArr(models))
+                    
+                    
+                    if let picked = UserDefaults.standard.stringArray(forKey: "picked") {
+                        print("\(picked) picked")
+                        for pick in picked {
+                            players = players.filter { $0.playerUid != pick }
+                        }
+                        ob.onNext(.resultPlayerArr(players))
+
+                    }
+                
+                    
+                    
+                    
                     
                 }).disposed(by: self.disposeBag)
                 return Disposables.create()
@@ -102,8 +117,9 @@ class SearchReactor: Reactor {
             
             var playerModel = model
             playerModel.number = currentState.alertText
-            
+            CustomUserDefault.shared.pushPicked(uid: playerModel.playerUid)
             builderReactor.searchReactorPlayer.onNext(playerModel)
+            
             
             
             return Observable.just(.popView)
@@ -118,14 +134,16 @@ class SearchReactor: Reactor {
                     ob.onNext(.resultTeamArr(models))
                     
                 }).disposed(by: self.disposeBag)
+                
                 return Disposables.create()
-
             }
         case .teamAlertTapped(let model):
             
             
             
-            return Observable.just(.pushPickPlayersVC(model))
+            return Observable.concat([
+                Observable.just(.pushPickPlayersVC(model))
+                ,Observable.just(.btnFalse)])
      
         }
         
@@ -152,7 +170,8 @@ class SearchReactor: Reactor {
         case .pushPickPlayersVC(let teamModel):
             newState.pickedTeamModel = teamModel
             newState.pushPickPlayersVC = true
-        
+        case .btnFalse:
+            newState.pushPickPlayersVC = false
        
         }
         

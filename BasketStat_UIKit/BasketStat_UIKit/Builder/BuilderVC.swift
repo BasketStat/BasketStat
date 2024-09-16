@@ -152,12 +152,14 @@ class BuilderVC: UIViewController, View {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.navigationController?.view.backgroundColor = .mainColor()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaults.standard.set([], forKey: "picked")
+
         
         self.setUI()
         

@@ -120,12 +120,17 @@ class PickPlayersReactor: Reactor {
                 
             case .setPlayerArr(let models):
                 newState.playerArr = models
-                newState.teamModel.pickedMemebers =  models.filter { $0.isPicked }
+                let filtered = models.filter { $0.isPicked }
+                newState.teamModel.pickedMemebers =  filtered
+                
                 
             case .pickPlayerNum(let number):
                 newState.playerNumber = number
           
             case .popToBuilderVC:
+                let picked = currentState.teamModel.pickedMemebers ?? []
+                let pickedUid = picked.map { $0.playerUid }
+                CustomUserDefault.shared.pushArr(uids: pickedUid )
                 newState.popToBuilderVC = true
                 
             }

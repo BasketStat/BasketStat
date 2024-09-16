@@ -177,7 +177,19 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
             
             if self.reactor?.currentState.playerArr.filter({ $0.isPicked == true }).count ?? 0 < 3 {
                 self.numberWrite(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
-                    self.reactor?.action.onNext(.pickFin(indexPath.row))
+                    let picked = self.reactor?.currentState.teamModel.pickedMemebers ?? []
+                    let number = self.reactor?.currentState.playerNumber
+                    
+                    
+                    if !picked.map({ $0.number }).contains(number) {
+                        
+                        self.reactor?.action.onNext(.pickFin(indexPath.row))
+
+                    } else {
+                        self.showAutoDismissAlert(on: self, title: "선수 번호가 중복됩니다", message: "다른 선수 번호를 입력해주세요", duration: 2.0)
+                        self.reactor?.action.onNext(.pickPlayerNum(""))
+
+                    }
                     
                 }, over: self)
             } else {
@@ -295,6 +307,18 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         cancel.setValue( UIColor.black, forKey: "titleTextColor")
         return cancel
+    }
+    
+    func showAutoDismissAlert(on viewController: UIViewController, title: String, message: String, duration: Double) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        // ViewController에 알림창 표시
+        viewController.present(alert, animated: true, completion: nil)
+        
+        // duration 이후에 알림창 자동으로 닫기
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            alert.dismiss(animated: true, completion: nil)
+        }
     }
     
 }

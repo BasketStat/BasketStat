@@ -316,7 +316,6 @@ class BuilderReactor: Reactor {
             newState.pushGameStatView = false
             newState.pushSearchView = false
             
-            print("button False \(currentState.pushSearchView)  \(currentState.pushSearchView)")
 
 
         }

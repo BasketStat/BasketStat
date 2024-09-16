@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
+
         guard let windowScene = (scene as? UIWindowScene) else { return }
 //        window = UIWindow(windowScene: windowScene)
 //        window?.rootViewController = GameStatVC()
@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //    }
     
     
+        
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
             var navigationController = UINavigationController()
@@ -35,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if let user = Auth.auth().currentUser {
     
     
-    
+
                 UserDefaults.standard.setValue(user.uid, forKey: "uid")
                 provider.firebaseService.getPlayer().subscribe({ single in
                     switch single {

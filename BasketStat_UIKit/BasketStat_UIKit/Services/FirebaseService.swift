@@ -148,7 +148,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
                     if let error {
                         com(.error(error))
                         return
-                    }else {
+                    } else {
                         UserDefaults.standard.set(authResult?.user.uid, forKey: "uid")
                         
                         com(.completed)
@@ -189,10 +189,7 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
     
     
     func setPlayer(playerModel: PlayerModel) -> Completable {
-        guard let uid = UserDefaults.standard.string(forKey: "uid") else {
-            return Completable.error(CustomError.CustomNil)
-        }
-        
+     
         var playerDto = playerModel.getDto(profileImageUrl: "")
         
         // 이미지 데이터를 준비합니다.
@@ -201,11 +198,10 @@ final class FirebaseService: BaseService, FirebaseServiceProtocol {
         // 이미지를 업로드하고 URL을 받아 설정합니다.
         
         
-        return self.uploadImage(imageData: data, pathRoot: uid)
+        return self.uploadImage(imageData: data, pathRoot: playerModel.playerUid)
             .flatMapCompletable { url in
                 playerDto.profileImageUrl = url
-                print("playerDto \(playerDto)")
-                return self.setStore(playerDto: playerDto, uid: uid)
+                return self.setStore(playerDto: playerDto, uid: playerModel.playerUid)
             }
     }
     

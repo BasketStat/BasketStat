@@ -47,6 +47,7 @@
 		60A0A27D2C80C3D7003AE6AF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BD0EE6682C79ABD8000D503C /* Config.xcconfig */; };
 		60A0A2912C85F294003AE6AF /* PickPlayersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */; };
 		60A0A2932C85F2A2003AE6AF /* PickPlayersReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */; };
+		60A653C42C940F2100659A8D /* CustomUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A653C32C940F2100659A8D /* CustomUserDefault.swift */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
 		60E334D12C59D65D00B110D2 /* DefaultProfileImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */; };
@@ -197,6 +198,7 @@
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
 		60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlayersVC.swift; sourceTree = "<group>"; };
 		60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlayersReactor.swift; sourceTree = "<group>"; };
+		60A653C32C940F2100659A8D /* CustomUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserDefault.swift; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultProfileImage.png; sourceTree = "<group>"; };
@@ -417,6 +419,14 @@
 			path = PickPlayers;
 			sourceTree = "<group>";
 		};
+		60A653C22C940F1400659A8D /* Customs */ = {
+			isa = PBXGroup;
+			children = (
+				60A653C32C940F2100659A8D /* CustomUserDefault.swift */,
+			);
+			path = Customs;
+			sourceTree = "<group>";
+		};
 		60E334C82C59815000B110D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +471,7 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				60A653C22C940F1400659A8D /* Customs */,
 				60A0A28F2C85F283003AE6AF /* PickPlayers */,
 				60FA945F2C62194100F2A7ED /* Cells */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
@@ -864,6 +875,7 @@
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				60FA945C2C6202EF00F2A7ED /* AlgoliaService.swift in Sources */,
 				6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */,
+				60A653C42C940F2100659A8D /* CustomUserDefault.swift in Sources */,
 				6023EBEE2C6C5A8F009755A0 /* DataService.swift in Sources */,
 				600941A82C58C8A700BA9123 /* SignUpReactor.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
