@@ -90,6 +90,8 @@ class BuilderReactor: Reactor {
         
         var pushGameStatView: Bool
         
+        var updateNum: String?
+        
         
     }
     
@@ -113,6 +115,8 @@ class BuilderReactor: Reactor {
             
         case .viewDidLoad:
             
+            CustomUserDefault.shared.resetAll()
+            
             return Observable.create {  ob in
                 
                     self.searchReactorPlayer.subscribe(onNext: { [weak self] model in
@@ -127,15 +131,16 @@ class BuilderReactor: Reactor {
                        guard let self, let model = model, let isHome = currentState.isHomeArr else { return }
                        
                        
-                       
+
                        
 //self.provider.algoliaService.getObjects(objectsIDs: model.pickedMemebers).subscribe({ single in
                            
 //                           switch single {
 //                           case .success(let models):
                        var players:[PlayerModel?] = model.pickedMemebers ?? []
-                               
-                                         
+                       
+                       CustomUserDefault.shared.setPickNum(nums: players.map { $0?.number ?? "" }, isHome: isHome)
+
                                for _ in players.count..<5{
                                    players.append(nil)
                                }
@@ -173,7 +178,13 @@ class BuilderReactor: Reactor {
             
         case .homeArrRemove(let index):
             var newArr = currentState.homeArr
+
+            if let delUid = newArr[index]?.playerUid, let delNum = newArr[index]?.number {
+                CustomUserDefault.shared.delPicked(uid: delUid, num: delNum, isHome: true)
+            }
+            
             newArr.remove(at: index)
+            
             for _ in newArr.count..<5{
                 newArr.append(nil)
             }
@@ -288,7 +299,6 @@ class BuilderReactor: Reactor {
             
         case .setAwayArr(let arr):
             newState.pushSearchView = false
-
             newState.awayArr = arr
             
 

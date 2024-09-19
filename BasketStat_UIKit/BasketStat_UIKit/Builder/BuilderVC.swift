@@ -158,7 +158,7 @@ class BuilderVC: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaults.standard.set([], forKey: "picked")
+        
 
         
         self.setUI()
@@ -342,7 +342,7 @@ class BuilderVC: UIViewController, View {
                 DispatchQueue.main.async {
                     
                     let vc = SearchVC()
-                    let searchReactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!, mode: mode)
+                    let searchReactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!, mode: mode, isHome: reactor.currentState.isHomeArr)
                     vc.reactor = searchReactor
                     
                     

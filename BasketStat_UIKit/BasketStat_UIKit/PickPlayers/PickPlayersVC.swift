@@ -186,7 +186,7 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
                         self.reactor?.action.onNext(.pickFin(indexPath.row))
 
                     } else {
-                        self.showAutoDismissAlert(on: self, title: "선수 번호가 중복됩니다", message: "다른 선수 번호를 입력해주세요", duration: 2.0)
+                        CustomAlert.shared.showAutoDismissAlert(on: self, title: "선수 번호가 중복됩니다", message: "다른 선수 번호를 입력해주세요", duration: 2.0)
                         self.reactor?.action.onNext(.pickPlayerNum(""))
 
                     }
@@ -307,18 +307,6 @@ class PickPlayersVC: UIViewController, UITableViewDelegate, View {
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         cancel.setValue( UIColor.black, forKey: "titleTextColor")
         return cancel
-    }
-    
-    func showAutoDismissAlert(on viewController: UIViewController, title: String, message: String, duration: Double) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        // ViewController에 알림창 표시
-        viewController.present(alert, animated: true, completion: nil)
-        
-        // duration 이후에 알림창 자동으로 닫기
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-            alert.dismiss(animated: true, completion: nil)
-        }
     }
     
 }

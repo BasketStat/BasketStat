@@ -24,9 +24,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
     var placeHoldText = ""
     
     var disposeBag = DisposeBag()
-    
-    let alertTextField = PublishSubject<String>()
-    
+        
     let playerAlertTapped = PublishSubject<PlayerModel>()
     
     let teamAlertTapped = PublishSubject<TeamModel>()
@@ -104,7 +102,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
                 self.searchController.searchBar.rx.text.orEmpty.skip(1).throttle(.milliseconds(300), scheduler: MainScheduler.instance)
                     .distinctUntilChanged().map { Reactor.Action.searchPlayerText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
                 
-                self.alertTextField.map { text in Reactor.Action.alertText(text) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+
                 
                 
                 self.playerAlertTapped.map { model in Reactor.Action.playerAlertTapped(model) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
@@ -166,7 +164,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
         
         
-        reactor.state.map { $0.popView }.subscribe(onNext: {
+        reactor.state.map { $0.popView }.distinctUntilChanged().subscribe(onNext: {
             
             if $0 {
                 
@@ -191,6 +189,13 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         }.bind(onNext: self.pushPickPlayersVC ).disposed(by: disposeBag)
         
         
+        reactor.state.map { $0.resetAlert }.distinctUntilChanged().subscribe(onNext: {
+            
+            if $0 {
+                CustomAlert.shared.showAutoDismissAlert(on: self, title: "선수 번호가 중복됩니다", message: "다른 선수 번호를 입력해주세요", duration: 2.0)
+            }
+            
+        }).disposed(by: disposeBag)
         
     }
     
@@ -325,7 +330,8 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         ac.addTextField(configurationHandler: { [weak self] textField in
             guard let self else {return}
             textField.textAlignment = .center
-            textField.rx.text.orEmpty.bind(to: self.alertTextField ).disposed(by: self.disposeBag)
+            
+            textField.rx.text.orEmpty.map { index in Reactor.Action.alertText(index) }.bind(to: self.reactor!.action ).disposed(by: self.disposeBag)
             
             
         })

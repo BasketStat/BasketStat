@@ -50,6 +50,7 @@ class PickPlayersReactor: Reactor {
         
         var pickedModels: [PlayerModel] = []
         
+        
     }
     
     let initialState: State
@@ -131,6 +132,7 @@ class PickPlayersReactor: Reactor {
                 let picked = currentState.teamModel.pickedMemebers ?? []
                 let pickedUid = picked.map { $0.playerUid }
                 CustomUserDefault.shared.pushArr(uids: pickedUid )
+                
                 newState.popToBuilderVC = true
                 
             }
