@@ -24,9 +24,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
     var placeHoldText = ""
     
     var disposeBag = DisposeBag()
-    
-    let alertTextField = PublishSubject<String>()
-    
+        
     let playerAlertTapped = PublishSubject<PlayerModel>()
     
     let teamAlertTapped = PublishSubject<TeamModel>()
@@ -69,8 +67,6 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         reactor.state.map{ $0.mode } .distinctUntilChanged().subscribe(onNext:{ [weak self] mode in
             guard let self else {return}
             if mode == .playerSearch {
-                
-                
                 reactor.state.map { $0.playerArr }
                     .bind(to: self.tableView.rx.items(
                         cellIdentifier: "PlayerSearchCell",
@@ -106,7 +102,7 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
                 self.searchController.searchBar.rx.text.orEmpty.skip(1).throttle(.milliseconds(300), scheduler: MainScheduler.instance)
                     .distinctUntilChanged().map { Reactor.Action.searchPlayerText($0) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
                 
-                self.alertTextField.map { text in Reactor.Action.alertText(text) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
+
                 
                 
                 self.playerAlertTapped.map { model in Reactor.Action.playerAlertTapped(model) }.bind(to: reactor.action ).disposed(by: self.disposeBag)
@@ -168,17 +164,49 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         
         
         
-        reactor.state.map { $0.popView }.subscribe(onNext: {
+        reactor.state.map { $0.popView }.distinctUntilChanged().subscribe(onNext: {
             
             if $0 {
-                self.navigationController?.popViewController(animated: true)
+                
+                guard let viewStacks = self.navigationController?.viewControllers else {return}
+                
+                for viewController in viewStacks {
+                    
+                    if let builderVC = viewController as? BuilderVC {
+                                       // 출력해보자
+                        self.navigationController?.popToViewController(builderVC, animated: true)
+                                   }
+
+                }
+                
             }
             
         }).disposed(by: disposeBag)
         
+        reactor.state.map { $0.pushPickPlayersVC }.distinctUntilChanged().filter { $0 }.map {
+            
+            _ in reactor.getPushPickPlayersReactor()
+        }.bind(onNext: self.pushPickPlayersVC ).disposed(by: disposeBag)
         
+        
+        reactor.state.map { $0.resetAlert }.distinctUntilChanged().subscribe(onNext: {
+            
+            if $0 {
+                CustomAlert.shared.showAutoDismissAlert(on: self, title: "선수 번호가 중복됩니다", message: "다른 선수 번호를 입력해주세요", duration: 2.0)
+            }
+            
+        }).disposed(by: disposeBag)
         
     }
+    
+    private func pushPickPlayersVC(reactor: PickPlayersReactor) {
+        let vc = PickPlayersVC()
+        vc.reactor = reactor
+        
+        self.navigationController?.pushViewController(vc, animated: false)
+
+    }
+    
     
     func setPlayerTableView() {
         
@@ -192,11 +220,13 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
      
         
         self.tableView.register(PlayerSearchCell.self , forCellReuseIdentifier: "PlayerSearchCell")
+        
         tableView.rx.modelSelected(PlayerModel.self)
             .subscribe { item in
                 
+                
+                
                 self.numberWrite(title: "번호 입력", message: "선수 번호 입력 후 확인 버튼을 눌러주세요", onConfirm: {
-                    print("alertTapped \(item)")
                     self.playerAlertTapped.onNext(item)
                     
                 }, over: self)
@@ -300,7 +330,8 @@ class SearchVC: UIViewController, View, UIScrollViewDelegate {
         ac.addTextField(configurationHandler: { [weak self] textField in
             guard let self else {return}
             textField.textAlignment = .center
-            textField.rx.text.orEmpty.bind(to: self.alertTextField ).disposed(by: self.disposeBag)
+            
+            textField.rx.text.orEmpty.map { index in Reactor.Action.alertText(index) }.bind(to: self.reactor!.action ).disposed(by: self.disposeBag)
             
             
         })

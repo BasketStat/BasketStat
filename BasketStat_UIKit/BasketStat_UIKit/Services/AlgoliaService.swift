@@ -13,6 +13,7 @@ protocol AlgoliaServiceProtocol {
     func searchPlayers(searchText: String) -> Single<[PlayerModel]>
     func searchTeams(searchText: String) -> Single<[TeamModel]>
     func getObjects(objectsIDs: [String]) -> Single<[PlayerModel]>
+
 }
 
 
@@ -20,6 +21,9 @@ final class AlgoliaService: BaseService, AlgoliaServiceProtocol {
    
     
     let client = SearchClient(appID: "BLGKJBV97I", apiKey: "60a08066359684298a6ae2d88b807cf8")
+    
+ 
+    
     
     func searchTeams(searchText: String) -> Single<[TeamModel]> {
         let index = client.index(withName: "BasketStat_Team")
@@ -36,6 +40,7 @@ final class AlgoliaService: BaseService, AlgoliaServiceProtocol {
 
                 case .success(let response):
                     do {
+                
                         
                         let teams: [TeamDto] = try response.extractHits()
                         single(.success(teams.map {

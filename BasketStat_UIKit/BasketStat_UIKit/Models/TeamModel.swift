@@ -31,6 +31,7 @@ struct TeamModel: Equatable {
     var teamImageUrl: String
     var teamMembers: [String]
 
+    var pickedMemebers: [PlayerModel]?
     
    
     func getDto(profileImageUrl: String) -> TeamDto {

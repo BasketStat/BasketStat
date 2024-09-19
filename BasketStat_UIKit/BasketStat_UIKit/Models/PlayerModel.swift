@@ -11,7 +11,7 @@ import Kingfisher
 let positionDic = [0:"PG", 1:"SG", 2:"SF", 3:"PF", 4:"C"]
 
 struct PlayerDto: Codable, Equatable {
-    
+    var playerUid: String
     var nickname: String
     var tall: String
     var position: PositionType
@@ -22,7 +22,7 @@ struct PlayerDto: Codable, Equatable {
     
      func getModel() -> PlayerModel {
  
-         return PlayerModel(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl)
+         return PlayerModel(playerUid: playerUid, nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl, isPicked: false)
      }
     
     
@@ -40,6 +40,7 @@ enum PositionType: String, Codable {
   }
 
 struct PlayerModel: Equatable {
+    var playerUid: String
     var nickname: String
     var tall: String
     var position: PositionType
@@ -47,12 +48,13 @@ struct PlayerModel: Equatable {
     var profileImageUrl: String?
     var profileImage: UIImage?
     var number: String?
+    var isPicked: Bool
 
     
    
     func getDto(profileImageUrl: String) -> PlayerDto {
 
-        return PlayerDto(nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl)
+        return PlayerDto(playerUid: self.playerUid, nickname: self.nickname, tall: self.tall, position: self.position, weight: self.weight, profileImageUrl: profileImageUrl)
     }
     
     

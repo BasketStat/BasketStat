@@ -44,6 +44,11 @@
 		60550DC52C613CD70027CF4E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC42C613CD20027CF4E /* SearchVC.swift */; };
 		60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60550DC72C613D1B0027CF4E /* SearchReactor.swift */; };
 		608BD4E62C4804180003CCA0 /* mainIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 608BD4E52C4804180003CCA0 /* mainIcon.png */; };
+		60A0A27D2C80C3D7003AE6AF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BD0EE6682C79ABD8000D503C /* Config.xcconfig */; };
+		60A0A2912C85F294003AE6AF /* PickPlayersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */; };
+		60A0A2932C85F2A2003AE6AF /* PickPlayersReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */; };
+		60A653C42C940F2100659A8D /* CustomUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A653C32C940F2100659A8D /* CustomUserDefault.swift */; };
+		60A653CC2C99936000659A8D /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A653CB2C99936000659A8D /* CustomAlert.swift */; };
 		60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334C72C59815000B110D2 /* PlayerModel.swift */; };
 		60E334CB2C59816200B110D2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E334CA2C59816200B110D2 /* LoginVC.swift */; };
 		60E334D12C59D65D00B110D2 /* DefaultProfileImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */; };
@@ -176,7 +181,6 @@
 		6023EC6B2C75DA6E009755A0 /* TeamCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCells.swift; sourceTree = "<group>"; };
 		6030754E2C7EA429009D9AD0 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = ../DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
 		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = /Users/seungwan/xcode/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift; sourceTree = "<absolute>"; };
-		6034257A2C3DAB7900DA49D5 /* KakaoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoService.swift; path = "/Users/kim-jeongwon/Desktop/BasketStat/BasketStat_UIKit/BasketStat_UIKit/Services/KakaoService.swift"; sourceTree = "<absolute>"; };
 		6034257B2C3DAB7900DA49D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6034257D2C3DAB7900DA49D5 /* BuilderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuilderVC.swift; sourceTree = "<group>"; };
 		6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = BasketStat_UIKit.entitlements; sourceTree = "<group>"; };
@@ -193,6 +197,10 @@
 		60550DC72C613D1B0027CF4E /* SearchReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReactor.swift; sourceTree = "<group>"; };
 		60550DD02C61C6BA0027CF4E /* BasketStat_AlgoliaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasketStat_AlgoliaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		608BD4E52C4804180003CCA0 /* mainIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainIcon.png; sourceTree = "<group>"; };
+		60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlayersVC.swift; sourceTree = "<group>"; };
+		60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlayersReactor.swift; sourceTree = "<group>"; };
+		60A653C32C940F2100659A8D /* CustomUserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserDefault.swift; sourceTree = "<group>"; };
+		60A653CB2C99936000659A8D /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		60E334C72C59815000B110D2 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		60E334CA2C59816200B110D2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		60E334D02C59D65D00B110D2 /* DefaultProfileImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultProfileImage.png; sourceTree = "<group>"; };
@@ -404,6 +412,24 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		60A0A28F2C85F283003AE6AF /* PickPlayers */ = {
+			isa = PBXGroup;
+			children = (
+				60A0A2902C85F294003AE6AF /* PickPlayersVC.swift */,
+				60A0A2922C85F2A2003AE6AF /* PickPlayersReactor.swift */,
+			);
+			path = PickPlayers;
+			sourceTree = "<group>";
+		};
+		60A653C22C940F1400659A8D /* Customs */ = {
+			isa = PBXGroup;
+			children = (
+				60A653C32C940F2100659A8D /* CustomUserDefault.swift */,
+				60A653CB2C99936000659A8D /* CustomAlert.swift */,
+			);
+			path = Customs;
+			sourceTree = "<group>";
+		};
 		60E334C82C59815000B110D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +474,8 @@
 		BD0D63CF2C3CB6E4004D3EE6 /* BasketStat_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				60A653C22C940F1400659A8D /* Customs */,
+				60A0A28F2C85F283003AE6AF /* PickPlayers */,
 				60FA945F2C62194100F2A7ED /* Cells */,
 				600846D92C3DB6FF00DE64E2 /* .gitattributes */,
 				6034257E2C3DAB7900DA49D5 /* BasketStat_UIKit.entitlements */,
@@ -778,6 +806,7 @@
 				BDA48F382C46A9EA002F75D9 /* Pretendard-ExtraBold.ttf in Resources */,
 				BDA48F3C2C46A9EA002F75D9 /* Pretendard-Bold.ttf in Resources */,
 				BDA48F3A2C46A9EA002F75D9 /* Pretendard-Black.ttf in Resources */,
+				60A0A27D2C80C3D7003AE6AF /* Config.xcconfig in Resources */,
 				BDA48F3D2C46A9EA002F75D9 /* Pretendard-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -821,12 +850,14 @@
 				60550D912C59F1A50027CF4E /* KeyBoard.swift in Sources */,
 				60550DAE2C609F3A0027CF4E /* GameStatVC.swift in Sources */,
 				6009419C2C5770D300BA9123 /* Enums.swift in Sources */,
+				60A653CC2C99936000659A8D /* CustomAlert.swift in Sources */,
 				600941A12C5777EA00BA9123 /* Errors.swift in Sources */,
 				60550D932C5A0A5B0027CF4E /* Encodable+.swift in Sources */,
 				BD12245C2C74EE5300DF155C /* PlayerEntity+CoreDataProperties.swift in Sources */,
 				BD1223E62C70E94E00DF155C /* UISegment+Extension.swift in Sources */,
 				60FA94612C62194A00F2A7ED /* PlayerCells.swift in Sources */,
 				60E334C92C59815000B110D2 /* PlayerModel.swift in Sources */,
+				60A0A2912C85F294003AE6AF /* PickPlayersVC.swift in Sources */,
 				BD1223F02C72D61400DF155C /* GameStat.xcdatamodeld in Sources */,
 				600941992C575E6A00BA9123 /* LoginReactor.swift in Sources */,
 				60550DC82C613D1B0027CF4E /* SearchReactor.swift in Sources */,
@@ -843,10 +874,12 @@
 				BD1223E82C70EF6D00DF155C /* UIStackView+Extension.swift in Sources */,
 				BD8B9D8B2C55529C000AB1B0 /* StatStore.swift in Sources */,
 				60550DB12C60CB380027CF4E /* BuilderReactor.swift in Sources */,
+				60A0A2932C85F2A2003AE6AF /* PickPlayersReactor.swift in Sources */,
 				BD8B9D8B2C55529C000AB1B0 /* StatStore.swift in Sources */,
 				BD0D63D32C3CB6E4004D3EE6 /* SceneDelegate.swift in Sources */,
 				60FA945C2C6202EF00F2A7ED /* AlgoliaService.swift in Sources */,
 				6009419F2C5776C700BA9123 /* GoogleService.swift in Sources */,
+				60A653C42C940F2100659A8D /* CustomUserDefault.swift in Sources */,
 				6023EBEE2C6C5A8F009755A0 /* DataService.swift in Sources */,
 				600941A82C58C8A700BA9123 /* SignUpReactor.swift in Sources */,
 				BD0D64122C3CDC13004D3EE6 /* UIColor+Extension.swift in Sources */,
