@@ -27,13 +27,23 @@ class CustomUserDefault {
         UserDefaults.standard.set(aftPicked, forKey: "picked")
         
     }
+    func changePickedNum(bef:String, aft:String, isHome: Bool) {
+        let result = isHome ? "homePickedNums" : "awayPickedNums"
+
+        guard let pickedNums: [String] = UserDefaults.standard.stringArray(forKey: result) else {return}
+        var aftPicked = pickedNums.filter { $0 != bef }
+        aftPicked.append(aft)
+        UserDefaults.standard.set(aftPicked, forKey: result)
+        
+    }
+    
     func delPicked(uid: String, num: String , isHome: Bool) {
         
         let result = isHome ? "homePickedNums" : "awayPickedNums"
 
         guard let picked: [String] = UserDefaults.standard.stringArray(forKey: "picked") else {return}
 
-        let aftPicked = picked.filter { $0 == uid }
+        let aftPicked = picked.filter { $0 != uid }
         UserDefaults.standard.set(aftPicked, forKey: "picked")
         
         guard let pickedNums: [String] = UserDefaults.standard.stringArray(forKey: result) else {return}

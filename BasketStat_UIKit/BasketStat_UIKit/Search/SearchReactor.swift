@@ -102,16 +102,16 @@ class SearchReactor: Reactor {
                     
                     
                     
-                    if let picked = UserDefaults.standard.stringArray(forKey: "picked") {
-                        for pick in picked {
-                            players = players.filter { $0.playerUid != pick }
-                        }
-                        ob.onNext(.resultPlayerArr(players))
-
-                    }
+//                    if let picked = UserDefaults.standard.stringArray(forKey: "picked") {
+//                        for pick in picked {
+//                            players = players.filter { $0.playerUid != pick }
+//                        }
+//
+//                    }
                 
                     
-                    
+                    ob.onNext(.resultPlayerArr(players))
+
                     
                     
                 }).disposed(by: self.disposeBag)

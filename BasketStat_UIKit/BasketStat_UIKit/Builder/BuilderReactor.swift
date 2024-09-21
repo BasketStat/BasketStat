@@ -19,11 +19,11 @@ class BuilderReactor: Reactor {
     let provider: ServiceProviderProtocol
     
     
-
+    
     enum Action {
         case viewDidLoad
         case homeArrRemove(Int)
-        case awayArrRemove(Int) 
+        case awayArrRemove(Int)
         
         case homeArrUpdate(Int)
         case awayArrUpdate(Int)
@@ -41,13 +41,13 @@ class BuilderReactor: Reactor {
     enum Mutation {
         
         case none
-     
+        
         
         case homeArrUpdate(Int)
         case awayArrUpdate(Int)
         
         case getPickData(PlayerModel)
-
+        
         case homeLogoTapped
         case awayLogoTapped
         
@@ -59,8 +59,8 @@ class BuilderReactor: Reactor {
         
         case checkBtnTapped
         case btnFalse
-      
-
+        
+        
     }
     
     struct State {
@@ -107,7 +107,7 @@ class BuilderReactor: Reactor {
     
     let searchReactorPlayer = BehaviorSubject<PlayerModel?>(value: nil)
     let searchReactorTeam = BehaviorSubject<TeamModel?>(value: nil)
-
+    
     
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -119,66 +119,58 @@ class BuilderReactor: Reactor {
             
             return Observable.create {  ob in
                 
-                    self.searchReactorPlayer.subscribe(onNext: { [weak self] model in
-                        guard let self, let model = model else { return }
-                        ob.onNext(.getPickData(model))
-                        
-                    }).disposed(by: self.disposeBag)
+                self.searchReactorPlayer.subscribe(onNext: { [weak self] model in
+                    guard let self, let model = model else { return }
+                    ob.onNext(.getPickData(model))
                     
-                   print("temaSearch")
-                   self.searchReactorTeam.subscribe(onNext: { [weak self] model in
-                       
-                       guard let self, let model = model, let isHome = currentState.isHomeArr else { return }
-                       
-                       
-
-                       
-//self.provider.algoliaService.getObjects(objectsIDs: model.pickedMemebers).subscribe({ single in
-                           
-//                           switch single {
-//                           case .success(let models):
-                       var players:[PlayerModel?] = model.pickedMemebers ?? []
-                       
-                       CustomUserDefault.shared.setPickNum(nums: players.map { $0?.number ?? "" }, isHome: isHome)
-
-                               for _ in players.count..<5{
-                                   players.append(nil)
-                               }
-                               
-                               
-                               if isHome {
-                                   
-                                   ob.onNext(.setHomeValues(model.teamImageUrl, model.teamName))
-                                   ob.onNext(.setHomeArr(players))
-                               } else {
-                                   ob.onNext(.setAwayValues(model.teamImageUrl, model.teamName))
-                                   ob.onNext(.setAwayArr(players))
-
-                               }
-//                           case .failure(let err):
-//                               print("\(err) err")
-                        //   }
-                           
-                           
-                      // }).disposed(by: self.disposeBag)
-                       
-                     
-                       
-                    }).disposed(by: self.disposeBag)
-               
-               
-            
+                }).disposed(by: self.disposeBag)
+                
+                self.searchReactorTeam.subscribe(onNext: { [weak self] model in
+                    
+                    guard let self, let model = model, let isHome = currentState.isHomeArr else { return }
+                    
+                    
+                    
+                    
+                    var players:[PlayerModel?] = model.pickedMemebers ?? []
+                    
+                    CustomUserDefault.shared.setPickNum(nums: players.map { $0?.number ?? "" }, isHome: isHome)
+                    
+                    for _ in players.count..<5{
+                        players.append(nil)
+                    }
+                    
+                    
+                    if isHome {
+                        
+                        ob.onNext(.setHomeValues(model.teamImageUrl, model.teamName))
+                        ob.onNext(.setHomeArr(players))
+                        
+                    } else {
+                        
+                        ob.onNext(.setAwayValues(model.teamImageUrl, model.teamName))
+                        ob.onNext(.setAwayArr(players))
+                        
+                    }
+                    
+                    
+                    
+                    
+                }).disposed(by: self.disposeBag)
+                
+                
+                
                 return Disposables.create()
-
+                
             }
-                                                    
+            
             
             
             
             
         case .homeArrRemove(let index):
             var newArr = currentState.homeArr
-
+            
             if let delUid = newArr[index]?.playerUid, let delNum = newArr[index]?.number {
                 CustomUserDefault.shared.delPicked(uid: delUid, num: delNum, isHome: true)
             }
@@ -199,20 +191,21 @@ class BuilderReactor: Reactor {
             return Observable.just(.setAwayArr(newArr))
         case .homeArrUpdate(let index):
             return Observable.concat([
+                
                 Observable.just(.btnFalse),
                 Observable.just(.homeArrUpdate(index)),
-                                      ])
+            ])
         case .awayArrUpdate(let index):
             return Observable.concat([
                 Observable.just(.btnFalse),
                 Observable.just(.awayArrUpdate(index))
-                                       ])
-        
-      
+            ])
+            
+            
         case .homeLogoTapped:
             return Observable.concat ([
                 Observable.just(.btnFalse),
-
+                
                 Observable.just(.homeLogoTapped),
             ])
             
@@ -229,7 +222,7 @@ class BuilderReactor: Reactor {
                     Observable.just(.checkBtnTapped),
                     Observable.just(.btnFalse)
                 ])
-
+                
             } else {
                 return Observable.just(.none)
             }
@@ -244,11 +237,11 @@ class BuilderReactor: Reactor {
         var newState = state
         
         switch mutation {
-        
-       
+            
+            
         case .none:
             break
- 
+            
         case .homeArrUpdate(let index):
             newState.searchViewMode = .playerSearch
             newState.pushSearchView = true
@@ -260,38 +253,53 @@ class BuilderReactor: Reactor {
             newState.isHomeArr = false
             newState.pickIdx = index
         case .getPickData(let model):
+            
             newState.pushSearchView = false
             guard let isHome = currentState.isHomeArr, let idx = currentState.pickIdx else {break}
             
-            
+
             if isHome {
+                if let player = currentState.homeArr[idx] {
+                    CustomUserDefault.shared.changePicked(bef: player.playerUid, aft: model.playerUid)
+                 
+                    CustomUserDefault.shared.changePickedNum(bef: player.number ?? "", aft: model.number ?? "", isHome: isHome)
+                    
+                }
 
                 newState.homeArr[idx] = model
-
+                
+                
+                
+                
             } else {
-
+                if let player = currentState.awayArr[idx] {
+                    CustomUserDefault.shared.changePicked(bef: player.playerUid, aft: model.playerUid)
+                    CustomUserDefault.shared.changePickedNum(bef: player.number ?? "", aft: model.number ?? "", isHome: isHome)
+                }
+                
                 newState.awayArr[idx] = model
-
+                
             }
-           
+            
+            
             
         case .homeLogoTapped:
             newState.isHomeArr = true
             newState.teamPickIdx = 0
             newState.searchViewMode = .teamSearch
             newState.pushSearchView = true
-
+            
         case .awayLogoTapped:
             newState.isHomeArr = false
             newState.teamPickIdx = 1
             newState.searchViewMode = .teamSearch
             newState.pushSearchView = true
-
+            
         case .setHomeArr(let arr):
             newState.pushSearchView = false
             newState.homeArr = arr
             
-
+            
             if newState.homeArr.count > 3 && newState.awayArr.count > 3 {
                 newState.canNext = true
             }
@@ -301,7 +309,7 @@ class BuilderReactor: Reactor {
             newState.pushSearchView = false
             newState.awayArr = arr
             
-
+            
             if newState.homeArr.count > 3 && newState.awayArr.count > 3 {
                 newState.canNext = true
             }
@@ -314,28 +322,28 @@ class BuilderReactor: Reactor {
             
             
             
-
+            
         case .setAwayValues(let url, let name):
             newState.pushSearchView = false
             newState.awayName = name
             newState.awayImg = URL(string: url)
         case .checkBtnTapped:
             newState.pushGameStatView = true
-
+            
         case .btnFalse:
             newState.pushGameStatView = false
             newState.pushSearchView = false
             
-
-
+            
+            
         }
         
         
         return newState
     }
     
-   
-
+    
+    
     
     
 }

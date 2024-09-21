@@ -27,11 +27,12 @@ final class AlgoliaService: BaseService, AlgoliaServiceProtocol {
     
     func searchTeams(searchText: String) -> Single<[TeamModel]> {
         let index = client.index(withName: "BasketStat_Team")
+        var query = Query(searchText)
 
-    
+
         return Single.create { single in
             
-            index.search(query: Query(searchText)) { result in
+            index.search(query: query ) { result in
                 
                 
                 switch result {
@@ -40,7 +41,7 @@ final class AlgoliaService: BaseService, AlgoliaServiceProtocol {
 
                 case .success(let response):
                     do {
-                
+                       
                         
                         let teams: [TeamDto] = try response.extractHits()
                         single(.success(teams.map {
@@ -58,10 +59,27 @@ final class AlgoliaService: BaseService, AlgoliaServiceProtocol {
     func searchPlayers(searchText: String) -> Single<[PlayerModel]> {
         let index = client.index(withName: "BasketStat")
 
+        var query = Query(searchText)
+
+        if let picked = UserDefaults.standard.stringArray(forKey: "picked") {
+            var filtersString = ""
+            for i in 0..<picked.count {
+                if i != 0 {
+                    
+                    filtersString += " AND "
+                }
+                filtersString += "NOT objectID:\(picked[i])"
+            }
+            
+            print("\(filtersString)  filterString")
+            query.filters = filtersString
+
+
+        }
         
         
         return Single.create { single in
-            index.search(query: Query(searchText)) { result in
+            index.search(query: query) { result in
                 
                 
                 switch result {

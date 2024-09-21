@@ -344,11 +344,7 @@ class BuilderVC: UIViewController, View {
                     let vc = SearchVC()
                     let searchReactor = SearchReactor(provider: ServiceProvider(), builderReactor: self.reactor!, mode: mode, isHome: reactor.currentState.isHomeArr)
                     vc.reactor = searchReactor
-                    
-                    
-                    
-                    
-                    
+        
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
