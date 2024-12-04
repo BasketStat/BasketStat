@@ -23,10 +23,15 @@ class PlayerBuilderCell: UITableViewCell {
         $0.textColor = .mainWhite()
         $0.font = .regular4
 
+        
 
         
     }
     
+    var plusImage = UIImageView(image: UIImage(systemName: "plus")).then {
+        $0.isHidden = true
+        $0.tintColor = .mainWhite()
+    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
@@ -42,7 +47,8 @@ class PlayerBuilderCell: UITableViewCell {
     private func setUI() {
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(numberLabel)
-        
+        self.contentView.addSubview(plusImage)
+
         self.numberLabel.snp.makeConstraints {
             $0.centerY.equalTo(self.contentView)
             $0.leading.equalToSuperview().inset(10)
@@ -53,7 +59,9 @@ class PlayerBuilderCell: UITableViewCell {
             $0.centerY.equalTo(self.contentView)
             $0.trailing.equalToSuperview().inset(10)
         }
-        
+        self.plusImage.snp.makeConstraints {
+            $0.center.equalTo(self.contentView)
+        }
         
         
     }
@@ -62,6 +70,27 @@ class PlayerBuilderCell: UITableViewCell {
 class PlayerSearchCell: UITableViewCell {
     
     var disposeBag = DisposeBag()
+    
+    
+    var numberLabel = UILabel().then {
+        $0.textAlignment = .center
+        $0.textColor = .mainColor()
+        $0.font = .boldSystemFont(ofSize: 22)
+    }
+    let checkBoxButton = UIButton().then {
+        $0.tintColor = .mainColor()
+        $0.isHidden = true
+    }
+    
+  
+    
+    var isCheck: Bool = false {
+           didSet {
+               let imageName = isCheck ? "checkmark.circle.fill" : "checkmark.circle"
+               checkBoxButton.setImage(UIImage(systemName: imageName), for: .normal)
+           }
+       }
+
     
     var nameLabel = UILabel().then {
         $0.textAlignment = .center
@@ -93,7 +122,9 @@ class PlayerSearchCell: UITableViewCell {
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(profileImage)
         self.contentView.addSubview(positionLabel)
-        
+        self.contentView.addSubview(checkBoxButton)
+        self.contentView.addSubview(numberLabel)
+  
         self.profileImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(10)
@@ -112,6 +143,18 @@ class PlayerSearchCell: UITableViewCell {
         
         
         
+        self.checkBoxButton.snp.makeConstraints {
+            $0.width.height.equalTo(20)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
+        }
+        self.numberLabel.snp.makeConstraints {
+            $0.width.height.equalTo(self.profileImage)
+            
+            $0.center.equalTo(self.profileImage)
+        }
+        
+       
         
     }
     
